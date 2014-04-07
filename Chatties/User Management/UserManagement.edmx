@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UserManagementModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="UserManagementModelStoreContainer">
+          <EntitySet Name="Empleados" EntityType="UserManagementModel.Store.Empleados" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Modulos" EntityType="UserManagementModel.Store.Modulos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Niveles_Acceso" EntityType="UserManagementModel.Store.Niveles_Acceso" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="NivelvsModulos" EntityType="UserManagementModel.Store.NivelvsModulos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Orden_de_Compra_Autorizaciones" EntityType="UserManagementModel.Store.Orden_de_Compra_Autorizaciones" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Empleados_Niveles_Acceso" Association="UserManagementModel.Store.FK_Empleados_Niveles_Acceso">
+            <End Role="Niveles_Acceso" EntitySet="Niveles_Acceso" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NivelvsModulos_Modulos" Association="UserManagementModel.Store.FK_NivelvsModulos_Modulos">
+            <End Role="Modulos" EntitySet="Modulos" />
+            <End Role="NivelvsModulos" EntitySet="NivelvsModulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NivelvsModulos_Niveles_Acceso" Association="UserManagementModel.Store.FK_NivelvsModulos_Niveles_Acceso">
+            <End Role="Niveles_Acceso" EntitySet="Niveles_Acceso" />
+            <End Role="NivelvsModulos" EntitySet="NivelvsModulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCA_Empleado" Association="UserManagementModel.Store.FK_OCA_Empleado">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Orden_de_Compra_Autorizaciones" EntitySet="Orden_de_Compra_Autorizaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCA_NivelesAcceso" Association="UserManagementModel.Store.FK_OCA_NivelesAcceso">
+            <End Role="Niveles_Acceso" EntitySet="Niveles_Acceso" />
+            <End Role="Orden_de_Compra_Autorizaciones" EntitySet="Orden_de_Compra_Autorizaciones" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="255" />
+          <Property Name="correo" Type="nvarchar" MaxLength="100" />
+          <Property Name="contrasena" Type="nvarchar" MaxLength="8" />
+          <Property Name="usuario" Type="nvarchar" MaxLength="255" />
+          <Property Name="NivelAcceso" Type="int" />
+          <Property Name="encPassword" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Modulos">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="nombre_Modulo" Type="nvarchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Niveles_Acceso">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="NombreNivel" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="NivelvsModulos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Nivel" Type="int" />
+          <Property Name="modulo" Type="int" />
+          <Property Name="Agrega" Type="bit" />
+          <Property Name="Modifica" Type="bit" />
+          <Property Name="Elimina" Type="bit" />
+          <Property Name="Autoriza" Type="bit" />
+        </EntityType>
+        <EntityType Name="Orden_de_Compra_Autorizaciones">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Empleado" Type="int" Nullable="false" />
+          <Property Name="Nivel" Type="int" Nullable="false" />
+          <Property Name="CC" Type="int" />
+          <Property Name="CC2" Type="int" />
+          <Property Name="CC3" Type="int" />
+          <Property Name="CC4" Type="int" />
+        </EntityType>
+        <Association Name="FK_Empleados_Niveles_Acceso">
+          <End Role="Niveles_Acceso" Type="UserManagementModel.Store.Niveles_Acceso" Multiplicity="0..1" />
+          <End Role="Empleados" Type="UserManagementModel.Store.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Niveles_Acceso">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="NivelAcceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NivelvsModulos_Modulos">
+          <End Role="Modulos" Type="UserManagementModel.Store.Modulos" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NivelvsModulos" Type="UserManagementModel.Store.NivelvsModulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulos">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NivelvsModulos">
+              <PropertyRef Name="modulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NivelvsModulos_Niveles_Acceso">
+          <End Role="Niveles_Acceso" Type="UserManagementModel.Store.Niveles_Acceso" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NivelvsModulos" Type="UserManagementModel.Store.NivelvsModulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Niveles_Acceso">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NivelvsModulos">
+              <PropertyRef Name="Nivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OCA_Empleado">
+          <End Role="Empleados" Type="UserManagementModel.Store.Empleados" Multiplicity="1" />
+          <End Role="Orden_de_Compra_Autorizaciones" Type="UserManagementModel.Store.Orden_de_Compra_Autorizaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orden_de_Compra_Autorizaciones">
+              <PropertyRef Name="Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OCA_NivelesAcceso">
+          <End Role="Niveles_Acceso" Type="UserManagementModel.Store.Niveles_Acceso" Multiplicity="1" />
+          <End Role="Orden_de_Compra_Autorizaciones" Type="UserManagementModel.Store.Orden_de_Compra_Autorizaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Niveles_Acceso">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orden_de_Compra_Autorizaciones">
+              <PropertyRef Name="Nivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UserManagementModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ENLASYSEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Empleados" EntityType="UserManagementModel.Empleado" />
+          <EntitySet Name="Modulos" EntityType="UserManagementModel.Modulo" />
+          <EntitySet Name="Niveles_Acceso" EntityType="UserManagementModel.Niveles_Acceso" />
+          <EntitySet Name="NivelvsModulos" EntityType="UserManagementModel.NivelvsModulo" />
+          <EntitySet Name="Orden_de_Compra_Autorizaciones" EntityType="UserManagementModel.Orden_de_Compra_Autorizaciones" />
+          <AssociationSet Name="FK_Empleados_Niveles_Acceso" Association="UserManagementModel.FK_Empleados_Niveles_Acceso">
+            <End Role="Niveles_Acceso" EntitySet="Niveles_Acceso" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCA_Empleado" Association="UserManagementModel.FK_OCA_Empleado">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Orden_de_Compra_Autorizaciones" EntitySet="Orden_de_Compra_Autorizaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NivelvsModulos_Modulos" Association="UserManagementModel.FK_NivelvsModulos_Modulos">
+            <End Role="Modulos" EntitySet="Modulos" />
+            <End Role="NivelvsModulos" EntitySet="NivelvsModulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NivelvsModulos_Niveles_Acceso" Association="UserManagementModel.FK_NivelvsModulos_Niveles_Acceso">
+            <End Role="Niveles_Acceso" EntitySet="Niveles_Acceso" />
+            <End Role="NivelvsModulos" EntitySet="NivelvsModulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCA_NivelesAcceso" Association="UserManagementModel.FK_OCA_NivelesAcceso">
+            <End Role="Niveles_Acceso" EntitySet="Niveles_Acceso" />
+            <End Role="Orden_de_Compra_Autorizaciones" EntitySet="Orden_de_Compra_Autorizaciones" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="correo" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="contrasena" Type="String" MaxLength="8" Unicode="true" FixedLength="false" />
+          <Property Name="usuario" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="NivelAcceso" Type="Int32" />
+          <Property Name="encPassword" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Niveles_Acceso" Relationship="UserManagementModel.FK_Empleados_Niveles_Acceso" FromRole="Empleados" ToRole="Niveles_Acceso" />
+          <NavigationProperty Name="Orden_de_Compra_Autorizaciones" Relationship="UserManagementModel.FK_OCA_Empleado" FromRole="Empleados" ToRole="Orden_de_Compra_Autorizaciones" />
+        </EntityType>
+        <EntityType Name="Modulo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="nombre_Modulo" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="NivelvsModulos" Relationship="UserManagementModel.FK_NivelvsModulos_Modulos" FromRole="Modulos" ToRole="NivelvsModulos" />
+        </EntityType>
+        <EntityType Name="Niveles_Acceso">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NombreNivel" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Empleados" Relationship="UserManagementModel.FK_Empleados_Niveles_Acceso" FromRole="Niveles_Acceso" ToRole="Empleados" />
+          <NavigationProperty Name="NivelvsModulos" Relationship="UserManagementModel.FK_NivelvsModulos_Niveles_Acceso" FromRole="Niveles_Acceso" ToRole="NivelvsModulos" />
+          <NavigationProperty Name="Orden_de_Compra_Autorizaciones" Relationship="UserManagementModel.FK_OCA_NivelesAcceso" FromRole="Niveles_Acceso" ToRole="Orden_de_Compra_Autorizaciones" />
+        </EntityType>
+        <EntityType Name="NivelvsModulo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Nivel" Type="Int32" />
+          <Property Name="modulo" Type="Int32" />
+          <Property Name="Agrega" Type="Boolean" />
+          <Property Name="Modifica" Type="Boolean" />
+          <Property Name="Elimina" Type="Boolean" />
+          <Property Name="Autoriza" Type="Boolean" />
+          <NavigationProperty Name="Modulo1" Relationship="UserManagementModel.FK_NivelvsModulos_Modulos" FromRole="NivelvsModulos" ToRole="Modulos" />
+          <NavigationProperty Name="Niveles_Acceso" Relationship="UserManagementModel.FK_NivelvsModulos_Niveles_Acceso" FromRole="NivelvsModulos" ToRole="Niveles_Acceso" />
+        </EntityType>
+        <EntityType Name="Orden_de_Compra_Autorizaciones">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Empleado" Type="Int32" Nullable="false" />
+          <Property Name="Nivel" Type="Int32" Nullable="false" />
+          <Property Name="CC" Type="Int32" />
+          <Property Name="CC2" Type="Int32" />
+          <Property Name="CC3" Type="Int32" />
+          <Property Name="CC4" Type="Int32" />
+          <NavigationProperty Name="Empleado1" Relationship="UserManagementModel.FK_OCA_Empleado" FromRole="Orden_de_Compra_Autorizaciones" ToRole="Empleados" />
+          <NavigationProperty Name="Niveles_Acceso" Relationship="UserManagementModel.FK_OCA_NivelesAcceso" FromRole="Orden_de_Compra_Autorizaciones" ToRole="Niveles_Acceso" />
+        </EntityType>
+        <Association Name="FK_Empleados_Niveles_Acceso">
+          <End Role="Niveles_Acceso" Type="UserManagementModel.Niveles_Acceso" Multiplicity="0..1" />
+          <End Role="Empleados" Type="UserManagementModel.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Niveles_Acceso">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="NivelAcceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OCA_Empleado">
+          <End Role="Empleados" Type="UserManagementModel.Empleado" Multiplicity="1" />
+          <End Role="Orden_de_Compra_Autorizaciones" Type="UserManagementModel.Orden_de_Compra_Autorizaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orden_de_Compra_Autorizaciones">
+              <PropertyRef Name="Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NivelvsModulos_Modulos">
+          <End Role="Modulos" Type="UserManagementModel.Modulo" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NivelvsModulos" Type="UserManagementModel.NivelvsModulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulos">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NivelvsModulos">
+              <PropertyRef Name="modulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NivelvsModulos_Niveles_Acceso">
+          <End Role="Niveles_Acceso" Type="UserManagementModel.Niveles_Acceso" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NivelvsModulos" Type="UserManagementModel.NivelvsModulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Niveles_Acceso">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NivelvsModulos">
+              <PropertyRef Name="Nivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OCA_NivelesAcceso">
+          <End Type="UserManagementModel.Niveles_Acceso" Role="Niveles_Acceso" Multiplicity="1" />
+          <End Type="UserManagementModel.Orden_de_Compra_Autorizaciones" Role="Orden_de_Compra_Autorizaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Niveles_Acceso">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Orden_de_Compra_Autorizaciones">
+              <PropertyRef Name="Nivel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UserManagementModelStoreContainer" CdmEntityContainer="ENLASYSEntities">
+          <EntitySetMapping Name="Empleados">
+            <EntityTypeMapping TypeName="UserManagementModel.Empleado">
+              <MappingFragment StoreEntitySet="Empleados">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="NivelAcceso" ColumnName="NivelAcceso" />
+                <ScalarProperty Name="encPassword" ColumnName="encPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modulos">
+            <EntityTypeMapping TypeName="UserManagementModel.Modulo">
+              <MappingFragment StoreEntitySet="Modulos">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="nombre_Modulo" ColumnName="nombre_Modulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Niveles_Acceso">
+            <EntityTypeMapping TypeName="UserManagementModel.Niveles_Acceso">
+              <MappingFragment StoreEntitySet="Niveles_Acceso">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NombreNivel" ColumnName="NombreNivel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NivelvsModulos">
+            <EntityTypeMapping TypeName="UserManagementModel.NivelvsModulo">
+              <MappingFragment StoreEntitySet="NivelvsModulos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="modulo" ColumnName="modulo" />
+                <ScalarProperty Name="Agrega" ColumnName="Agrega" />
+                <ScalarProperty Name="Modifica" ColumnName="Modifica" />
+                <ScalarProperty Name="Elimina" ColumnName="Elimina" />
+                <ScalarProperty Name="Autoriza" ColumnName="Autoriza" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orden_de_Compra_Autorizaciones">
+            <EntityTypeMapping TypeName="UserManagementModel.Orden_de_Compra_Autorizaciones">
+              <MappingFragment StoreEntitySet="Orden_de_Compra_Autorizaciones">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Empleado" ColumnName="Empleado" />
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="CC" ColumnName="CC" />
+                <ScalarProperty Name="CC2" ColumnName="CC2" />
+                <ScalarProperty Name="CC3" ColumnName="CC3" />
+                <ScalarProperty Name="CC4" ColumnName="CC4" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
