@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="79fa7b1621fb431aa6d00b6192534dbf" Name="Diagram1">
-        <EntityTypeShape EntityType="UserManagementModel.Empleado" Width="2.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserManagementModel.Empleado" Width="2.5" PointX="3" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="UserManagementModel.Modulo" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="UserManagementModel.Niveles_Acceso" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="UserManagementModel.NivelvsModulo" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />

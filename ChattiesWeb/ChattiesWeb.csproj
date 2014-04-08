@@ -58,7 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Home.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Home.aspx.cs">
@@ -79,6 +81,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ChattiesSecurity\ChattiesSecurity.csproj">
+      <Project>{ac6c22ea-9048-4a45-8d0c-1797f8324568}</Project>
+      <Name>ChattiesSecurity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chatties\ChattiesModels.csproj">
       <Project>{0c33accf-b196-4d1d-9d45-c6ce8791d46f}</Project>
       <Name>ChattiesModels</Name>

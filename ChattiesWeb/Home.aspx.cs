@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ChattiesModel.GeneralTools;
+using ChattiesSecurity.Encription;
+using ChattiesModel.UserManagement;
 using System.Configuration;
 
 namespace ChattiesWeb
@@ -20,9 +21,18 @@ namespace ChattiesWeb
         {
             using (Encrypter cm = new Encrypter())
             {
-                String textEcriptado = cm.Encrypt(txtEncripta.Text, ConfigurationManager.AppSettings["PwdKey"].ToString(), new byte[] { 24, 76, 60, 200, 20, 19, 50, 64, 91, 12, 88, 25, 18 });
+                String textEcriptado = cm.Encrypt(txtEncripta.Text);
 
                 lblTextoEncriptado.Text = textEcriptado;
+            }
+        }
+
+        protected void btnEmpleadosActivos_Click(object sender, EventArgs e)
+        {
+            using (UserManagement um = new UserManagement())
+            {
+                gridEmpleadosActivos.DataSource = um.ObtieneEmpleadosActivos();
+                gridEmpleadosActivos.DataBind();
             }
         }
     }

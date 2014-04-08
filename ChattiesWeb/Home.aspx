@@ -15,6 +15,11 @@
         <br />
         <asp:Label ID="lblMensajeEncritado" runat="server">Texto Encriptado: </asp:Label>
         <asp:Label ID="lblTextoEncriptado" runat="server"></asp:Label>
+        <br />
+        <br />
+        <span>Empleados Activos</span>
+        <asp:Button ID="btnEmpleadosActivos" runat="server" Text="Trae EmpleadosActivos" OnClick="btnEmpleadosActivos_Click" />
+        <asp:GridView ID="gridEmpleadosActivos" runat="server"></asp:GridView>
     </div>
     </form>
 </body>

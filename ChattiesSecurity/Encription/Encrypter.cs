@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ChattiesModel.GeneralTools
+namespace ChattiesSecurity.Encription
 {
     public sealed class Encrypter: Rijndael
     {
@@ -12,8 +13,10 @@ namespace ChattiesModel.GeneralTools
 
         public Encrypter() { }
 
-        public string Encrypt(string password, string key, byte[] arrBytes)
+        public string Encrypt(string password)
         {
+            byte[] arrBytes = new byte[] { 24, 76, 60, 200, 20, 19, 50, 64, 91, 12, 88, 25, 18 };
+
             using(PasswordDeriveBytes pwdDB = new PasswordDeriveBytes(password, arrBytes))
             {
                 this.Key = pwdDB.GetBytes(32);
@@ -22,7 +25,7 @@ namespace ChattiesModel.GeneralTools
                 MemoryStream ms = new MemoryStream();
                 CryptoStream cs = new CryptoStream(ms, this.CreateEncryptor(), CryptoStreamMode.Write);
 
-                byte[] clearData = Encoding.Unicode.GetBytes(key);
+                byte[] clearData = Encoding.Unicode.GetBytes(System.Configuration.ConfigurationManager.AppSettings["PwdKey"]);
                 cs.Write(clearData, 0, clearData.Length);
                 cs.Close();
 

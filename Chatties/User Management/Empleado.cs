@@ -21,11 +21,14 @@ namespace ChattiesModel.User_Management
     
         public int ID { get; set; }
         public string nombre { get; set; }
+        public string apPaterno { get; set; }
+        public string apMaterno { get; set; }
         public string correo { get; set; }
         public string contrasena { get; set; }
         public string usuario { get; set; }
         public Nullable<int> NivelAcceso { get; set; }
         public string encPassword { get; set; }
+        public Nullable<bool> activo { get; set; }
     
         public virtual Niveles_Acceso Niveles_Acceso { get; set; }
         public virtual ICollection<Orden_de_Compra_Autorizaciones> Orden_de_Compra_Autorizaciones { get; set; }

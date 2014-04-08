@@ -43,6 +43,9 @@
           <Property Name="usuario" Type="nvarchar" MaxLength="255" />
           <Property Name="NivelAcceso" Type="int" />
           <Property Name="encPassword" Type="varchar" MaxLength="50" />
+          <Property Name="apPaterno" Type="varchar" MaxLength="100" />
+          <Property Name="apMaterno" Type="varchar" MaxLength="100" />
+          <Property Name="activo" Type="bit" />
         </EntityType>
         <EntityType Name="Modulos">
           <Key>
@@ -146,6 +149,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="ActualizaUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="apMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="usuario" Type="varchar" Mode="In" />
+          <Parameter Name="pwd" Type="varchar" Mode="In" />
+          <Parameter Name="correo" Type="varchar" Mode="In" />
+          <Parameter Name="idNivelAcceso" Type="int" Mode="In" />
+        </Function>
+        <Function Name="BorraUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertaUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="apMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="usuario" Type="varchar" Mode="In" />
+          <Parameter Name="pwd" Type="varchar" Mode="In" />
+          <Parameter Name="correo" Type="varchar" Mode="In" />
+          <Parameter Name="idNivelAcceso" Type="int" Mode="In" />
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -176,6 +201,28 @@
             <End Role="Niveles_Acceso" EntitySet="Niveles_Acceso" />
             <End Role="Orden_de_Compra_Autorizaciones" EntitySet="Orden_de_Compra_Autorizaciones" />
           </AssociationSet>
+          <FunctionImport Name="InsertaUsuario">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apPaterno" Mode="In" Type="String" />
+            <Parameter Name="apMaterno" Mode="In" Type="String" />
+            <Parameter Name="usuario" Mode="In" Type="String" />
+            <Parameter Name="pwd" Mode="In" Type="String" />
+            <Parameter Name="correo" Mode="In" Type="String" />
+            <Parameter Name="idNivelAcceso" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ActualizaUsuario">
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apPaterno" Mode="In" Type="String" />
+            <Parameter Name="apMaterno" Mode="In" Type="String" />
+            <Parameter Name="usuario" Mode="In" Type="String" />
+            <Parameter Name="pwd" Mode="In" Type="String" />
+            <Parameter Name="correo" Mode="In" Type="String" />
+            <Parameter Name="idNivelAcceso" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="BorraUsuario">
+          <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Empleado">
           <Key>
@@ -190,6 +237,9 @@
           <Property Name="encPassword" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Niveles_Acceso" Relationship="UserManagementModel.FK_Empleados_Niveles_Acceso" FromRole="Empleados" ToRole="Niveles_Acceso" />
           <NavigationProperty Name="Orden_de_Compra_Autorizaciones" Relationship="UserManagementModel.FK_OCA_Empleado" FromRole="Empleados" ToRole="Orden_de_Compra_Autorizaciones" />
+          <Property Type="String" Name="apPaterno" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="apMaterno" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="activo" />
         </EntityType>
         <EntityType Name="Modulo">
           <Key>
@@ -310,6 +360,9 @@
           <EntitySetMapping Name="Empleados">
             <EntityTypeMapping TypeName="UserManagementModel.Empleado">
               <MappingFragment StoreEntitySet="Empleados">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="apMaterno" ColumnName="apMaterno" />
+                <ScalarProperty Name="apPaterno" ColumnName="apPaterno" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="correo" ColumnName="correo" />
@@ -318,6 +371,33 @@
                 <ScalarProperty Name="NivelAcceso" ColumnName="NivelAcceso" />
                 <ScalarProperty Name="encPassword" ColumnName="encPassword" />
               </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="UserManagementModel.Empleado">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="UserManagementModel.Store.InsertaUsuario">
+                  <ScalarProperty Name="NivelAcceso" ParameterName="idNivelAcceso" />
+                  <ScalarProperty Name="encPassword" ParameterName="pwd" />
+                  <ScalarProperty Name="correo" ParameterName="correo" />
+                  <ScalarProperty Name="usuario" ParameterName="usuario" />
+                  <ScalarProperty Name="apMaterno" ParameterName="apMaterno" />
+                  <ScalarProperty Name="apPaterno" ParameterName="apPaterno" />
+                  <ScalarProperty Name="nombre" ParameterName="nombre" />
+                  <ResultBinding Name="ID" ColumnName="@idUsuario" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="UserManagementModel.Store.ActualizaUsuario">
+                  <ScalarProperty Name="NivelAcceso" ParameterName="idNivelAcceso" Version="Current" />
+                  <ScalarProperty Name="encPassword" ParameterName="pwd" Version="Current" />
+                  <ScalarProperty Name="ID" ParameterName="idUsuario" Version="Current" />
+                  <ScalarProperty Name="correo" ParameterName="correo" Version="Current" />
+                  <ScalarProperty Name="usuario" ParameterName="usuario" Version="Current" />
+                  <ScalarProperty Name="apMaterno" ParameterName="apMaterno" Version="Current" />
+                  <ScalarProperty Name="apPaterno" ParameterName="apPaterno" Version="Current" />
+                  <ScalarProperty Name="nombre" ParameterName="nombre" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="UserManagementModel.Store.BorraUsuario" >
+                  <ScalarProperty Name="ID" ParameterName="idUsuario" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Modulos">
@@ -362,6 +442,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InsertaUsuario" FunctionName="UserManagementModel.Store.InsertaUsuario" />
+          <FunctionImportMapping FunctionImportName="ActualizaUsuario" FunctionName="UserManagementModel.Store.ActualizaUsuario" />
+          <FunctionImportMapping FunctionImportName="BorraUsuario" FunctionName="UserManagementModel.Store.BorraUsuario" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
