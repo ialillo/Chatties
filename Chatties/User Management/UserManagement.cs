@@ -15,33 +15,63 @@ namespace ChattiesModel.UserManagement
         public UserManagement() { }
 
         /// <summary>
-        /// Obtiene los usuarios activos del sistema
+        /// Obtiene los usuarios del sistema
         /// </summary>
-        /// <returns>Una lista de usuarios activos</returns>
-        public IList<EmpleadoDTO> ObtieneEmpleadosActivos()
+        /// <returns>Lista de usuarios</returns>
+        public IList<EmpleadoDTO> ObtieneUsuarios()
         {
             IList<EmpleadoDTO> empleados;
 
             using (var ee = new ENLASYSEntities())
             {
                 empleados = (from empleado in ee.Empleados
-                             where empleado.activo == true
-                             orderby empleado.nombre
-                             select new EmpleadoDTO
-                             {
-                                 ID = empleado.ID,
-                                 nombre = empleado.nombre,
-                                 apPaterno = empleado.apPaterno,
-                                 apMaterno = empleado.apMaterno,
-                                 correo = empleado.correo,
-                                 NivelAcceso = empleado.NivelAcceso,
-                                 usuario = empleado.usuario,
-                                 encPassword = empleado.encPassword,
-                                 activo = empleado.activo
-                             }).ToList();
+                                orderby empleado.nombre
+                                select new EmpleadoDTO
+                                {
+                                    ID = empleado.ID,
+                                    nombre = empleado.nombre,
+                                    apPaterno = empleado.apPaterno,
+                                    apMaterno = empleado.apMaterno,
+                                    correo = empleado.correo,
+                                    NivelAcceso = empleado.NivelAcceso,
+                                    usuario = empleado.usuario,
+                                    encPassword = empleado.encPassword,
+                                    activo = empleado.activo
+                                }).ToList();
             }
 
             return empleados;
+        }
+
+        /// <summary>
+        /// Obtiene la info de un usuario 
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        public EmpleadoDTO ObtenUsuarioPorId(int idUsuario)
+        {
+            EmpleadoDTO usuario = new EmpleadoDTO();
+
+            using (var ee = new ENLASYSEntities())
+            {
+                var query = from usr in ee.Empleados
+                            where usr.ID == idUsuario
+                            select usr;
+
+                foreach (var n in query)
+                {
+                    usuario.ID = n.ID;
+                    usuario.nombre = n.nombre;
+                    usuario.apPaterno = n.apPaterno;
+                    usuario.apMaterno = n.apMaterno;
+                    usuario.correo = n.correo;
+                    usuario.NivelAcceso = n.NivelAcceso;
+                    usuario.usuario = n.usuario;
+                    usuario.encPassword = n.encPassword;
+                    usuario.activo = n.activo;
+                }
+            }
+            return usuario;
         }
 
         /// <summary>
@@ -55,9 +85,9 @@ namespace ChattiesModel.UserManagement
             bool esValido;
             int numRows;
 
-            using (var enlasis = new ENLASYSEntities())
+            using (var ee = new ENLASYSEntities())
             {
-                numRows = (from u in enlasis.Empleados
+                numRows = (from u in ee.Empleados
                             where u.usuario == usuario 
                             && u.contrasena == password
                             && u.activo == true

@@ -57,12 +57,36 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Fonts\Bootstrap\glyphicons-halflings-regular.svg" />
+    <Content Include="Home.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Scripts\Bootstrap\bootstrap.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
+    <Content Include="Styles\Bootstrap\bootstrap-theme.css" />
+    <Content Include="Styles\Bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Styles\Bootstrap\bootstrap.css" />
+    <Content Include="Styles\Bootstrap\bootstrap.min.css" />
+    <Content Include="Styles\Login.css" />
+    <Content Include="Styles\Master.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chatties.Master.cs">
+      <DependentUpon>Chatties.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Chatties.Master.designer.cs">
+      <DependentUpon>Chatties.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -74,6 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Shared.config" />
+    <Content Include="Styles\Bootstrap\bootstrap-theme.css.map" />
+    <Content Include="Styles\Bootstrap\bootstrap.css.map" />
+    <Content Include="Fonts\Bootstrap\glyphicons-halflings-regular.eot" />
+    <Content Include="Fonts\Bootstrap\glyphicons-halflings-regular.ttf" />
+    <Content Include="Fonts\Bootstrap\glyphicons-halflings-regular.woff" />
+    <Content Include="Chatties.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -90,6 +120,11 @@
       <Project>{0c33accf-b196-4d1d-9d45-c6ce8791d46f}</Project>
       <Name>ChattiesModels</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\JQuery\" />
+    <Folder Include="Security\" />
+    <Folder Include="Styles\JQuery\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

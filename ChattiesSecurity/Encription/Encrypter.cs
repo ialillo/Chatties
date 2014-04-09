@@ -13,6 +13,11 @@ namespace ChattiesSecurity.Encription
 
         public Encrypter() { }
 
+        /// <summary>
+        /// Encripta una cadena
+        /// </summary>
+        /// <param name="password">cadena a encriptar</param>
+        /// <returns>Regresa la cadena encriptada</returns>
         public string Encrypt(string password)
         {
             byte[] arrBytes = new byte[] { 24, 76, 60, 200, 20, 19, 50, 64, 91, 12, 88, 25, 18 };
