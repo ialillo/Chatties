@@ -62,6 +62,8 @@
     <Content Include="Login.aspx" />
     <Content Include="Scripts\Bootstrap\bootstrap.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\JQuery\jquery-2.1.0.min.js" />
+    <Content Include="Scripts\Master.js" />
     <Content Include="Styles\Bootstrap\bootstrap-theme.css" />
     <Content Include="Styles\Bootstrap\bootstrap-theme.min.css" />
     <Content Include="Styles\Bootstrap\bootstrap.css" />
@@ -122,7 +124,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Scripts\JQuery\" />
     <Folder Include="Security\" />
     <Folder Include="Styles\JQuery\" />
   </ItemGroup>

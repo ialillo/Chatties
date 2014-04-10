@@ -28,7 +28,7 @@ namespace ChattiesWeb
 
             if (loginValido)
             {
-                lblMensaje.Text = "El usuario es valido";
+                Response.Redirect("~/Home.aspx");
             }
             else
             {
