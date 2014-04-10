@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Chatties</title>
+    <title>Bag City</title>
     <link href='http://fonts.googleapis.com/css?family=PT+Sans&subset=latin,cyrillic-ext,cyrillic,latin-ext' rel='stylesheet' type='text/css'>
     <link href="Styles/Bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="Styles/Master.css" rel="stylesheet" />
@@ -16,7 +16,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
           <div class="container-fluid">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -25,11 +25,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Chatties</a>
+              <a class="navbar-brand" href="#">Bag City</a>
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Perfil</a></li>
+                <li><a href="Security/Perfil.aspx">Perfil</a></li>
                 <li><a href="#">Ayuda</a></li>
               </ul>
             </div>
@@ -38,7 +38,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-3 col-md-2 col-lg-1 sidebar">
+                <div class="col-sm-3 col-md-2 col-lg-2 sidebar">
                     <ul class="nav nav-list">
                       <li>
                         <ul class="nav nav-sidebar">
@@ -47,34 +47,31 @@
                       </li>
                       <li>
                         <ul class="nav nav-sidebar">
-                            <li class="menu-title">Usuarios</li>
-                          <li><a href="#">Link</a></li>
-                          <li><a href="#">Link</a></li>
-                          <li><a href="#">Administra Usuarios</a></li>
-                          <li><a href="#">Link</a></li>
+                            <li class="menu-title"><a>Panel de Control</a></li>
+                          <li><a href="#">Usuarios</a></li>
+                          <li><a href="#">Permisos</a></li>
+                          <li><a href="#">Modulos</a></li>
                         </ul>
                       </li>
                       <li>
                         <ul class="nav nav-sidebar">
-                          <li class="menu-title">Orden Compra</li>
-                          <li><a href="#">Link</a></li>
-                          <li><a href="#">Link</a></li>
-                          <li><a href="#">Link</a></li>
-                          <li><a href="#">Link</a></li>
+                          <li class="menu-title"><a>Diseño</a></li>
+                          <li><a href="#">Alt de Producto</a></li>
+                          <li><a href="#">Confirmación de PO</a></li>
+                          <li><a href="#">Seguimiento PO</a></li>
                        </ul>
                       </li>
                       <li>
                         <ul class="nav nav-sidebar">
-                          <li class="menu-title">BI</li>
-                          <li><a href="#">Link</a></li>
-                          <li><a href="#">Link</a></li>
-                          <li><a href="#">Link</a></li>
-                          <li><a href="#">Link</a></li>
+                          <li class="menu-title"><a>Logistica</a></li>
+                          <li><a href="#">Inf por Contenedor</a></li>
+                          <li><a href="#">Inf por PO</a></li>
+                          <li><a href="#">Reporte PO Costos</a></li>
                        </ul>
                       </li>
                     </ul>
                 </div><!--/span-->
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-11 col-lg-offset-1 main">
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2 main">
                     <asp:ContentPlaceHolder ID="ChattiesBodyPH" runat="server"></asp:ContentPlaceHolder>
                 </div>
             </div>

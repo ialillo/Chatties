@@ -12,9 +12,9 @@
 <body>
     <div class="container">
         <form class="form-signin" role="form" runat="server">
-            <h2 class="form-signin-heading">Please Sign in</h2>
+            <h2 class="form-signin-heading">Bag City Sign in</h2>
             <input id="txtUsuario" type="text" class="form-control" placeholder="Usuario" runat="server" required autofocus>
-            <input id="txtPassword" type="password" class="form-control" placeholder="Password" runat="server" required>
+            <input id="txtPassword" type="password" class="form-control" placeholder="Contraseña" runat="server" required>
             <%--<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>--%>
             <asp:Button ID="btnLogin" Text="Login" runat="server" CssClass="btn btn-lg btn-primary btn-block" OnClick="btnLogin_Click" />
             <asp:Label ID="lblMensaje" runat="server"></asp:Label>
