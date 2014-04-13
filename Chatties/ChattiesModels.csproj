@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="User Management\DTO\EmpleadoDTO.cs" />
+    <Compile Include="User Management\DTO\LoggedUserDTO.cs" />
     <Compile Include="User Management\Empleado.cs">
       <DependentUpon>UserManagement.tt</DependentUpon>
     </Compile>
@@ -103,6 +104,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChattiesException\ChattiesException.csproj">
+      <Project>{9da0b70e-7714-4392-8d4a-bf6bdd34aa94}</Project>
+      <Name>ChattiesException</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

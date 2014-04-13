@@ -17,9 +17,10 @@
             <input id="txtPassword" type="password" class="form-control" placeholder="Contraseña" runat="server" required>
             <%--<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>--%>
             <asp:Button ID="btnLogin" Text="Login" runat="server" CssClass="btn btn-lg btn-primary btn-block" OnClick="btnLogin_Click" />
-            <asp:Label ID="lblMensaje" runat="server"></asp:Label>
         </form>
-        <br />
+        <div class="navbar-fixed-bottom">
+            <div class="alert alert-danger"><asp:Label ID="lblMensaje" runat="server"></asp:Label></div>
+        </div>
     </div>
 </body>
 </html>

@@ -8,25 +8,25 @@
                 <div class="form-group">
                     <label for="txtNombre" class="col-xs-3 col-md-2 control-label">Nombre</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
-                        <input type="text" class="form-control" id="txtNombre" placeholder="Nombre" />
+                        <input type="text" class="form-control" id="txtNombre" runat="server" placeholder="Nombre" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="txtApPaterno" class="col-xs-3 col-md-2 control-label">Apellido Paterno</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
-                        <input type="text" class="form-control" id="txtApPaterno" placeholder="Apellido Paterno" />
+                        <input type="text" class="form-control" id="txtApPaterno" runat="server" placeholder="Apellido Paterno" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="txtApMaterno" class="col-xs-3 col-md-2 control-label">Apellido Materno</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
-                        <input type="text" class="form-control" id="txtApMaterno" placeholder="Apellido Materno" />
+                        <input type="text" class="form-control" id="txtApMaterno" runat="server" placeholder="Apellido Materno" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="txtEmail" class="col-xs-3 col-md-2 control-label">Email</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
-                        <input type="text" class="form-control" id="txtEmail" placeholder="e-mail" />
+                        <input type="text" class="form-control" id="txtEmail" runat="server" placeholder="e-mail" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <label for="txtPassword" class="col-xs-3 col-md-2 control-label">Contraseña</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
-                        <input type="text" class="form-control" id="txtPassword" placeholder="Contraseña" />
+                        <input type="text" class="form-control" id="txtPassword" runat="server" placeholder="Contraseña" />
                     </div>
                 </div>
                 <div class="form-group">

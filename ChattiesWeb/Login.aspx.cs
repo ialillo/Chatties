@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ChattiesModel.User_Management.DTO;
 using ChattiesSecurity.Encription;
 using ChattiesModel.UserManagement;
 using System.Configuration;
@@ -19,20 +20,24 @@ namespace ChattiesWeb
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            bool loginValido;
+            LoggedUserDTO usuario = new LoggedUserDTO();
 
-            using (UserManagement um = new UserManagement())
+            try
             {
-                loginValido = um.validaLogin(txtUsuario.Value, txtPassword.Value);
-            }
+                using (UserManagement um = new UserManagement())
+                {
+                    usuario = um.validaLogin(txtUsuario.Value, txtPassword.Value);
 
-            if (loginValido)
-            {
+                    if (usuario.ID != 0)
+                    {
+                        Session["usuario"] = usuario;
+                    }
+                }
                 Response.Redirect("~/Home.aspx");
             }
-            else
+            catch (Exception ex)
             {
-                lblMensaje.Text = "Usuario o Password Incorrecto";
+                lblMensaje.Text = ex.Message;
             }
         }
     }
