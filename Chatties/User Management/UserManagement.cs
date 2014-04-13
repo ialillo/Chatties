@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 using ChattiesModel.User_Management;
 using ChattiesModel.User_Management.DTO;
+using ChattiesException.Login;
 
 namespace ChattiesModel.UserManagement
 {
@@ -79,24 +82,53 @@ namespace ChattiesModel.UserManagement
         /// </summary>
         /// <param name="usuario">usuario</param>
         /// <param name="password">contrasena</param>
-        /// <returns>Verdadero o Falso</returns>
-        public bool validaLogin(string usuario, string password)
+        /// <returns>El login del usuario</returns>
+        public LoggedUserDTO validaLogin(string usuario, string password)
         {
-            bool esValido;
-            int numRows;
+            LoggedUserDTO loggedUser = new LoggedUserDTO();
 
             using (var ee = new ENLASYSEntities())
             {
-                numRows = (from u in ee.Empleados
-                            where u.usuario == usuario 
+                int existeEmpleado = (from u in ee.Empleados
+                                      where u.usuario == usuario
+                                      select u).Count();
+
+                if (existeEmpleado < 1)
+                {
+                    throw new LoginException("El usuario ingresado no existe");
+                }
+
+                existeEmpleado = (from u in ee.Empleados
+                                      where u.usuario == usuario
+                                      && u.activo == true
+                                      select u).Count();
+
+                if (existeEmpleado < 1)
+                {
+                    throw new LoginException("El usuario ingresado se encuentra deshabilitado");
+                }
+
+                var query = from u in ee.Empleados
+                            where u.usuario == usuario
                             && u.contrasena == password
                             && u.activo == true
-                            select u.ID).Count();
+                            select u;
+
+                foreach (var n in query)
+                {
+                    loggedUser.ID = n.ID;
+                    loggedUser.nombreCompleto = n.nombre + " " + n.apPaterno + " " + n.apMaterno;
+                    loggedUser.correo = n.correo;
+                    loggedUser.nivelAcceso = n.Niveles_Acceso.ID;
+                }
+
+                if (loggedUser.ID == 0)
+                {
+                    throw new LoginException("Contraseña incorrecta");
+                }
             }
 
-            esValido = numRows > 0 ? true : false;
-
-            return esValido;
+            return loggedUser;
         }
 
         ~UserManagement()

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChattiesWeb", "ChattiesWeb\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChattiesSecurity", "ChattiesSecurity\ChattiesSecurity.csproj", "{AC6C22EA-9048-4A45-8D0C-1797F8324568}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChattiesException", "ChattiesException\ChattiesException.csproj", "{9DA0B70E-7714-4392-8D4A-BF6BDD34AA94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{AC6C22EA-9048-4A45-8D0C-1797F8324568}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC6C22EA-9048-4A45-8D0C-1797F8324568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC6C22EA-9048-4A45-8D0C-1797F8324568}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DA0B70E-7714-4392-8D4A-BF6BDD34AA94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DA0B70E-7714-4392-8D4A-BF6BDD34AA94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DA0B70E-7714-4392-8D4A-BF6BDD34AA94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DA0B70E-7714-4392-8D4A-BF6BDD34AA94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
