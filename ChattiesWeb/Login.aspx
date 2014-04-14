@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="container">
-        <form class="form-signin" role="form" runat="server">
+        <form class="form-signin" role="form">
             <h2 class="form-signin-heading">Bag City Sign in</h2>
             <input id="txtUsuario" type="text" class="form-control" placeholder="Usuario" required autofocus />
             <input id="txtPassword" type="password" class="form-control" placeholder="Contraseña" required />

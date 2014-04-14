@@ -1,26 +1,16 @@
-﻿function login(Login, Password) {
-    this.Login = Login;
-    this.Password = Password;
-}
-
+﻿//Funcion que se detonal al momento de darle click al boton de Login
 function LoginAttempt() {
-    var objLogin = new login($("#txtUsuario").val(), $("#txtPassword").val());
+    //Creamos un objeto para pasarlo como parametro en el callback de ajax
+    var objLogin = new Object;
+    objLogin.Login = $("#txtUsuario").val();
+    objLogin.Password = $("#txtPassword").val();
 
-    $.ajax({
-        type: "POST",
-        url: "../../Login.aspx/LoginAttempt",
-        data: "{login: " + JSON.stringify(objLogin) + "}",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: LoginCorrecto,
-        error: function (xhr, status, error) {
-            $("#lblMensaje").val(error);
-            $("#alertDiv").css("display", "inline")
-        }
-    });
+    //Llamamos a la funcion generica para hacer un callback
+    doJsonObjectAjaxCallback("Login.aspx/LoginAttempt", "login", JSON.stringify(objLogin), LoginCorrecto);
 }
 
-function LoginCorrecto(dObj) {
+//Es la funcion que se ejecuta cuando se hizo el callback correctamente.
+var LoginCorrecto = function (dObj) {
     var objeto = JSON.parse(getMain(dObj));
 
     if (objeto.nombreCompleto.indexOf("Error") > -1)
