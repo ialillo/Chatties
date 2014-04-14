@@ -8,19 +8,7 @@
                 <div class="form-group">
                     <label for="txtNombre" class="col-xs-3 col-md-2 control-label">Nombre</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
-                        <input type="text" class="form-control" id="txtNombre" runat="server" placeholder="Nombre" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="txtApPaterno" class="col-xs-3 col-md-2 control-label">Apellido Paterno</label>
-                    <div class="col-xs-9 col-sm-7 col-md-5">
-                        <input type="text" class="form-control" id="txtApPaterno" runat="server" placeholder="Apellido Paterno" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="txtApMaterno" class="col-xs-3 col-md-2 control-label">Apellido Materno</label>
-                    <div class="col-xs-9 col-sm-7 col-md-5">
-                        <input type="text" class="form-control" id="txtApMaterno" runat="server" placeholder="Apellido Materno" />
+                        <p class="form-control-static" id="csNombre" runat="server" placeholder="Nombre"></p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -32,13 +20,13 @@
                 <div class="form-group">
                     <label class="col-xs-3 col-md-2 control-label">Usuario</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
-                        <p class="form-control-static" id="csUsuario">iflores</p>
+                        <p class="form-control-static" id="csUsuario" runat="server">iflores</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="txtPassword" class="col-xs-3 col-md-2 control-label">Contraseña</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
-                        <input type="text" class="form-control" id="txtPassword" runat="server" placeholder="Contraseña" />
+                        <input type="password" class="form-control" id="txtPassword" runat="server" placeholder="Contraseña" />
                     </div>
                 </div>
                 <div class="form-group">

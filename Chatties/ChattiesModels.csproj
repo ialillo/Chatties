@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="User Management\DTO\EmpleadoDTO.cs" />
     <Compile Include="User Management\DTO\LoggedUserDTO.cs" />
+    <Compile Include="User Management\DTO\LoginDTO.cs" />
     <Compile Include="User Management\Empleado.cs">
       <DependentUpon>UserManagement.tt</DependentUpon>
     </Compile>

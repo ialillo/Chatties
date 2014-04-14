@@ -1,44 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Configuration;
+using System.Web.Services;
+using System.Web.Script.Services;
 using System.Web.UI.WebControls;
-using ChattiesModel.User_Management.DTO;
+using System.Collections.Generic;
 using ChattiesSecurity.Encription;
 using ChattiesModel.UserManagement;
-using System.Configuration;
+using ChattiesModel.User_Management.DTO;
 
 namespace ChattiesWeb
 {
     public partial class Login : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+        [WebMethod]
+        public static string LoginAttempt(LoginDTO login)
         {
-
-        }
-
-        protected void btnLogin_Click(object sender, EventArgs e)
-        {
-            LoggedUserDTO usuario = new LoggedUserDTO();
+            ChattiesModel.User_Management.DTO.LoggedUserDTO usuario = new ChattiesModel.User_Management.DTO.LoggedUserDTO();
 
             try
             {
                 using (UserManagement um = new UserManagement())
                 {
-                    usuario = um.validaLogin(txtUsuario.Value, txtPassword.Value);
+                    usuario = um.validaLogin(login.Login, login.Password);
 
                     if (usuario.ID != 0)
                     {
-                        Session["usuario"] = usuario;
+                        HttpContext.Current.Session["usuario"] = usuario;
                     }
                 }
-                Response.Redirect("~/Home.aspx");
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = ex.Message;
+                usuario.nombreCompleto = ex.Message;
             }
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(usuario);
         }
     }
 }

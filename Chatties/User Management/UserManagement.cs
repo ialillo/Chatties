@@ -95,7 +95,7 @@ namespace ChattiesModel.UserManagement
 
                 if (existeEmpleado < 1)
                 {
-                    throw new LoginException("El usuario ingresado no existe");
+                    throw new LoginException("Error El usuario ingresado no existe");
                 }
 
                 existeEmpleado = (from u in ee.Empleados
@@ -105,7 +105,7 @@ namespace ChattiesModel.UserManagement
 
                 if (existeEmpleado < 1)
                 {
-                    throw new LoginException("El usuario ingresado se encuentra deshabilitado");
+                    throw new LoginException("Error El usuario ingresado se encuentra deshabilitado");
                 }
 
                 var query = from u in ee.Empleados
@@ -119,17 +119,47 @@ namespace ChattiesModel.UserManagement
                     loggedUser.ID = n.ID;
                     loggedUser.nombreCompleto = n.nombre + " " + n.apPaterno + " " + n.apMaterno;
                     loggedUser.correo = n.correo;
-                    loggedUser.nivelAcceso = n.Niveles_Acceso.ID;
+                    loggedUser.usuario = n.usuario;
+                    loggedUser.idNivelAcceso = n.Niveles_Acceso.ID;
+                    loggedUser.descNivelAcceso = n.Niveles_Acceso.NombreNivel;
                 }
 
                 if (loggedUser.ID == 0)
                 {
-                    throw new LoginException("Contraseña incorrecta");
+                    throw new LoginException("Error Contraseña incorrecta");
                 }
             }
 
             return loggedUser;
         }
+
+        /// <summary>
+        /// Verifica si el password del usuario es valido
+        /// </summary>
+        /// <param name="idUsuario">id del usuario</param>
+        /// <param name="password">password del usuario</param>
+        /// <returns>verdadero o falso</returns>
+        public bool validaPasswordActual(LoginDTO usuarioDTO)
+        {
+            bool passwordValido = false;
+
+            using(var ee = new ENLASYSEntities())
+            {
+                int usuarios = (from u in ee.Empleados
+                                where u.usuario == usuarioDTO.Login
+                                && u.contrasena == usuarioDTO.Password
+                                && u.activo == true
+                                select u).Count();
+
+                if(usuarios > 0)
+                {
+                    passwordValido = true;
+                }
+            }
+
+            return passwordValido;
+        }
+
 
         ~UserManagement()
         {

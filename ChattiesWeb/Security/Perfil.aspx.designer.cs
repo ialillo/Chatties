@@ -13,31 +13,13 @@ namespace ChattiesWeb.Security {
     public partial class Perfil {
         
         /// <summary>
-        /// txtNombre control.
+        /// csNombre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtNombre;
-        
-        /// <summary>
-        /// txtApPaterno control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtApPaterno;
-        
-        /// <summary>
-        /// txtApMaterno control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtApMaterno;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl csNombre;
         
         /// <summary>
         /// txtEmail control.
@@ -49,13 +31,22 @@ namespace ChattiesWeb.Security {
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtEmail;
         
         /// <summary>
+        /// csUsuario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl csUsuario;
+        
+        /// <summary>
         /// txtPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtPassword;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtPassword;
         
         /// <summary>
         /// btnActualizarDatos control.

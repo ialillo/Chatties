@@ -10,16 +10,20 @@ namespace ChattiesWeb.Security
 {
     public partial class Perfil : System.Web.UI.Page
     {
-        //protected void Page_Load(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        LoggedUserDTO usuario = (LoggedUserDTO)Session["usuario"];
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                LoggedUserDTO usuario = (LoggedUserDTO)Session["usuario"];
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    }
-        //}
+                csNombre.InnerText = usuario.nombreCompleto;
+                txtEmail.Value = usuario.correo;
+                csUsuario.InnerText = usuario.usuario;
+            }
+            catch (Exception)
+            {
+                Response.Redirect("~/../Login.aspx");
+            }
+        }
     }
 }

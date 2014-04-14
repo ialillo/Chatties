@@ -12,6 +12,7 @@ namespace ChattiesModel.User_Management.DTO
         public string nombreCompleto { get; set; }
         public string correo { get; set; }
         public string usuario { get; set; }
-        public int nivelAcceso { get; set; }
+        public int idNivelAcceso { get; set; }
+        public string descNivelAcceso { get; set; }
     }
 }

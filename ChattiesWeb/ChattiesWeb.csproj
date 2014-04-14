@@ -39,6 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -63,6 +67,9 @@
     <Content Include="Scripts\Bootstrap\bootstrap.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\JQuery\jquery-2.1.0.min.js" />
+    <Content Include="Scripts\JSON2\json2.min.js" />
+    <Content Include="Scripts\JSON2\JSONHelper.js" />
+    <Content Include="Scripts\Login\Login.js" />
     <Content Include="Scripts\Master.js" />
     <Content Include="Security\Perfil.aspx" />
     <Content Include="Styles\Bootstrap\bootstrap-theme.css" />
@@ -114,6 +121,7 @@
     <Content Include="Fonts\Bootstrap\glyphicons-halflings-regular.ttf" />
     <Content Include="Fonts\Bootstrap\glyphicons-halflings-regular.woff" />
     <Content Include="Chatties.Master" />
+    <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
