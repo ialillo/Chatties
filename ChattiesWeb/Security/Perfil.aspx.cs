@@ -17,8 +17,9 @@ namespace ChattiesWeb.Security
                 LoggedUserDTO usuario = (LoggedUserDTO)Session["usuario"];
 
                 csNombre.InnerText = usuario.nombreCompleto;
-                txtEmail.Value = usuario.correo;
+                csEmail.InnerText = usuario.correo;
                 csUsuario.InnerText = usuario.usuario;
+                csPerfil.InnerText = usuario.descNivelAcceso;
             }
             catch (Exception)
             {

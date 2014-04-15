@@ -70,7 +70,8 @@
     <Content Include="Scripts\JSON2\json2.min.js" />
     <Content Include="Scripts\JSON2\JSONHelper.js" />
     <Content Include="Scripts\Login\Login.js" />
-    <Content Include="Scripts\Master.js" />
+    <Content Include="Scripts\General.js" />
+    <Content Include="Scripts\Security\Perfil.js" />
     <Content Include="Security\Perfil.aspx" />
     <Content Include="Styles\Bootstrap\bootstrap-theme.css" />
     <Content Include="Styles\Bootstrap\bootstrap-theme.min.css" />
