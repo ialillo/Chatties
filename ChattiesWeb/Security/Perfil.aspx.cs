@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Services;
+using ChattiesSecurity.Encription;
+using ChattiesModel.UserManagement;
 using ChattiesModel.User_Management.DTO;
 
 namespace ChattiesWeb.Security
@@ -23,8 +26,55 @@ namespace ChattiesWeb.Security
             }
             catch (Exception)
             {
-                Response.Redirect("~/../Login.aspx");
+                Response.Redirect(ResolveUrl("../Login.aspx"));
             }
+        }
+
+        [WebMethod]
+        public static string VerificaCredenciales(LoginDTO login)
+        {
+            bool credencialesCorrectas = false;
+            string mensajeError = string.Empty;
+
+            try
+            {
+                using (UserManagement um = new UserManagement())
+                {
+                    credencialesCorrectas = um.validaPasswordActual(login);
+                }
+            }
+            catch (Exception ex)
+            {
+                mensajeError = "Error: " + ex.Message;
+            }
+
+            return credencialesCorrectas ? "Exito" : mensajeError;
+        }
+
+        [WebMethod]
+        public static string CambiaPassword(LoginDTO login)
+        {
+            bool cambioExitoso = false;
+            string mensajeError = string.Empty;
+
+            try
+            {
+                using(Encrypter enc = new Encrypter())
+                {
+                    login.Password = enc.Encrypt(login.Password);
+                }
+
+                using (UserManagement um = new UserManagement())
+                {
+                    cambioExitoso = um.cambiaPassword(login);
+                }
+            }
+            catch (Exception ex)
+            {
+                mensajeError = "Error: " + ex.Message;
+            }
+
+            return cambioExitoso ? "Exito" : mensajeError;
         }
     }
 }

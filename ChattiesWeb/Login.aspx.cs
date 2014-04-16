@@ -33,7 +33,7 @@ namespace ChattiesWeb
             }
             catch (Exception ex)
             {
-                usuario.nombreCompleto = ex.Message;
+                usuario.nombreCompleto = "Error: " + ex.Message;
             }
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(usuario);

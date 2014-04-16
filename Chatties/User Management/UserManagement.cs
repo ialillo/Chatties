@@ -95,7 +95,7 @@ namespace ChattiesModel.UserManagement
 
                 if (existeEmpleado < 1)
                 {
-                    throw new LoginException("Error El usuario ingresado no existe");
+                    throw new LoginException("El usuario ingresado no existe");
                 }
 
                 existeEmpleado = (from u in ee.Empleados
@@ -105,7 +105,7 @@ namespace ChattiesModel.UserManagement
 
                 if (existeEmpleado < 1)
                 {
-                    throw new LoginException("Error El usuario ingresado se encuentra deshabilitado");
+                    throw new LoginException("El usuario ingresado se encuentra deshabilitado");
                 }
 
                 var query = from u in ee.Empleados
@@ -126,7 +126,7 @@ namespace ChattiesModel.UserManagement
 
                 if (loggedUser.ID == 0)
                 {
-                    throw new LoginException("Error Contraseña incorrecta");
+                    throw new LoginException("Contraseña incorrecta");
                 }
             }
 
@@ -134,30 +134,71 @@ namespace ChattiesModel.UserManagement
         }
 
         /// <summary>
-        /// Verifica si el password del usuario es valido
+        /// Verifica si el password enviado es correcto
         /// </summary>
-        /// <param name="idUsuario">id del usuario</param>
-        /// <param name="password">password del usuario</param>
-        /// <returns>verdadero o falso</returns>
+        /// <param name="usuarioDTO"></param>
+        /// <returns>Verdadero o falso</returns>
         public bool validaPasswordActual(LoginDTO usuarioDTO)
         {
             bool passwordValido = false;
 
-            using(var ee = new ENLASYSEntities())
+            try
             {
-                int usuarios = (from u in ee.Empleados
-                                where u.usuario == usuarioDTO.Login
-                                && u.contrasena == usuarioDTO.Password
-                                && u.activo == true
-                                select u).Count();
-
-                if(usuarios > 0)
+                using (var ee = new ENLASYSEntities())
                 {
-                    passwordValido = true;
+                    int usuarios = (from u in ee.Empleados
+                                    where u.usuario == usuarioDTO.Login
+                                    && u.contrasena == usuarioDTO.Password
+                                    && u.activo == true
+                                    select u).Count();
+
+                    if (usuarios > 0)
+                    {
+                        passwordValido = true;
+                    }
+                    else
+                    {
+                        throw new LoginException("Password incorrecto");
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new LoginException(ex.Message, ex);
             }
 
             return passwordValido;
+        }
+
+        /// <summary>
+        /// Cambia el password por el obtenido en el objeto
+        /// </summary>
+        /// <param name="usuario">usuario</param>
+        /// <returns>Verdadero o falso</returns>
+        public bool cambiaPassword(LoginDTO usuario)
+        {
+            bool cambioExitoso = false;
+
+            try
+            {
+                using (var ee = new ENLASYSEntities())
+                {
+                    var user = (from u in ee.Empleados
+                                where u.usuario == usuario.Login
+                                && u.activo == true
+                                select u).FirstOrDefault();
+
+                    user.encPassword = usuario.Password;
+                    ee.SaveChanges();
+                    cambioExitoso = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new LoginException(ex.Message, ex);
+            }
+
+            return cambioExitoso;
         }
 
 

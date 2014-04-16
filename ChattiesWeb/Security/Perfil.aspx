@@ -4,15 +4,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ChattiesBodyPH" runat="server">
     <asp:ScriptManager ID="smPerfil" runat="server" LoadScriptsBeforeUI="true">
         <Scripts>
-            <asp:ScriptReference Path="~/Scripts/JQuery/jquery-2.1.0.min.js" />
-            <asp:ScriptReference Path="~/Scripts/JSON2/json2.min.js" />
-            <asp:ScriptReference Path="~/Scripts/JSON2/JSONHelper.js" />
-            <asp:ScriptReference Path="~/Scripts/General.js" />
             <asp:ScriptReference Path="~/Scripts/Security/Perfil.js" />
         </Scripts>
     </asp:ScriptManager>
-        <div class="well">
-            <div class="page-header">Perfil</div>
+        <div class="page-header">Perfil</div>
+        <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
             <div class="form-horizontal" role="form">
                 <div class="form-group">
                     <label for="txtNombre" class="col-xs-3 col-md-2 control-label">Nombre</label>
@@ -42,9 +38,9 @@
                     <label class="col-xs-3 col-md-2 control-label">Cambiar Contraseña</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
                         <div class="input-group">
-                            <input type="text" id="txtPassword" class="form-control" placeholder="Contraseña Actual" />
+                            <input type="password" id="txtPassword" class="form-control" placeholder="Contraseña Actual" />
                             <span class="input-group-btn">
-                                <button id="btnCambiaContraseña" class="btn btn-default" onclick="CambiaContraseña();" type="button">Cambiar</button>
+                                <button id="btnCambiaContraseña" class="btn btn-default" onclick="CambiaPassword();" type="button">Cambiar</button>
                             </span>
                         </div>
                     </div>

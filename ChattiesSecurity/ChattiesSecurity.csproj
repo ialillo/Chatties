@@ -43,12 +43,6 @@
     <Compile Include="Encription\Encrypter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Chatties\ChattiesModels.csproj">
-      <Project>{0c33accf-b196-4d1d-9d45-c6ce8791d46f}</Project>
-      <Name>ChattiesModels</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

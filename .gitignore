@@ -215,3 +215,4 @@ pip-log.txt
 .mr.developer.cfg
 ChattiesWeb/Web.config
 *.config
+*.config

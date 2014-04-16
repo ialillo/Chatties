@@ -111,6 +111,10 @@
       <Project>{9da0b70e-7714-4392-8d4a-bf6bdd34aa94}</Project>
       <Name>ChattiesException</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ChattiesSecurity\ChattiesSecurity.csproj">
+      <Project>{ac6c22ea-9048-4a45-8d0c-1797f8324568}</Project>
+      <Name>ChattiesSecurity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

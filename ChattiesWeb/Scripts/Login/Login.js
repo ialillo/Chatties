@@ -15,8 +15,7 @@ var LoginCorrecto = function (dObj) {
 
     if (objeto.nombreCompleto.indexOf("Error") > -1)
     {
-        $("#lblMensaje").text(objeto.nombreCompleto);
-        $("#alertDiv").css("display", "block")
+        muestraError(objeto.nombreCompleto);
     }
     else
     {
