@@ -83,7 +83,7 @@ namespace ChattiesModel.UserManagement
         /// <param name="usuario">usuario</param>
         /// <param name="password">contrasena</param>
         /// <returns>El login del usuario</returns>
-        public LoggedUserDTO validaLogin(string usuario, string password)
+        public LoggedUserDTO validaLogin(string usuario, string password, string encPassword)
         {
             LoggedUserDTO loggedUser = new LoggedUserDTO();
 
@@ -98,35 +98,55 @@ namespace ChattiesModel.UserManagement
                     throw new LoginException("El usuario ingresado no existe");
                 }
 
-                existeEmpleado = (from u in ee.Empleados
-                                      where u.usuario == usuario
-                                      && u.activo == true
-                                      select u).Count();
+                var estaActivo = (from u in ee.Empleados
+                                  where u.usuario == usuario
+                                  && u.activo == true
+                                  select u).First();
 
-                if (existeEmpleado < 1)
+                if (estaActivo.ID == 0)
                 {
                     throw new LoginException("El usuario ingresado se encuentra deshabilitado");
                 }
 
-                var query = from u in ee.Empleados
-                            where u.usuario == usuario
-                            && u.contrasena == password
-                            && u.activo == true
-                            select u;
-
-                foreach (var n in query)
+                if (estaActivo.encPassword == null)
                 {
-                    loggedUser.ID = n.ID;
-                    loggedUser.nombreCompleto = n.nombre + " " + n.apPaterno + " " + n.apMaterno;
-                    loggedUser.correo = n.correo;
-                    loggedUser.usuario = n.usuario;
-                    loggedUser.idNivelAcceso = n.Niveles_Acceso.ID;
-                    loggedUser.descNivelAcceso = n.Niveles_Acceso.NombreNivel;
+                    var query = (from u in ee.Empleados
+                                 where u.usuario == usuario
+                                 && u.contrasena == password
+                                 && u.activo == true
+                                 select u).First();
+
+                    if (query.ID == 0)
+                    {
+                        throw new LoginException("Contraseña incorrecta");
+                    }
+
+                    loggedUser.ID = query.ID;
+                    loggedUser.nombreCompleto = "Viejo";
+                    loggedUser.correo = query.correo;
+                    loggedUser.usuario = query.usuario;
+                    loggedUser.idNivelAcceso = query.Niveles_Acceso.ID;
+                    loggedUser.descNivelAcceso = query.Niveles_Acceso.NombreNivel;
                 }
-
-                if (loggedUser.ID == 0)
+                else
                 {
-                    throw new LoginException("Contraseña incorrecta");
+                    var query = (from u in ee.Empleados
+                                 where u.usuario == usuario
+                                 && u.contrasena == encPassword
+                                 && u.activo == true
+                                 select u).First();
+
+                    if (query.ID == 0)
+                    {
+                        throw new LoginException("Contraseña incorrecta recuerde que se validan mayusculas y minusculas");
+                    }
+
+                    loggedUser.ID = query.ID;
+                    loggedUser.nombreCompleto = query.nombre.ToUpper() + " " + query.apPaterno.ToUpper() + " " + query.apPaterno.ToUpper();
+                    loggedUser.correo = query.correo;
+                    loggedUser.usuario = query.usuario;
+                    loggedUser.idNivelAcceso = query.Niveles_Acceso.ID;
+                    loggedUser.descNivelAcceso = query.Niveles_Acceso.NombreNivel;
                 }
             }
 
@@ -188,6 +208,7 @@ namespace ChattiesModel.UserManagement
                                 && u.activo == true
                                 select u).FirstOrDefault();
 
+                    user.contrasena = null;
                     user.encPassword = usuario.Password;
                     ee.SaveChanges();
                     cambioExitoso = true;

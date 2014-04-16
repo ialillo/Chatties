@@ -14,6 +14,11 @@ namespace ChattiesWeb
 {
     public partial class Login : System.Web.UI.Page
     {
+        /// <summary>
+        /// Recibe un objeto de LoginDTO que contiene usuario y contrasena
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns>El usuario logeado</returns>
         [WebMethod]
         public static string LoginAttempt(LoginDTO login)
         {
@@ -23,11 +28,17 @@ namespace ChattiesWeb
             {
                 using (UserManagement um = new UserManagement())
                 {
-                    usuario = um.validaLogin(login.Login, login.Password);
+                    using(Encrypter enc = new Encrypter())
+                    {
+                        usuario = um.validaLogin(login.Login, login.Password, enc.Encrypt(login.Password));
+                    }
 
                     if (usuario.ID != 0)
                     {
-                        HttpContext.Current.Session["usuario"] = usuario;
+                        if(usuario.nombreCompleto != "Viejo")
+                        {
+                            HttpContext.Current.Session["usuario"] = usuario;
+                        }
                     }
                 }
             }
@@ -37,6 +48,37 @@ namespace ChattiesWeb
             }
 
             return Newtonsoft.Json.JsonConvert.SerializeObject(usuario);
+        }
+
+        /// <summary>
+        /// Renueva el password por uno encriptado
+        /// </summary>
+        /// <param name="login">objeto de login</param>
+        /// <returns>Exito o Error</returns>
+        [WebMethod]
+        public static string CambiaPassword(LoginDTO login)
+        {
+            bool cambioExitoso = false;
+            string mensajeError = string.Empty;
+
+            try
+            {
+                using (Encrypter enc = new Encrypter())
+                {
+                    login.Password = enc.Encrypt(login.Password);
+                }
+
+                using (UserManagement um = new UserManagement())
+                {
+                    cambioExitoso = um.cambiaPassword(login);
+                }
+            }
+            catch (Exception ex)
+            {
+                mensajeError = "Error: " + ex.Message;
+            }
+
+            return cambioExitoso ? "Exito" : mensajeError;
         }
     }
 }
