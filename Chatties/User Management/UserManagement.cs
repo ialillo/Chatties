@@ -101,9 +101,9 @@ namespace ChattiesModel.UserManagement
                 var estaActivo = (from u in ee.Empleados
                                   where u.usuario == usuario
                                   && u.activo == true
-                                  select u).First();
+                                  select u).FirstOrDefault();
 
-                if (estaActivo.ID == 0)
+                if (estaActivo == null)
                 {
                     throw new LoginException("El usuario ingresado se encuentra deshabilitado");
                 }
@@ -114,9 +114,9 @@ namespace ChattiesModel.UserManagement
                                  where u.usuario == usuario
                                  && u.contrasena == password
                                  && u.activo == true
-                                 select u).First();
+                                 select u).FirstOrDefault();
 
-                    if (query.ID == 0)
+                    if (query == null)
                     {
                         throw new LoginException("Contraseña incorrecta");
                     }
@@ -132,17 +132,19 @@ namespace ChattiesModel.UserManagement
                 {
                     var query = (from u in ee.Empleados
                                  where u.usuario == usuario
-                                 && u.contrasena == encPassword
+                                 && u.encPassword == encPassword
                                  && u.activo == true
-                                 select u).First();
+                                 select u).FirstOrDefault();
 
-                    if (query.ID == 0)
+                    if (query == null)
                     {
                         throw new LoginException("Contraseña incorrecta recuerde que se validan mayusculas y minusculas");
                     }
 
                     loggedUser.ID = query.ID;
-                    loggedUser.nombreCompleto = query.nombre.ToUpper() + " " + query.apPaterno.ToUpper() + " " + query.apPaterno.ToUpper();
+                    loggedUser.nombreCompleto = (!string.IsNullOrEmpty(query.nombre) ? query.nombre : "").ToUpper() + " " + 
+                        (!string.IsNullOrEmpty(query.apPaterno) ? query.apPaterno : "").ToUpper() + " " + 
+                        (!string.IsNullOrEmpty(query.apMaterno) ? query.apMaterno : "").ToUpper();
                     loggedUser.correo = query.correo;
                     loggedUser.usuario = query.usuario;
                     loggedUser.idNivelAcceso = query.Niveles_Acceso.ID;
@@ -168,7 +170,7 @@ namespace ChattiesModel.UserManagement
                 {
                     int usuarios = (from u in ee.Empleados
                                     where u.usuario == usuarioDTO.Login
-                                    && u.contrasena == usuarioDTO.Password
+                                    && u.encPassword == usuarioDTO.Password
                                     && u.activo == true
                                     select u).Count();
 
@@ -208,7 +210,7 @@ namespace ChattiesModel.UserManagement
                                 && u.activo == true
                                 select u).FirstOrDefault();
 
-                    user.contrasena = null;
+                    user.contrasena = default(string);
                     user.encPassword = usuario.Password;
                     ee.SaveChanges();
                     cambioExitoso = true;

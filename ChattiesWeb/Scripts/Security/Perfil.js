@@ -5,11 +5,15 @@ function CambiaPassword() {
     objLogin.Login = $("p[id$=csUsuario]").text();
     objLogin.Password = $("#txtPassword").val();
 
-    if (contCambioPass == 1) {
-        doJsonObjectAjaxCallback("Perfil.aspx/VerificaCredenciales", "login", JSON.stringify(objLogin), CredencialesCorrectas);
-    }
-    else {
-        doJsonObjectAjaxCallback("Perfil.aspx/CambiaPassword", "login", JSON.stringify(objLogin), CredencialesCorrectas);
+    var strongPassword = validaContrasena();
+
+    if (strongPassword) {
+        if (contCambioPass == 1) {
+            doJsonObjectAjaxCallback("Perfil.aspx/VerificaCredenciales", "login", JSON.stringify(objLogin), CredencialesCorrectas);
+        }
+        else {
+            doJsonObjectAjaxCallback("Perfil.aspx/CambiaPassword", "login", JSON.stringify(objLogin), CredencialesCorrectas);
+        }
     }
 }
 
@@ -48,4 +52,26 @@ function resetAllControls() {
     $("#txtPassword").val("");
     $("#txtPassword").parent().removeClass("has-success");
     $("#txtPassword").parent().removeClass("has-error");
+}
+
+function validaContrasena() {
+    if ($("#txtPassword").val() == "") {
+        muestraPopover("#txtPassword", "Error", "bottom", "La contraseña no puede ser un texto en blanco", 3);
+        $("#txtPassword").focus();
+        return false;
+    }
+    else if (!passwordValido($("#txtPassword").val())) {
+        var mensajePopOver;
+        mensajePopOver = "<ul>";
+        mensajePopOver += "<li>Debe contener al menos 6 caracteres.</li>";
+        mensajePopOver += "<li> Al menos un numero.</li>";
+        mensajePopOver += "<li>Al menos una letra mayuscula.</li>";
+        mensajePopOver += "<li>Al menos una letra minuscula.</li>";
+        mensajePopOver += "</ul>";
+
+        muestraPopover("#txtPassword", "Requerimientos de Contraseña:", "bottom", mensajePopOver, 8);
+        $("#txtPassword").focus();
+        return false;
+    }
+    return true;
 }

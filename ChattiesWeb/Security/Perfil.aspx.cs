@@ -38,6 +38,11 @@ namespace ChattiesWeb.Security
 
             try
             {
+                using (Encrypter enc = new Encrypter())
+                {
+                    login.Password = enc.Encrypt(login.Password);
+                }
+
                 using (UserManagement um = new UserManagement())
                 {
                     credencialesCorrectas = um.validaPasswordActual(login);
