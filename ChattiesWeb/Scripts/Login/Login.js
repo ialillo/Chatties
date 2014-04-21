@@ -20,7 +20,7 @@
     modalBody +=    "</div>";
 
     modalFooter = "<button id='btnCambiaContrasena' type='button' class='btn btn-primary'>Cambiar</button>";
-    modalFooter += "<button id='btnCancelar' type='button' class='btn btn-default'>Cancelar</button>'";
+    modalFooter += "<button id='btnCancelar' type='button' class='btn btn-default'>Cancelar</button>";
 
     preparaModal(modalTitle, modalBody, modalFooter);
 
@@ -64,25 +64,24 @@
     $("#btnCancelar").bind("click", function (event) {
         ocultaModal();
     });
+
+    //Funcion que se detonal al momento de darle click al boton de Login
+    $("#btnLogin").bind("click", function (event) {
+        //Limpiamos los textboxes del popup de cambio de contraseña 
+        $("#txtPwdNuevo").val("");
+        $("#txtPwdNuevoConfirm").val("");
+        $("#txtPwdNuevo").parent().removeClass("has-error");
+        $("#txtPwdNuevoConfirm").parent().removeClass("has-error");
+
+        //Creamos un objeto para pasarlo como parametro en el callback de ajax
+        var objLogin = new Object;
+        objLogin.Login = $("#txtUsuario").val();
+        objLogin.Password = $("#txtPassword").val();
+
+        //Llamamos a la funcion generica para hacer un callback
+        doJsonObjectAjaxCallback("Login.aspx/LoginAttempt", "login", JSON.stringify(objLogin), LoginCorrecto);
+    });
 });
-
-//Funcion que se detonal al momento de darle click al boton de Login
-function LoginAttempt() {
-    //Limpiamos los textboxes del popup de cambio de contraseña 
-
-    $("#txtPwdNuevo").val("");
-    $("#txtPwdNuevoConfirm").val("");
-    $("#txtPwdNuevo").parent().removeClass("has-error");
-    $("#txtPwdNuevoConfirm").parent().removeClass("has-error");
-
-    //Creamos un objeto para pasarlo como parametro en el callback de ajax
-    var objLogin = new Object;
-    objLogin.Login = $("#txtUsuario").val();
-    objLogin.Password = $("#txtPassword").val();
-
-    //Llamamos a la funcion generica para hacer un callback
-    doJsonObjectAjaxCallback("Login.aspx/LoginAttempt", "login", JSON.stringify(objLogin), LoginCorrecto);
-}
 
 //Es la funcion que se ejecuta cuando se hizo el callback correctamente.
 var LoginCorrecto = function (dObj) {
@@ -105,10 +104,11 @@ var LoginCorrecto = function (dObj) {
     }
 }
 
+// Funcion que se desencadena una ves que se ejecutó el método de cambio de contraseña en el servidor
 function cambioDeContrasenaCorrecto(dObj) {
     var objeto = getMain(dObj);
 
-    if (objeto.indexOf("Error") > 1) {
+    if (objeto.indexOf("Error") > -1) {
         muestraPopover("#btnCambiaContrasena", "Error:", "top", objeto, 8);
     } else {
         ocultaModal();

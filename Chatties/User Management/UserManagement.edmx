@@ -231,7 +231,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="correo" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="contrasena" Type="String" MaxLength="8" Unicode="true" FixedLength="false" />
+          <Property Name="contrasena" Type="String" MaxLength="8" Unicode="true" FixedLength="false" Nullable="false" />
           <Property Name="usuario" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="NivelAcceso" Type="Int32" />
           <Property Name="encPassword" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />

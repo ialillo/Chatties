@@ -17,8 +17,8 @@ $(document).ready(function () {
         }
     }
 
+    // Insertamos el html del mensaje de error o exito que se muestra en la parte inferior de todas las paginas
     var strMensajeExitoError;
-
     strMensajeExitoError =  "<div class='navbar-fixed-bottom col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2'>";
     strMensajeExitoError +=     "<div id='alertDiv' class='alert alert-danger alert-dismissable' style='display:none;'>";
     strMensajeExitoError +=         "<label id='errorMensaje'></label>";
@@ -32,8 +32,8 @@ $(document).ready(function () {
 
     $("div[class~='mainBody']").append(strMensajeExitoError);
 
+    // Insertamos el html del modal para que este disponible en cualquier pagina del sitio
     var strModal;
-
     strModal = "<div class='modal fade' id='modalGeneral' tabindex='-1' role='dialog' aria-labelledby='dialogTitle' aria-hidden='true'>";
     strModal +=     "<div class='modal-dialog'>";
     strModal +=         "<div class='modal-content'>";
@@ -50,7 +50,7 @@ $(document).ready(function () {
 
     $("body").append(strModal);
 
-    //Insertamos el div del popover para todas las páginas
+    //Insertamos el div del popover para que este disponible en cualquier pagina del sitio
     $("body").append("<div id='popoverContent' style='display:none;'></div>");
 });
 
@@ -104,7 +104,7 @@ function ocultaExito() {
 
 // Establecemos el html del modal
 function preparaModal(pmodalTitle, pmodalBody, pmodalFooter) {
-    $("#dialogTitle").text(pmodalTitle);
+    $("#dialogTitle").html("<strong>" + pmodalTitle + "</strong>");
     $("#modalGeneral div[class='modal-body']").html(pmodalBody);
     $("#modalGeneral div[class='modal-footer']").html(pmodalFooter);
 }

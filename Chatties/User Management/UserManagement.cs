@@ -205,14 +205,17 @@ namespace ChattiesModel.UserManagement
             {
                 using (var ee = new ENLASYSEntities())
                 {
-                    var user = (from u in ee.Empleados
-                                where u.usuario == usuario.Login
-                                && u.activo == true
-                                select u).FirstOrDefault();
+                    Empleado user = (from u in ee.Empleados
+                                     where u.usuario == usuario.Login
+                                     && u.activo == true
+                                     select u).FirstOrDefault();
 
-                    user.contrasena = default(string);
+                    ee.Empleados.Attach(user);
+
                     user.encPassword = usuario.Password;
+
                     ee.SaveChanges();
+
                     cambioExitoso = true;
                 }
             }
