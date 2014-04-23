@@ -33,6 +33,10 @@ namespace ChattiesModel.User_Management
         public DbSet<Niveles_Acceso> Niveles_Acceso { get; set; }
         public DbSet<NivelvsModulo> NivelvsModulos { get; set; }
         public DbSet<Orden_de_Compra_Autorizaciones> Orden_de_Compra_Autorizaciones { get; set; }
+        public DbSet<MODULOS1> MODULOS1 { get; set; }
+        public DbSet<PERFILES_SUBMODULOS> PERFILES_SUBMODULOS { get; set; }
+        public DbSet<SUBMODULOS> SUBMODULOS { get; set; }
+        public DbSet<PERFILES> PERFILES { get; set; }
     
         public virtual int InsertaUsuario(string nombre, string apPaterno, string apMaterno, string usuario, string pwd, string correo, Nullable<int> idNivelAcceso)
         {
@@ -111,6 +115,15 @@ namespace ChattiesModel.User_Management
                 new ObjectParameter("idUsuario", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("BorraUsuario", idUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<ObtenMenu_Result> ObtenMenu(Nullable<int> idUsuario)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ObtenMenu_Result>("ObtenMenu", idUsuarioParameter);
         }
     }
 }

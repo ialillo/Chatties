@@ -26,7 +26,7 @@ namespace ChattiesWeb.Security
             }
             catch (Exception)
             {
-                Response.Redirect(ResolveUrl("../Login.aspx"));
+                Response.Redirect(ResolveUrl("~/Login.aspx"));
             }
         }
 

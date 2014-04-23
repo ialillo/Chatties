@@ -67,6 +67,8 @@
 
     //Funcion que se detonal al momento de darle click al boton de Login
     $("#btnLogin").bind("click", function (event) {
+        //Oculta el mensaje de error si es que existe
+        ocultaError();
         //Limpiamos los textboxes del popup de cambio de contraseña 
         $("#txtPwdNuevo").val("");
         $("#txtPwdNuevoConfirm").val("");

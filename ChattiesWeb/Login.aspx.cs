@@ -22,7 +22,7 @@ namespace ChattiesWeb
         [WebMethod]
         public static string LoginAttempt(LoginDTO login)
         {
-            ChattiesModel.User_Management.DTO.LoggedUserDTO usuario = new ChattiesModel.User_Management.DTO.LoggedUserDTO();
+            LoggedUserDTO usuario = new LoggedUserDTO();
 
             try
             {

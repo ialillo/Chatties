@@ -73,6 +73,7 @@ function muestraPopover(controlLigado, tituloPopover, posicionamientoPopover, co
     $("[rel=popover]").popover(popoverSettings);
     $("[rel=popover]").popover("show");
 
+    // Ejecuta la función para esconder el popup
     setTimeout(function () {
         $("[rel=popover]").popover('hide');
         $("[rel=popover]").popover('destroy');

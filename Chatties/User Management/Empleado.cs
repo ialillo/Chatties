@@ -17,6 +17,7 @@ namespace ChattiesModel.User_Management
         public Empleado()
         {
             this.Orden_de_Compra_Autorizaciones = new HashSet<Orden_de_Compra_Autorizaciones>();
+            this.PERFILES = new HashSet<PERFILES>();
         }
     
         public int ID { get; set; }
@@ -32,5 +33,6 @@ namespace ChattiesModel.User_Management
     
         public virtual Niveles_Acceso Niveles_Acceso { get; set; }
         public virtual ICollection<Orden_de_Compra_Autorizaciones> Orden_de_Compra_Autorizaciones { get; set; }
+        public virtual ICollection<PERFILES> PERFILES { get; set; }
     }
 }

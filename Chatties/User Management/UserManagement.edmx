@@ -4,34 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="UserManagementModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="UserManagementModelStoreContainer">
-          <EntitySet Name="Empleados" EntityType="UserManagementModel.Store.Empleados" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Modulos" EntityType="UserManagementModel.Store.Modulos" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Niveles_Acceso" EntityType="UserManagementModel.Store.Niveles_Acceso" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="NivelvsModulos" EntityType="UserManagementModel.Store.NivelvsModulos" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Orden_de_Compra_Autorizaciones" EntityType="UserManagementModel.Store.Orden_de_Compra_Autorizaciones" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_Empleados_Niveles_Acceso" Association="UserManagementModel.Store.FK_Empleados_Niveles_Acceso">
-            <End Role="Niveles_Acceso" EntitySet="Niveles_Acceso" />
-            <End Role="Empleados" EntitySet="Empleados" />
-          </AssociationSet>
-          <AssociationSet Name="FK_NivelvsModulos_Modulos" Association="UserManagementModel.Store.FK_NivelvsModulos_Modulos">
-            <End Role="Modulos" EntitySet="Modulos" />
-            <End Role="NivelvsModulos" EntitySet="NivelvsModulos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_NivelvsModulos_Niveles_Acceso" Association="UserManagementModel.Store.FK_NivelvsModulos_Niveles_Acceso">
-            <End Role="Niveles_Acceso" EntitySet="Niveles_Acceso" />
-            <End Role="NivelvsModulos" EntitySet="NivelvsModulos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OCA_Empleado" Association="UserManagementModel.Store.FK_OCA_Empleado">
-            <End Role="Empleados" EntitySet="Empleados" />
-            <End Role="Orden_de_Compra_Autorizaciones" EntitySet="Orden_de_Compra_Autorizaciones" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OCA_NivelesAcceso" Association="UserManagementModel.Store.FK_OCA_NivelesAcceso">
-            <End Role="Niveles_Acceso" EntitySet="Niveles_Acceso" />
-            <End Role="Orden_de_Compra_Autorizaciones" EntitySet="Orden_de_Compra_Autorizaciones" />
-          </AssociationSet>
-        </EntityContainer>
+    <Schema Namespace="UserManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Empleados">
           <Key>
             <PropertyRef Name="ID" />
@@ -52,7 +25,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="nombre_Modulo" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="nombre_Modulo" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Niveles_Acceso">
           <Key>
@@ -77,7 +50,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Empleado" Type="int" Nullable="false" />
           <Property Name="Nivel" Type="int" Nullable="false" />
           <Property Name="CC" Type="int" />
@@ -85,9 +58,114 @@
           <Property Name="CC3" Type="int" />
           <Property Name="CC4" Type="int" />
         </EntityType>
+        <EntityType Name="MODULOS1">
+          <Key>
+            <PropertyRef Name="idModulo" />
+          </Key>
+          <Property Name="idModulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descModulo" Type="varchar" MaxLength="100" />
+          <Property Name="activo" Type="bit" />
+        </EntityType>
+        <EntityType Name="PERFILES_SUBMODULOS">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+            <PropertyRef Name="idSubmodulo" />
+          </Key>
+          <Property Name="idPerfil" Type="int" Nullable="false" />
+          <Property Name="idSubmodulo" Type="int" Nullable="false" />
+          <Property Name="lee" Type="bit" />
+          <Property Name="actualiza" Type="bit" />
+          <Property Name="elimina" Type="bit" />
+        </EntityType>
+        <EntityType Name="SUBMODULOS">
+          <Key>
+            <PropertyRef Name="idSubmodulo" />
+          </Key>
+          <Property Name="idModulo" Type="int" Nullable="false" />
+          <Property Name="idSubmodulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descSubmodulo" Type="varchar" MaxLength="100" />
+          <Property Name="url" Type="varchar" MaxLength="100" />
+          <Property Name="activo" Type="bit" />
+        </EntityType>
+        <EntityType Name="EMPLEADOS_PERFILES">
+          <Key>
+            <PropertyRef Name="idEmpleado" />
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="idPerfil" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PERFILES">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descPerfil" Type="varchar" MaxLength="100" />
+          <Property Name="activo" Type="bit" />
+        </EntityType>
+        <Association Name="FK__EMPLEADOS__idEmp__2AF556D4">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="EMPLEADOS_PERFILES" Type="Self.EMPLEADOS_PERFILES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EMPLEADOS_PERFILES">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EMPLEADOS__idPer__2BE97B0D">
+          <End Role="PERFILES" Type="Self.PERFILES" Multiplicity="1" />
+          <End Role="EMPLEADOS_PERFILES" Type="Self.EMPLEADOS_PERFILES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERFILES">
+              <PropertyRef Name="idPerfil" />
+            </Principal>
+            <Dependent Role="EMPLEADOS_PERFILES">
+              <PropertyRef Name="idPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PERFILES___idPer__2724C5F0">
+          <End Role="PERFILES" Type="Self.PERFILES" Multiplicity="1" />
+          <End Role="PERFILES_SUBMODULOS" Type="Self.PERFILES_SUBMODULOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERFILES">
+              <PropertyRef Name="idPerfil" />
+            </Principal>
+            <Dependent Role="PERFILES_SUBMODULOS">
+              <PropertyRef Name="idPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PERFILES___idSub__2818EA29">
+          <End Role="SUBMODULOS" Type="Self.SUBMODULOS" Multiplicity="1" />
+          <End Role="PERFILES_SUBMODULOS" Type="Self.PERFILES_SUBMODULOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBMODULOS">
+              <PropertyRef Name="idSubmodulo" />
+            </Principal>
+            <Dependent Role="PERFILES_SUBMODULOS">
+              <PropertyRef Name="idSubmodulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SUBMODULO__idMod__24485945">
+          <End Role="MODULOS1" Type="Self.MODULOS1" Multiplicity="1" />
+          <End Role="SUBMODULOS" Type="Self.SUBMODULOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MODULOS1">
+              <PropertyRef Name="idModulo" />
+            </Principal>
+            <Dependent Role="SUBMODULOS">
+              <PropertyRef Name="idModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Empleados_Niveles_Acceso">
-          <End Role="Niveles_Acceso" Type="UserManagementModel.Store.Niveles_Acceso" Multiplicity="0..1" />
-          <End Role="Empleados" Type="UserManagementModel.Store.Empleados" Multiplicity="*" />
+          <End Role="Niveles_Acceso" Type="Self.Niveles_Acceso" Multiplicity="0..1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Niveles_Acceso">
               <PropertyRef Name="ID" />
@@ -98,10 +176,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_NivelvsModulos_Modulos">
-          <End Role="Modulos" Type="UserManagementModel.Store.Modulos" Multiplicity="0..1">
+          <End Role="Modulos" Type="Self.Modulos" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="NivelvsModulos" Type="UserManagementModel.Store.NivelvsModulos" Multiplicity="*" />
+          <End Role="NivelvsModulos" Type="Self.NivelvsModulos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Modulos">
               <PropertyRef Name="ID" />
@@ -112,10 +190,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_NivelvsModulos_Niveles_Acceso">
-          <End Role="Niveles_Acceso" Type="UserManagementModel.Store.Niveles_Acceso" Multiplicity="0..1">
+          <End Role="Niveles_Acceso" Type="Self.Niveles_Acceso" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="NivelvsModulos" Type="UserManagementModel.Store.NivelvsModulos" Multiplicity="*" />
+          <End Role="NivelvsModulos" Type="Self.NivelvsModulos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Niveles_Acceso">
               <PropertyRef Name="ID" />
@@ -126,8 +204,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OCA_Empleado">
-          <End Role="Empleados" Type="UserManagementModel.Store.Empleados" Multiplicity="1" />
-          <End Role="Orden_de_Compra_Autorizaciones" Type="UserManagementModel.Store.Orden_de_Compra_Autorizaciones" Multiplicity="*" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Orden_de_Compra_Autorizaciones" Type="Self.Orden_de_Compra_Autorizaciones" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Empleados">
               <PropertyRef Name="ID" />
@@ -137,18 +215,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OCA_NivelesAcceso">
-          <End Role="Niveles_Acceso" Type="UserManagementModel.Store.Niveles_Acceso" Multiplicity="1" />
-          <End Role="Orden_de_Compra_Autorizaciones" Type="UserManagementModel.Store.Orden_de_Compra_Autorizaciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Niveles_Acceso">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Orden_de_Compra_Autorizaciones">
-              <PropertyRef Name="Nivel" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <Function Name="ObtenMenu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Navegacion">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+        </Function>
         <Function Name="ActualizaUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Usuarios">
           <Parameter Name="idUsuario" Type="int" Mode="In" />
           <Parameter Name="nombre" Type="varchar" Mode="In" />
@@ -171,6 +240,54 @@
           <Parameter Name="correo" Type="varchar" Mode="In" />
           <Parameter Name="idNivelAcceso" Type="int" Mode="In" />
         </Function>
+        <EntityContainer Name="UserManagementModelStoreContainer">
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modulos" EntityType="Self.Modulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Niveles_Acceso" EntityType="Self.Niveles_Acceso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NivelvsModulos" EntityType="Self.NivelvsModulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orden_de_Compra_Autorizaciones" EntityType="Self.Orden_de_Compra_Autorizaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MODULOS1" EntityType="Self.MODULOS1" Schema="Navegacion" Table="MODULOS" store:Type="Tables" />
+          <EntitySet Name="PERFILES_SUBMODULOS" EntityType="Self.PERFILES_SUBMODULOS" Schema="Navegacion" store:Type="Tables" />
+          <EntitySet Name="SUBMODULOS" EntityType="Self.SUBMODULOS" Schema="Navegacion" store:Type="Tables" />
+          <EntitySet Name="EMPLEADOS_PERFILES" EntityType="Self.EMPLEADOS_PERFILES" Schema="Seguridad" store:Type="Tables" />
+          <EntitySet Name="PERFILES" EntityType="Self.PERFILES" Schema="Seguridad" store:Type="Tables" />
+          <AssociationSet Name="FK__EMPLEADOS__idEmp__2AF556D4" Association="Self.FK__EMPLEADOS__idEmp__2AF556D4">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="EMPLEADOS_PERFILES" EntitySet="EMPLEADOS_PERFILES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EMPLEADOS__idPer__2BE97B0D" Association="Self.FK__EMPLEADOS__idPer__2BE97B0D">
+            <End Role="PERFILES" EntitySet="PERFILES" />
+            <End Role="EMPLEADOS_PERFILES" EntitySet="EMPLEADOS_PERFILES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PERFILES___idPer__2724C5F0" Association="Self.FK__PERFILES___idPer__2724C5F0">
+            <End Role="PERFILES" EntitySet="PERFILES" />
+            <End Role="PERFILES_SUBMODULOS" EntitySet="PERFILES_SUBMODULOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PERFILES___idSub__2818EA29" Association="Self.FK__PERFILES___idSub__2818EA29">
+            <End Role="SUBMODULOS" EntitySet="SUBMODULOS" />
+            <End Role="PERFILES_SUBMODULOS" EntitySet="PERFILES_SUBMODULOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SUBMODULO__idMod__24485945" Association="Self.FK__SUBMODULO__idMod__24485945">
+            <End Role="MODULOS1" EntitySet="MODULOS1" />
+            <End Role="SUBMODULOS" EntitySet="SUBMODULOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empleados_Niveles_Acceso" Association="Self.FK_Empleados_Niveles_Acceso">
+            <End Role="Niveles_Acceso" EntitySet="Niveles_Acceso" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NivelvsModulos_Modulos" Association="Self.FK_NivelvsModulos_Modulos">
+            <End Role="Modulos" EntitySet="Modulos" />
+            <End Role="NivelvsModulos" EntitySet="NivelvsModulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NivelvsModulos_Niveles_Acceso" Association="Self.FK_NivelvsModulos_Niveles_Acceso">
+            <End Role="Niveles_Acceso" EntitySet="Niveles_Acceso" />
+            <End Role="NivelvsModulos" EntitySet="NivelvsModulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OCA_Empleado" Association="Self.FK_OCA_Empleado">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Orden_de_Compra_Autorizaciones" EntitySet="Orden_de_Compra_Autorizaciones" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -223,6 +340,29 @@
           <FunctionImport Name="BorraUsuario">
           <Parameter Name="idUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="MODULOS1" EntityType="UserManagementModel.MODULOS1" />
+          <EntitySet Name="PERFILES_SUBMODULOS" EntityType="UserManagementModel.PERFILES_SUBMODULOS" />
+          <EntitySet Name="SUBMODULOS" EntityType="UserManagementModel.SUBMODULOS" />
+          <EntitySet Name="PERFILES" EntityType="UserManagementModel.PERFILES" />
+          <AssociationSet Name="FK__SUBMODULO__idMod__24485945" Association="UserManagementModel.FK__SUBMODULO__idMod__24485945">
+            <End Role="MODULOS1" EntitySet="MODULOS1" />
+            <End Role="SUBMODULOS" EntitySet="SUBMODULOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PERFILES___idPer__2724C5F0" Association="UserManagementModel.FK__PERFILES___idPer__2724C5F0">
+            <End Role="PERFILES" EntitySet="PERFILES" />
+            <End Role="PERFILES_SUBMODULOS" EntitySet="PERFILES_SUBMODULOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PERFILES___idSub__2818EA29" Association="UserManagementModel.FK__PERFILES___idSub__2818EA29">
+            <End Role="SUBMODULOS" EntitySet="SUBMODULOS" />
+            <End Role="PERFILES_SUBMODULOS" EntitySet="PERFILES_SUBMODULOS" />
+          </AssociationSet>
+          <AssociationSet Name="EMPLEADOS_PERFILES" Association="UserManagementModel.EMPLEADOS_PERFILES">
+            <End Role="Empleado" EntitySet="Empleados" />
+            <End Role="PERFILES" EntitySet="PERFILES" />
+          </AssociationSet>
+          <FunctionImport Name="ObtenMenu" ReturnType="Collection(UserManagementModel.ObtenMenu_Result)">
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Empleado">
           <Key>
@@ -231,7 +371,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="correo" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="contrasena" Type="String" MaxLength="8" Unicode="true" FixedLength="false" Nullable="false" />
+          <Property Name="contrasena" Type="String" MaxLength="8" Unicode="true" FixedLength="false" />
           <Property Name="usuario" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="NivelAcceso" Type="Int32" />
           <Property Name="encPassword" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
@@ -240,6 +380,7 @@
           <Property Type="String" Name="apPaterno" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="apMaterno" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="activo" />
+          <NavigationProperty Name="PERFILES" Relationship="UserManagementModel.EMPLEADOS_PERFILES" FromRole="Empleado" ToRole="PERFILES" />
         </EntityType>
         <EntityType Name="Modulo">
           <Key>
@@ -351,6 +492,97 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="MODULOS1">
+          <Key>
+            <PropertyRef Name="idModulo" />
+          </Key>
+          <Property Name="idModulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descModulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" />
+          <NavigationProperty Name="SUBMODULOS" Relationship="UserManagementModel.FK__SUBMODULO__idMod__24485945" FromRole="MODULOS1" ToRole="SUBMODULOS" />
+        </EntityType>
+        <EntityType Name="PERFILES_SUBMODULOS">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+            <PropertyRef Name="idSubmodulo" />
+          </Key>
+          <Property Name="idPerfil" Type="Int32" Nullable="false" />
+          <Property Name="idSubmodulo" Type="Int32" Nullable="false" />
+          <Property Name="lee" Type="Boolean" />
+          <Property Name="actualiza" Type="Boolean" />
+          <Property Name="elimina" Type="Boolean" />
+          <NavigationProperty Name="PERFILES" Relationship="UserManagementModel.FK__PERFILES___idPer__2724C5F0" FromRole="PERFILES_SUBMODULOS" ToRole="PERFILES" />
+          <NavigationProperty Name="SUBMODULOS" Relationship="UserManagementModel.FK__PERFILES___idSub__2818EA29" FromRole="PERFILES_SUBMODULOS" ToRole="SUBMODULOS" />
+        </EntityType>
+        <EntityType Name="SUBMODULOS">
+          <Key>
+            <PropertyRef Name="idSubmodulo" />
+          </Key>
+          <Property Name="idModulo" Type="Int32" Nullable="false" />
+          <Property Name="idSubmodulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descSubmodulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="url" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" />
+          <NavigationProperty Name="MODULOS1" Relationship="UserManagementModel.FK__SUBMODULO__idMod__24485945" FromRole="SUBMODULOS" ToRole="MODULOS1" />
+          <NavigationProperty Name="PERFILES_SUBMODULOS" Relationship="UserManagementModel.FK__PERFILES___idSub__2818EA29" FromRole="SUBMODULOS" ToRole="PERFILES_SUBMODULOS" />
+        </EntityType>
+        <EntityType Name="PERFILES">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descPerfil" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" />
+          <NavigationProperty Name="PERFILES_SUBMODULOS" Relationship="UserManagementModel.FK__PERFILES___idPer__2724C5F0" FromRole="PERFILES" ToRole="PERFILES_SUBMODULOS" />
+          <NavigationProperty Name="Empleados" Relationship="UserManagementModel.EMPLEADOS_PERFILES" FromRole="PERFILES" ToRole="Empleado" />
+        </EntityType>
+        <Association Name="FK__SUBMODULO__idMod__24485945">
+          <End Type="UserManagementModel.MODULOS1" Role="MODULOS1" Multiplicity="1" />
+          <End Type="UserManagementModel.SUBMODULOS" Role="SUBMODULOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MODULOS1">
+              <PropertyRef Name="idModulo" />
+            </Principal>
+            <Dependent Role="SUBMODULOS">
+              <PropertyRef Name="idModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PERFILES___idPer__2724C5F0">
+          <End Type="UserManagementModel.PERFILES" Role="PERFILES" Multiplicity="1" />
+          <End Type="UserManagementModel.PERFILES_SUBMODULOS" Role="PERFILES_SUBMODULOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERFILES">
+              <PropertyRef Name="idPerfil" />
+            </Principal>
+            <Dependent Role="PERFILES_SUBMODULOS">
+              <PropertyRef Name="idPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PERFILES___idSub__2818EA29">
+          <End Type="UserManagementModel.SUBMODULOS" Role="SUBMODULOS" Multiplicity="1" />
+          <End Type="UserManagementModel.PERFILES_SUBMODULOS" Role="PERFILES_SUBMODULOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUBMODULOS">
+              <PropertyRef Name="idSubmodulo" />
+            </Principal>
+            <Dependent Role="PERFILES_SUBMODULOS">
+              <PropertyRef Name="idSubmodulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EMPLEADOS_PERFILES">
+          <End Type="UserManagementModel.Empleado" Role="Empleado" Multiplicity="*" />
+          <End Type="UserManagementModel.PERFILES" Role="PERFILES" Multiplicity="*" />
+        </Association>
+        <ComplexType Name="ObtenMenu_Result">
+          <Property Type="Int32" Name="idModulo" Nullable="false" />
+          <Property Type="String" Name="descModulo" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="idSubmodulo" Nullable="false" />
+          <Property Type="String" Name="descSubmodulo" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="url" Nullable="true" MaxLength="100" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -445,6 +677,65 @@
           <FunctionImportMapping FunctionImportName="InsertaUsuario" FunctionName="UserManagementModel.Store.InsertaUsuario" />
           <FunctionImportMapping FunctionImportName="ActualizaUsuario" FunctionName="UserManagementModel.Store.ActualizaUsuario" />
           <FunctionImportMapping FunctionImportName="BorraUsuario" FunctionName="UserManagementModel.Store.BorraUsuario" />
+          <EntitySetMapping Name="MODULOS1">
+            <EntityTypeMapping TypeName="UserManagementModel.MODULOS1">
+              <MappingFragment StoreEntitySet="MODULOS1">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="descModulo" ColumnName="descModulo" />
+                <ScalarProperty Name="idModulo" ColumnName="idModulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERFILES_SUBMODULOS">
+            <EntityTypeMapping TypeName="UserManagementModel.PERFILES_SUBMODULOS">
+              <MappingFragment StoreEntitySet="PERFILES_SUBMODULOS">
+                <ScalarProperty Name="elimina" ColumnName="elimina" />
+                <ScalarProperty Name="actualiza" ColumnName="actualiza" />
+                <ScalarProperty Name="lee" ColumnName="lee" />
+                <ScalarProperty Name="idSubmodulo" ColumnName="idSubmodulo" />
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUBMODULOS">
+            <EntityTypeMapping TypeName="UserManagementModel.SUBMODULOS">
+              <MappingFragment StoreEntitySet="SUBMODULOS">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="descSubmodulo" ColumnName="descSubmodulo" />
+                <ScalarProperty Name="idSubmodulo" ColumnName="idSubmodulo" />
+                <ScalarProperty Name="idModulo" ColumnName="idModulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERFILES">
+            <EntityTypeMapping TypeName="UserManagementModel.PERFILES">
+              <MappingFragment StoreEntitySet="PERFILES">
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="descPerfil" ColumnName="descPerfil" />
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="EMPLEADOS_PERFILES" TypeName="UserManagementModel.EMPLEADOS_PERFILES" StoreEntitySet="EMPLEADOS_PERFILES">
+            <EndProperty Name="PERFILES">
+              <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+            </EndProperty>
+            <EndProperty Name="Empleado">
+              <ScalarProperty Name="ID" ColumnName="idEmpleado" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="ObtenMenu" FunctionName="UserManagementModel.Store.ObtenMenu">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UserManagementModel.ObtenMenu_Result">
+                <ScalarProperty Name="idModulo" ColumnName="idModulo" />
+                <ScalarProperty Name="descModulo" ColumnName="descModulo" />
+                <ScalarProperty Name="idSubmodulo" ColumnName="idSubmodulo" />
+                <ScalarProperty Name="descSubmodulo" ColumnName="descSubmodulo" />
+                <ScalarProperty Name="url" ColumnName="url" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -462,6 +753,7 @@
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

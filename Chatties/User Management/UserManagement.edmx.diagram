@@ -15,6 +15,14 @@
         <AssociationConnector Association="UserManagementModel.FK_NivelvsModulos_Modulos" ManuallyRouted="false" />
         <AssociationConnector Association="UserManagementModel.FK_NivelvsModulos_Niveles_Acceso" ManuallyRouted="false" />
         <AssociationConnector Association="UserManagementModel.FK_OCA_NivelesAcceso" />
+        <EntityTypeShape EntityType="UserManagementModel.MODULOS1" Width="1.5" PointX="4" PointY="8.875" />
+        <EntityTypeShape EntityType="UserManagementModel.PERFILES_SUBMODULOS" Width="1.5" PointX="8.5" PointY="1.625" />
+        <EntityTypeShape EntityType="UserManagementModel.SUBMODULOS" Width="1.5" PointX="6.25" PointY="8.625" />
+        <EntityTypeShape EntityType="UserManagementModel.PERFILES" Width="1.5" PointX="6.25" PointY="1.75" />
+        <AssociationConnector Association="UserManagementModel.FK__SUBMODULO__idMod__24485945" />
+        <AssociationConnector Association="UserManagementModel.FK__PERFILES___idPer__2724C5F0" />
+        <AssociationConnector Association="UserManagementModel.FK__PERFILES___idSub__2818EA29" />
+        <AssociationConnector Association="UserManagementModel.EMPLEADOS_PERFILES" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -49,10 +49,14 @@
     <Compile Include="User Management\DTO\EmpleadoDTO.cs" />
     <Compile Include="User Management\DTO\LoggedUserDTO.cs" />
     <Compile Include="User Management\DTO\LoginDTO.cs" />
+    <Compile Include="User Management\DTO\MenuDTO.cs" />
     <Compile Include="User Management\Empleado.cs">
       <DependentUpon>UserManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="User Management\Modulo.cs">
+      <DependentUpon>UserManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User Management\MODULOS1.cs">
       <DependentUpon>UserManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="User Management\Niveles_Acceso.cs">
@@ -61,7 +65,19 @@
     <Compile Include="User Management\NivelvsModulo.cs">
       <DependentUpon>UserManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="User Management\ObtenMenu_Result.cs">
+      <DependentUpon>UserManagement.tt</DependentUpon>
+    </Compile>
     <Compile Include="User Management\Orden_de_Compra_Autorizaciones.cs">
+      <DependentUpon>UserManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User Management\PERFILES.cs">
+      <DependentUpon>UserManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User Management\PERFILES_SUBMODULOS.cs">
+      <DependentUpon>UserManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User Management\SUBMODULOS.cs">
       <DependentUpon>UserManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="User Management\UserManagement.Context.cs">

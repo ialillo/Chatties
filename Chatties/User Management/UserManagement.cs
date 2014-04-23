@@ -227,6 +227,40 @@ namespace ChattiesModel.UserManagement
             return cambioExitoso;
         }
 
+        /// <summary>
+        /// Obtiene  el menu de un usuario
+        /// </summary>
+        /// <param name="idUsuario">id del Usuario logeado</param>
+        /// <returns>un objeto de menu</returns>
+        public List<MenuDTO> obtenMenu(int idUsuario)
+        {
+            List<MenuDTO> listaMenu = new List<MenuDTO>();
+
+            using (ENLASYSEntities ee = new ENLASYSEntities())
+            {
+                var entityMenu = ee.ObtenMenu(idUsuario).ToList();
+
+                if (entityMenu != null)
+                {
+                    foreach (var menuItem in entityMenu)
+                    {
+                        MenuDTO menu = new MenuDTO();
+
+                        menu.idModulo = menuItem.idModulo;
+                        menu.descModulo = menuItem.descModulo;
+                        menu.idSubmodulo = menuItem.idSubmodulo;
+                        menu.descSubmodulo = menuItem.descSubmodulo;
+                        menu.url = menuItem.url;
+
+                        listaMenu.Add(menu);
+                    }
+
+                }
+            }
+
+            return listaMenu;
+        }
+
 
         ~UserManagement()
         {
