@@ -6,11 +6,11 @@ using System.Web.Services;
 using System.Web.Script.Services;
 using System.Web.UI.WebControls;
 using System.Collections.Generic;
-using ChattiesSecurity.Encription;
-using ChattiesModel.UserManagement;
-using ChattiesModel.User_Management.DTO;
+using Chatties.Security.Encription;
+using Chatties.Model.UserManagement;
+using Chatties.Model.UserManagement.DTO;
 
-namespace ChattiesWeb
+namespace Chatties.Web
 {
     public partial class Login : System.Web.UI.Page
     {

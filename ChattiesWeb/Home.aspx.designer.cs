@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace ChattiesWeb {
+namespace Chatties.Web {
     
     
     public partial class Home {

@@ -4,7 +4,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ChattiesSecurity.Encription
+namespace Chatties.Security.Encription
 {
     public sealed class Encrypter: Rijndael
     {

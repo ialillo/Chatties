@@ -30,9 +30,17 @@
         muestraModal();
     });
 
+    //Insertamos el menu
+    doJsonObjectAjaxCallback("Home.aspx/ObtenMenu", "1", insertaMenu);
+
     //Ponemos la clase de activo al elemnto que representa la pagina actual en el menu del sitio
     estableceItemMenuActivo();
 });
+
+// Insertamos el menu del usuario que se acaba de loggear
+insertaMenu = function (dObj) {
+    var objeto = getMain(dObj);
+};
 
 // Resalta el item activo de la página que estamos utilizando
 function estableceItemMenuActivo() {
@@ -46,7 +54,7 @@ function estableceItemMenuActivo() {
     $("a").each(function (inc, obj) {
         var aLinkPage = obj.href.split("/")[obj.href.split("/").length - 1];
 
-        if (aLinkPage == curPage) {
+        if (aLinkPage === curPage) {
             $(obj).parent().addClass("active");
         }
     });

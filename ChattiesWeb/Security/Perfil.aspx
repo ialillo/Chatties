@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Chatties.Master" AutoEventWireup="true" CodeBehind="Perfil.aspx.cs" Inherits="ChattiesWeb.Security.Perfil" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Chatties.Master" AutoEventWireup="true" CodeBehind="Perfil.aspx.cs" Inherits="Chatties.Web.Security.Perfil" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ChattiesHeaderPH" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ChattiesBodyPH" runat="server">

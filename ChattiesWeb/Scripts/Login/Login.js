@@ -31,7 +31,7 @@
         objLogin.Password = $("#txtPwdNuevo").val();
 
         // Si las contraseñas escritas son distintas entre ellas
-        if ($("#txtPwdNuevo").val() != $("#txtPwdNuevoConfirm").val()) {
+        if ($("#txtPwdNuevo").val() !== $("#txtPwdNuevoConfirm").val()) {
             //Mostramos el mensaje de error al usuario
             muestraPopover("#txtPwdNuevoConfirm", "Error", "bottom", "Ambas contraseñas deben ser identicas", 3);
         }
@@ -42,7 +42,7 @@
 
     //Validaciones para el primer textbox de contraseña
     $("#txtPwdNuevo")[0].onblur = function () {
-        if ($("#txtPwdNuevo").val() == "") {
+        if ($("#txtPwdNuevo").val() === "") {
             muestraPopover("#txtPwdNuevo", "Error", "bottom", "La contraseña no puede ser un texto en blanco", 3);
             $("#txtPwdNuevo").focus();
         }
@@ -58,7 +58,7 @@
             muestraPopover("#txtPwdNuevo", "Requerimientos de Contraseña:", "bottom", mensajePopOver, 8);
             $("#txtPwdNuevo").focus();
         }
-    }
+    };
 
     // Le agregamos el vento click al boton de cancelar del modal del login
     $("#btnCancelar").bind("click", function (event) {
@@ -76,7 +76,7 @@
         $("#txtPwdNuevoConfirm").parent().removeClass("has-error");
 
         //Creamos un objeto para pasarlo como parametro en el callback de ajax
-        var objLogin = new Object;
+        var objLogin = new Object();
         objLogin.Login = $("#txtUsuario").val();
         objLogin.Password = $("#txtPassword").val();
 
@@ -90,21 +90,18 @@ var LoginCorrecto = function (dObj) {
     var objeto = JSON.parse(getMain(dObj));
 
     //Entra aqui si el password es incorrecto o el usuario no existe
-    if (objeto.nombreCompleto.indexOf("Error") > -1)
-    {
+    if (objeto.nombreCompleto.indexOf("Error") > -1) {
         muestraError(objeto.nombreCompleto);
     }
-    //Entra aqui si el password del usuario todavia no esta encriptado
-    else if (objeto.nombreCompleto.indexOf("Viejo") > -1)
-    {
+        //Entra aqui si el password del usuario todavia no esta encriptado
+    else if (objeto.nombreCompleto.indexOf("Viejo") > -1) {
         muestraModal();
     }
-    //Entra aqui cuando la operacion se realizo con exito
-    else
-    {
+        //Entra aqui cuando la operacion se realizo con exito
+    else {
         window.location.href = "../../Home.aspx";
     }
-}
+};
 
 // Funcion que se desencadena una ves que se ejecutó el método de cambio de contraseña en el servidor
 function cambioDeContrasenaCorrecto(dObj) {

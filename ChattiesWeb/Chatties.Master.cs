@@ -5,10 +5,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ChattiesModel.UserManagement;
-using ChattiesModel.User_Management.DTO;
+using Chatties.Model.UserManagement;
+using Chatties.Model.UserManagement.DTO;
 
-namespace ChattiesWeb
+namespace Chatties.Web
 {
     public partial class Chatties : System.Web.UI.MasterPage
     {
@@ -31,7 +31,7 @@ namespace ChattiesWeb
         /// </summary>
         /// <returns>El menu</returns>
         [WebMethod]
-        public static string ObtenMenu()
+        public static string ObtenMenu(int numero)
         {
             List<MenuDTO> menuList = new List<MenuDTO>();
             LoggedUserDTO usuario = new LoggedUserDTO();
@@ -47,7 +47,7 @@ namespace ChattiesWeb
             }
             catch(Exception ex)
             {
-                if (usuario.ID == null)
+                if (usuario.ID == 0)
                 {
                     HttpContext.Current.Response.Redirect("~/Login.aspx");
                 }

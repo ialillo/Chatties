@@ -5,11 +5,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Services;
-using ChattiesSecurity.Encription;
-using ChattiesModel.UserManagement;
-using ChattiesModel.User_Management.DTO;
+using Chatties.Security.Encription;
+using Chatties.Model.UserManagement;
+using Chatties.Model.UserManagement.DTO;
 
-namespace ChattiesWeb.Security
+namespace Chatties.Web.Security
 {
     public partial class Perfil : System.Web.UI.Page
     {

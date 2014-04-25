@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ChattiesWeb.Security {
+namespace Chatties.Web.Security {
     
     
     public partial class Perfil {

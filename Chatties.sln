@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChattiesModels", "Chatties\ChattiesModels.csproj", "{0C33ACCF-B196-4D1D-9D45-C6CE8791D46F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatties.Models", "Chatties\Chatties.Models.csproj", "{0C33ACCF-B196-4D1D-9D45-C6CE8791D46F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChattiesWeb", "ChattiesWeb\ChattiesWeb.csproj", "{47D96E2F-0A9D-45CA-9C35-5D40D47B99FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatties.Web", "ChattiesWeb\Chatties.Web.csproj", "{47D96E2F-0A9D-45CA-9C35-5D40D47B99FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChattiesSecurity", "ChattiesSecurity\ChattiesSecurity.csproj", "{AC6C22EA-9048-4A45-8D0C-1797F8324568}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatties.Security", "ChattiesSecurity\Chatties.Security.csproj", "{AC6C22EA-9048-4A45-8D0C-1797F8324568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChattiesException", "ChattiesException\ChattiesException.csproj", "{9DA0B70E-7714-4392-8D4A-BF6BDD34AA94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatties.Exception", "ChattiesException\Chatties.Exception.csproj", "{9DA0B70E-7714-4392-8D4A-BF6BDD34AA94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatties.DTO", "Chatties.DTO\Chatties.DTO.csproj", "{CE2BA963-BEB4-4201-9DE5-CB10A1F108F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatties.DAL", "Chatties.DAL\Chatties.DAL.csproj", "{93EB0760-1B29-4722-BD37-6C1970B8E5A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,8 +35,19 @@ Global
 		{9DA0B70E-7714-4392-8D4A-BF6BDD34AA94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DA0B70E-7714-4392-8D4A-BF6BDD34AA94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DA0B70E-7714-4392-8D4A-BF6BDD34AA94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE2BA963-BEB4-4201-9DE5-CB10A1F108F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE2BA963-BEB4-4201-9DE5-CB10A1F108F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE2BA963-BEB4-4201-9DE5-CB10A1F108F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE2BA963-BEB4-4201-9DE5-CB10A1F108F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93EB0760-1B29-4722-BD37-6C1970B8E5A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93EB0760-1B29-4722-BD37-6C1970B8E5A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93EB0760-1B29-4722-BD37-6C1970B8E5A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93EB0760-1B29-4722-BD37-6C1970B8E5A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
 	EndGlobalSection
 EndGlobal
