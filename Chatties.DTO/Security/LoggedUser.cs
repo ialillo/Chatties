@@ -18,14 +18,14 @@ namespace Chatties.DTO.Security
         /// <summary>
         /// Constructor basado en un usuario no autenticado
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="usuario"></param>
         public LoggedUser(General.User user) : base(user.Usuario) { }
 
         /// <summary>
         /// Representa el id unico de la sesión del usuario
         /// </summary>
         [DataMember]
-        public int SessionID { get; set; }
+        public string SessionID { get; set; }
 
         /// <summary>
         /// Representa el id del usuario en la base de datos

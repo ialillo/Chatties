@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Chatties.Services.Security.Security" CodeBehind="Security.svc.cs" %>

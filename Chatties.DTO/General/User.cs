@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Chatties.DTO.General
@@ -29,5 +28,23 @@ namespace Chatties.DTO.General
         /// </summary>
         [DataMember]
         public string Usuario { get; set; }
+
+        /// <summary>
+        /// Verifica el intento de Login de un usuario en la base de datos
+        /// </summary>
+        /// <param name="password">Contraseña del usuario</param>
+        /// <returns></returns>
+        public Security.LoggedUser Authenticate(string password)
+        {
+            using (Chatties.Security.Encription.Encrypter enc = new Chatties.Security.Encription.Encrypter())
+            {
+                string encriptedPassword = enc.Encrypt(password);
+
+                using (Chatties.DAL.DBAccess<Security.LoggedUser> loginAttempt = new DAL.DBAccess<Security.LoggedUser>())
+                {
+                    return loginAttempt.GetObject(string.Format("Seguridad.Authenticate {0}, {1}", this.Usuario, encriptedPassword));
+                }
+            }
+        }
     }
 }
