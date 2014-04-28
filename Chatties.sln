@@ -1,11 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatties.Models", "Chatties\Chatties.Models.csproj", "{0C33ACCF-B196-4D1D-9D45-C6CE8791D46F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatties.Web", "ChattiesWeb\Chatties.Web.csproj", "{47D96E2F-0A9D-45CA-9C35-5D40D47B99FE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F74DC32C-B1AF-4B66-8112-3375DFADC975} = {F74DC32C-B1AF-4B66-8112-3375DFADC975}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatties.Security", "ChattiesSecurity\Chatties.Security.csproj", "{AC6C22EA-9048-4A45-8D0C-1797F8324568}"
 EndProject

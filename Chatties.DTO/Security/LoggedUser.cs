@@ -37,7 +37,7 @@ namespace Chatties.DTO.Security
         /// Representa el nombre completo del usuario Loggeado
         /// </summary>
         [DataMember]
-        public string NombreCompleto { get; set; }
+        public int IdPerfil { get; set; }
 
         /// <summary>
         /// Representa el perfil del usuario Loggeado

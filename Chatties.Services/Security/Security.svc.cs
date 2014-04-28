@@ -24,18 +24,37 @@ namespace Chatties.Services.Security
             {
                 try
                 {
-                    result.Object = user.Authenticate(password);
-
-                    if (result.Object != null)
+                    ///Si no existe el usuario manda la excepcion
+                    if (!user.UserExists())
                     {
-                        result.Object.SessionID = HttpContext.Current.Session.SessionID;
+                        throw new Chatties.Exception.Login.LoginException("El usuario no existe en la base de datos.");
                     }
 
+                    ///Verifica si el usuario está activo o no
+                    if (!user.ActiveUser())
+                    {
+                        throw new Chatties.Exception.Login.LoginException("El usuario no está activo.");
+                    }
+
+                    ///Verifica si el usuario no tiene la nueva seguridad
+                    if (user.OldUser(password))
+                    {
+                        throw new Chatties.Exception.Login.LoginException("Viejo");
+                    }
+
+                    result.Object = user.Authenticate(password);
+
+                    if (result.Object == null)
+                    {
+                        throw new Chatties.Exception.Login.LoginException("Contraseña no válida.");
+                    }
+
+                    result.Object.SessionID = HttpContext.Current.Session.SessionID;
                     HttpContext.Current.Session["User"] = result.Object;
                     result.Success = true;
-                    result.ServiceMessage = (result.Object == null) ? "Usuario o contraseña no válidos" : "OK";
+                    result.ServiceMessage = "OK";
                 }
-                catch(Exception ex)
+                catch(System.Exception ex)
                 {
                     result.Success = false;
                     result.ServiceMessage = ex.Message;

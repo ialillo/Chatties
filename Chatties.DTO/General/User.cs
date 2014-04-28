@@ -30,6 +30,43 @@ namespace Chatties.DTO.General
         public string Usuario { get; set; }
 
         /// <summary>
+        /// Verifica si existe el usuario en la base de datos
+        /// </summary>
+        /// <returns>Verdadero o falso</returns>
+        public bool UserExists()
+        {
+            using (DAL.DBAccess<Security.LoggedUser> loginAttempt = new DAL.DBAccess<Security.LoggedUser>())
+            {
+                return loginAttempt.GetBoolean(string.Format("Seguridad.ExisteUsuario {0}", this.Usuario));
+            }
+        }
+
+        /// <summary>
+        /// Verifica si el usuario está activo en la base de datos
+        /// </summary>
+        /// <returns>Verdadero o falso</returns>
+        public bool ActiveUser()
+        {
+            using (DAL.DBAccess<Security.LoggedUser> loginAttempt = new DAL.DBAccess<Security.LoggedUser>())
+            {
+                return loginAttempt.GetBoolean(string.Format("Seguridad.VerificaUsuarioActivo {0}", this.Usuario));
+            }
+        }
+
+        /// <summary>
+        /// Verifica si el usuario tiene la seguridad antigua
+        /// </summary>
+        /// <param name="password">contraseña</param>
+        /// <returns>Verdadero o falso</returns>
+        public bool OldUser(string password)
+        {
+            using (DAL.DBAccess<Security.LoggedUser> loginAttempt = new DAL.DBAccess<Security.LoggedUser>())
+            {
+                return loginAttempt.GetBoolean(string.Format("Seguridad.VerificaUsuarioViejo {0}, {1}", this.Usuario, password));
+            }
+        }
+
+        /// <summary>
         /// Verifica el intento de Login de un usuario en la base de datos
         /// </summary>
         /// <param name="password">Contraseña del usuario</param>
@@ -40,9 +77,9 @@ namespace Chatties.DTO.General
             {
                 string encriptedPassword = enc.Encrypt(password);
 
-                using (Chatties.DAL.DBAccess<Security.LoggedUser> loginAttempt = new DAL.DBAccess<Security.LoggedUser>())
+                using (DAL.DBAccess<Security.LoggedUser> loginAttempt = new DAL.DBAccess<Security.LoggedUser>())
                 {
-                    return loginAttempt.GetObject(string.Format("Seguridad.Authenticate {0}, {1}", this.Usuario, encriptedPassword));
+                    return loginAttempt.GetObject(string.Format("Seguridad.Autenticar {0}, {1}", this.Usuario, encriptedPassword));
                 }
             }
         }

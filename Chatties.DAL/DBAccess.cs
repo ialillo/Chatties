@@ -84,6 +84,17 @@ namespace Chatties.DAL
         }
 
         /// <summary>
+        /// Obtiene un booleano desde la base de datos a través de la ejecución de un stored procedure
+        /// </summary>
+        /// <param name="spName"></param>
+        /// <param name="spParams"></param>
+        /// <returns></returns>
+        public bool GetBoolean(string spName, params object[] spParams)
+        {
+            return (bool)this.ExecuteScalar(spName, spParams);
+        }
+
+        /// <summary>
         /// Utiliza el Garbage Collector para eliminar instancias propias
         /// </summary>
         public void Dispose()

@@ -7,6 +7,7 @@ namespace Chatties.Services.Security
     [ServiceContract]
     public interface ISecurity
     {
+        // Método que autentica un usuario en la base de datos
         [OperationContract]
         Chatties.DTO.General.Result<Chatties.DTO.Security.LoggedUser> Authenticate(Chatties.DTO.General.User user, string password);
     }
