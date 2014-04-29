@@ -36,7 +36,7 @@
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
-                <li><a id="linkAyuda" href="#">Ayuda</a></li>
+                <li><a id="linkAyuda" style="cursor:pointer;">Ayuda</a></li>
               </ul>
             </div>
           </div>
@@ -83,6 +83,7 @@
             </div>
         </div>
         <asp:HiddenField ID="hdnFieldUserName" runat="server" />
+        <div id="globalMessageContainer" class='navbar-fixed-bottom col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2'></div>
     </form>
 </body>
 </html>

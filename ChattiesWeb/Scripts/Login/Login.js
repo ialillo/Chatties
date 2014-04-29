@@ -22,7 +22,8 @@
     modalFooter = "<button id='btnCambiaContrasena' type='button' class='btn btn-primary'>Cambiar</button>";
     modalFooter += "<button id='btnCancelar' type='button' class='btn btn-default'>Cancelar</button>";
 
-    preparaModal(modalTitle, modalBody, modalFooter);
+    chattiesObjects.Modal.Create("body", modalTitle, modalBody, modalFooter);
+    chattiesObjects.GlobalMessage.Create();
 
     //Le agregamos el evento click al boton de cambiar contraseña del modal del login
     $("#btnCambiaContrasena").bind("click", function (event) {
@@ -33,9 +34,10 @@
         // Si las contraseñas escritas son distintas entre ellas
         if ($("#txtPwdNuevo").val() !== $("#txtPwdNuevoConfirm").val()) {
             //Mostramos el mensaje de error al usuario
-            muestraPopover("#txtPwdNuevoConfirm", "Error", "bottom", "Ambas contraseñas deben ser identicas", 3);
+            chattiesObjects.PopUp.Show("#txtPwdNuevoConfirm", "Error", "bottom", "Ambas contraseñas deben ser identicas", true, 3);
         }
         else {
+            // Si pasa el filtro de validaciones se hace la llamda asincrona al servidor para cambiar la contraseña
             doJsonObjectAjaxCallback("Login.aspx/CambiaPassword", "login", JSON.stringify(objLogin), cambioDeContrasenaCorrecto);
         }
     });
@@ -43,10 +45,10 @@
     //Validaciones para el primer textbox de contraseña
     $("#txtPwdNuevo")[0].onblur = function () {
         if ($("#txtPwdNuevo").val() === "") {
-            muestraPopover("#txtPwdNuevo", "Error", "bottom", "La contraseña no puede ser un texto en blanco", 3);
+            chattiesObjects.PopUp.Show("#txtPwdNuevo", "Error", "bottom", "La contraseña no puede ser un texto en blanco", true, 3);
             $("#txtPwdNuevo").focus();
         }
-        else if (!passwordValido($("#txtPwdNuevo").val())) {
+        else if (!chattiesObjects.regExValidators.validPassword($("#txtPwdNuevo").val())) {
             var mensajePopOver;
             mensajePopOver = "<ul>";
             mensajePopOver +=   "<li>Debe contener al menos 6 caracteres.</li>";
@@ -55,20 +57,18 @@
             mensajePopOver +=   "<li>Al menos una letra minuscula.</li>";
             mensajePopOver += "</ul>";
 
-            muestraPopover("#txtPwdNuevo", "Requerimientos de Contraseña:", "bottom", mensajePopOver, 8);
+            chattiesObjects.PopUp.Show("#txtPwdNuevo", "Requerimientos de Contraseña:", "bottom", mensajePopOver, true, 8);
             $("#txtPwdNuevo").focus();
         }
     };
 
     // Le agregamos el vento click al boton de cancelar del modal del login
     $("#btnCancelar").bind("click", function (event) {
-        ocultaModal();
+        chattiesObjects.Modal.Hide();
     });
 
     //Funcion que se detonal al momento de darle click al boton de Login
     $("#btnLogin").bind("click", function (event) {
-        //Oculta el mensaje de error si es que existe
-        ocultaError();
         //Limpiamos los textboxes del popup de cambio de contraseña 
         $("#txtPwdNuevo").val("");
         $("#txtPwdNuevoConfirm").val("");
@@ -77,11 +77,11 @@
 
         //Creamos un objeto para pasarlo como parametro en el callback de ajax
         var objLogin = new Object();
-        objLogin.Login = $("#txtUsuario").val();
-        objLogin.Password = $("#txtPassword").val();
+        objLogin.user = $("#txtUsuario").val();
+        objLogin.password = $("#txtPassword").val();
 
         //Llamamos a la funcion generica para hacer un callback
-        doJsonObjectAjaxCallback("Login.aspx/LoginAttempt", "login", JSON.stringify(objLogin), LoginCorrecto);
+        doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.Seguridad.subURL, chattiesObjects.Services.URLs.Seguridad.autentica, objLogin, LoginCorrecto);
     });
 });
 
@@ -91,11 +91,11 @@ var LoginCorrecto = function (dObj) {
 
     //Entra aqui si el password es incorrecto o el usuario no existe
     if (objeto.nombreCompleto.indexOf("Error") > -1) {
-        muestraError(objeto.nombreCompleto);
+        chattiesObjects.GlobalMessage.Show(objeto.nombreCompleto, true);
     }
         //Entra aqui si el password del usuario todavia no esta encriptado
     else if (objeto.nombreCompleto.indexOf("Viejo") > -1) {
-        muestraModal();
+        chattiesObjects.Modal.Show();
     }
         //Entra aqui cuando la operacion se realizo con exito
     else {
@@ -108,11 +108,11 @@ function cambioDeContrasenaCorrecto(dObj) {
     var objeto = getMain(dObj);
 
     if (objeto.indexOf("Error") > -1) {
-        muestraPopover("#btnCambiaContrasena", "Error:", "top", objeto, 8);
+        chattiesObjects.PopUp.Show("#btnCambiaContrasena", "Error:", "top", objeto, true, 8);
     } else {
-        ocultaModal();
+        chattiesObjects.Modal.Hide();
+        chattiesObjects.GlobalMessage.Show("Cambio de contraseña exitoso, por favor accesa con tus nuevas credenciales.", false);
         $("#txtPassword").val("");
         $("#txtPassword").focus();
-        muestraExito("Cambio de contraseña exitoso, por favor accesa con tus nuevas credenciales.");
     }
 }

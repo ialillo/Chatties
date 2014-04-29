@@ -9,19 +9,19 @@ function getMain(obj) {
 }
 
 // Funcion generica para hacer los callbacks al servidor
-function doJsonObjectAjaxCallback(formPath, serverParamVariableName, jsonObject, successFunction) {
+function doJsonObjectAjaxCallback(serviceUrl, method, jsonObject, successFunction) {
     $.ajax(
         {
             type: "POST",
-            url: formPath,
-            data: "{" + serverParamVariableName + ": " + jsonObject + "}",
+            url: chattiesObjects.BaseURL + serviceUrl + method,
+            data: JSON.stringify(jsonObject),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: successFunction,
             error: function (xhr, status, error)
             {
-                $("#lblMensaje").text(xhr.responseText);
-                $("#alertDiv").css("display", "block");
+                debugger;
+                chattiesObjects.GlobalMessage.Show(xhr.responseText, true);
             }
         });
 }

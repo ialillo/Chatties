@@ -24,6 +24,7 @@
             <input id="txtPassword" type="password" class="form-control input-sm" placeholder="Contraseña" required />
             <button type="button" id="btnLogin" class="btn btn-sm btn-primary btn-block">Login</button>
         </div>
+        <div id="globalMessageContainer" class='navbar-fixed-bottom col-sm-6 col-sm-offset-3 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2'></div>
     </div>
 </body>
 </html>

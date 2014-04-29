@@ -99,7 +99,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <EntityDeploy Include="UserManagement\UserManagement.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

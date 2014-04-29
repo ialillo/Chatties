@@ -20,14 +20,12 @@ function CambiaPassword() {
 var CredencialesCorrectas = function (dObj) {
     var objeto = getMain(dObj);
 
-    ocultaExito();
-    ocultaError();
     $("#txtPassword").parent().removeClass("has-success");
     $("#txtPassword").parent().removeClass("has-error");
 
     if (objeto.indexOf("Error") > -1) {
         $("#txtPassword").parent().addClass("has-error");
-        muestraError(objeto);
+        chattiesObjects.GlobalMessage.Show(objeto, true);
     }
     else {
         if (contCambioPass == 1) {
@@ -39,7 +37,7 @@ var CredencialesCorrectas = function (dObj) {
             contCambioPass += 1;
         }
         else {
-            muestraExito("La contraseña se cambio exitosamente");
+            chattiesObjects.GlobalMessage.Show("La contraseña se cambio exitosamente", false);
             resetAllControls();
         }
     }
@@ -56,11 +54,11 @@ function resetAllControls() {
 
 function validaContrasena() {
     if ($("#txtPassword").val() == "") {
-        muestraPopover("#txtPassword", "Error", "bottom", "La contraseña no puede ser un texto en blanco", 3);
+        chattiesObjects.PopUp.Show("#txtPassword", "Error", "bottom", "La contraseña no puede ser un texto en blanco", true, 3);
         $("#txtPassword").focus();
         return false;
     }
-    else if (!passwordValido($("#txtPassword").val())) {
+    else if (!chattiesObjects.regExValidators.validPassword($("#txtPassword").val())) {
         var mensajePopOver;
         mensajePopOver = "<ul>";
         mensajePopOver += "<li>Debe contener al menos 6 caracteres.</li>";
@@ -69,7 +67,7 @@ function validaContrasena() {
         mensajePopOver += "<li>Al menos una letra minuscula.</li>";
         mensajePopOver += "</ul>";
 
-        muestraPopover("#txtPassword", "Requerimientos de Contraseña:", "bottom", mensajePopOver, 8);
+        chattiesObjects.PopUp.Show("#txtPassword", "Requerimientos de Contraseña:", "bottom", mensajePopOver, true, 8);
         $("#txtPassword").focus();
         return false;
     }

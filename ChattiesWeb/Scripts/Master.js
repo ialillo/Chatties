@@ -18,16 +18,16 @@
     dialogFooter += "<button id='btnAyudaOK' type='button' class='btn btn-default'>OK</button>";
 
     // Insertamos el html del modal
-    preparaModal(dialogTitle, dialogBody, dialogFooter);
+    chattiesObjects.Modal.Create("body", dialogTitle, dialogBody, dialogFooter);
 
     // Boton que oculta el modal de ayuda
     $("#btnAyudaOK").bind("click", function () {
-        ocultaModal();
+        chattiesObjects.Modal.Hide();
     });
 
     // Le ponemos al link de ayuda la funcionalidad
     $("#linkAyuda").bind("click", function () {
-        muestraModal();
+        chattiesObjects.Modal.Show();
     });
 
     //Insertamos el menu
