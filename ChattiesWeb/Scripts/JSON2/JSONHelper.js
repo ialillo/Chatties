@@ -18,9 +18,7 @@ function doJsonObjectAjaxCallback(serviceUrl, method, jsonObject, successFunctio
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: successFunction,
-            error: function (xhr, status, error)
-            {
-                debugger;
+            error: function (xhr, status, error) {
                 chattiesObjects.GlobalMessage.Show(xhr.responseText, true);
             }
         });

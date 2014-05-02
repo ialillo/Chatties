@@ -25,19 +25,19 @@ namespace Chatties.Services.Security
                 try
                 {
                     ///Si no existe el usuario manda la excepcion
-                    if (!user.UserExists())
+                    if (!user.VerifyUserExists())
                     {
                         throw new Chatties.Exception.Login.LoginException("El usuario no existe en la base de datos.");
                     }
 
                     ///Verifica si el usuario está activo o no
-                    if (!user.ActiveUser())
+                    if (!user.VerifyActiveUser())
                     {
                         throw new Chatties.Exception.Login.LoginException("El usuario no está activo.");
                     }
 
                     ///Verifica si el usuario no tiene la nueva seguridad
-                    if (user.OldUser(password))
+                    if (user.VerifyOldUser(password))
                     {
                         result.Success = true;
                         result.ServiceMessage = "Viejo";
@@ -72,13 +72,20 @@ namespace Chatties.Services.Security
         /// <param name="user">Usuario</param>
         /// <param name="password">Contraseña</param>
         /// <returns></returns>
-        public DTO.General.Result ChangePassword(DTO.General.User user, string password)
+        public DTO.General.Result ChangePassword(DTO.General.User user, string oldPassword, string newPassword)
         {
             using (DTO.General.Result result = new DTO.General.Result())
             {
+                string mensajeSP = string.Empty;
+
                 try
                 {
-                    user.ChangePassword(password);
+                    mensajeSP = user.ChangePassword(oldPassword, newPassword);
+
+                    if (mensajeSP != "OK")
+                    {
+                        throw new Chatties.Exception.Login.LoginException("Contraseña no válida");
+                    }
                 }
                 catch (System.Exception ex)
                 {
@@ -90,6 +97,39 @@ namespace Chatties.Services.Security
 
                 result.Success = true;
                 result.ServiceMessage = "OK";
+
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// Método que obtiene información del usuario en la sesión actual
+        /// </summary>
+        /// <returns>El usuario en sesión</returns>
+        public DTO.General.ResultGeneric<DTO.Security.LoggedUser> CurrentSessionUser()
+        {
+            using (DTO.General.ResultGeneric<DTO.Security.LoggedUser> result = new DTO.General.ResultGeneric<DTO.Security.LoggedUser>())
+            {
+                try
+                {
+                    DTO.Security.LoggedUser lu = (DTO.Security.LoggedUser)HttpContext.Current.Session["User"];
+                    DTO.Security.LoggedUser luMin = new DTO.Security.LoggedUser();
+
+                    luMin.Nombre = lu.Nombre;
+                    luMin.ApellidoPaterno = lu.ApellidoPaterno;
+                    luMin.ApellidoMaterno = lu.ApellidoPaterno;
+                    luMin.Perfil = lu.Perfil;
+                    luMin.Email = lu.Email;
+
+                    result.Object = luMin;
+                    result.Success = true;
+                    result.ServiceMessage = "OK";
+                }
+                catch (System.Exception ex)
+                {
+                    result.Success = false;
+                    result.ServiceMessage = ex.Message;
+                }
 
                 return result;
             }

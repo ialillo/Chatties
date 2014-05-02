@@ -29,7 +29,8 @@
     $("#btnCambiaContrasena").bind("click", function (event) {
         var objLogin = {
             user: { Usuario: $("#txtUsuario").val() },
-            password: $("#txtPwdNuevo").val()
+            oldPassword: $("#txtPassword").val(),
+            newPassword: $("#txtPwdNuevo").val()
         }
 
         // Si las contraseñas escritas son distintas entre ellas

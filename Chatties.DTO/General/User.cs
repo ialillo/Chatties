@@ -33,7 +33,7 @@ namespace Chatties.DTO.General
         /// Verifica si existe el usuario en la base de datos
         /// </summary>
         /// <returns>Verdadero o falso</returns>
-        public bool UserExists()
+        public bool VerifyUserExists()
         {
             using (DAL.DBAccess<bool> loginAttempt = new DAL.DBAccess<bool>())
             {
@@ -45,7 +45,7 @@ namespace Chatties.DTO.General
         /// Verifica si el usuario está activo en la base de datos
         /// </summary>
         /// <returns>Verdadero o falso</returns>
-        public bool ActiveUser()
+        public bool VerifyActiveUser()
         {
             using (DAL.DBAccess<bool> loginAttempt = new DAL.DBAccess<bool>())
             {
@@ -58,7 +58,7 @@ namespace Chatties.DTO.General
         /// </summary>
         /// <param name="password">contraseña</param>
         /// <returns>Verdadero o falso</returns>
-        public bool OldUser(string password)
+        public bool VerifyOldUser(string password)
         {
             using (DAL.DBAccess<bool> loginAttempt = new DAL.DBAccess<bool>())
             {
@@ -88,15 +88,16 @@ namespace Chatties.DTO.General
         /// Método que cambia la contraseña de un usuario
         /// </summary>
         /// <param name="password"></param>
-        public void ChangePassword(string password)
+        public string ChangePassword(string oldPassword, string newPassword)
         {
             using (Chatties.Security.Encription.Encrypter enc = new Chatties.Security.Encription.Encrypter())
             {
-                string encriptedPassword = enc.Encrypt(password);
+                string encriptedPassword = enc.Encrypt(newPassword);
+                string encriptedOldPassword = VerifyOldUser(oldPassword) ? oldPassword : enc.Encrypt(oldPassword);
 
                 using (DAL.DBAccess<bool> cp = new DAL.DBAccess<bool>())
                 {
-                    cp.ExecuteNonQuery("Usuarios.CambiaPassword", this.Usuario, encriptedPassword);
+                    return (string)cp.ExecuteScalar("Usuarios.CambiaPassword", this.Usuario, encriptedOldPassword, encriptedPassword);
                 }
             }
         }

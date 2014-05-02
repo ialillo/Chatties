@@ -1,1 +1,0 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ValidateSession.ascx.cs" Inherits="Chatties.Web.UserControls.ValidateSession" %>

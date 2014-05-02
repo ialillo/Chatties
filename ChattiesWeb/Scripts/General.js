@@ -1,4 +1,5 @@
 ﻿var chattiesObjects = {
+    UsuarioEnSesion: {},
     BaseURL: null,
     regExValidators: {
         validPassword: function (str) {
@@ -14,7 +15,8 @@
             Seguridad: {
                 subURL: "Services/Security",
                 authenticate: "/Authenticate",
-                changePassword: "/ChangePassword"
+                changePassword: "/ChangePassword",
+                currentUser: "/CurrentSessionUser"
             }
         }
     },
@@ -26,7 +28,7 @@
             alertId: "#alertDiv",
             messageId: "#alertMessage",
         },
-        alertHTMLString: "<div id='alertDiv' class='alert alert-dismissable' style='display:none;'><label id='alertMessage'></label></div>",
+        alertHTMLString: "<div id='alertDiv' class='alert alert-dismissable' style='display:none;'></div>",
         Create: function () {
             $(this.selectors.containerId).append(this.alertHTMLString);
         },
@@ -44,7 +46,7 @@
             }
 
             // Cambiamos el texto de la etiqueta del mesnaje y mostramos el mensaje
-            $(this.selectors.messageId).text(message);
+            $(this.selectors.alertId).html(message);
             $(this.selectors.alertId).show();
 
             // Si se especifica que el mensaje se auto oculte se hace un time out en el tiempo especificado en segundos, el valor default es 3
