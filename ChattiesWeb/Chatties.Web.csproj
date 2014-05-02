@@ -81,6 +81,7 @@
     <Content Include="Styles\Bootstrap\bootstrap.min.css" />
     <Content Include="Styles\Login.css" />
     <Content Include="Styles\Master.css" />
+    <Content Include="UserControls\ValidateSession.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -114,6 +115,13 @@
     </Compile>
     <Compile Include="Security\Perfil.aspx.designer.cs">
       <DependentUpon>Perfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ValidateSession.ascx.cs">
+      <DependentUpon>ValidateSession.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ValidateSession.ascx.designer.cs">
+      <DependentUpon>ValidateSession.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

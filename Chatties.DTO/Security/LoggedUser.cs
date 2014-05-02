@@ -44,5 +44,11 @@ namespace Chatties.DTO.Security
         /// </summary>
         [DataMember]
         public string Perfil { get; set; }
+
+        /// <summary>
+        /// Representa el email del usuario Loggeado
+        /// </summary>
+        [DataMember]
+        public string Email { get; set; }
     }
 }

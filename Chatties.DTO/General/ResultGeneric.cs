@@ -3,29 +3,15 @@ using System.Runtime.Serialization;
 
 namespace Chatties.DTO.General
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [DataContract]
-    public class Result: IDisposable
+    public class ResultGeneric<T>: IDisposable
     {
         private bool _disposed;
 
         /// <summary>
         /// Constructor base requerido para la serialización
         /// </summary>
-        public Result() { }
-
-        /// <summary>
-        /// Constructor para creación de objetos al vuelo
-        /// </summary>
-        /// <param name="success"></param>
-        /// <param name="servicesMessage"></param>
-        public Result(bool success, string servicesMessage)
-        {
-            this.Success = success;
-            this.ServiceMessage = servicesMessage;
-        }
+        public ResultGeneric() { }
 
         /// <summary>
         /// Describe si la llamada al servicio fué satisfactoria o no
@@ -34,13 +20,19 @@ namespace Chatties.DTO.General
         public bool Success { get; set; }
 
         /// <summary>
-        /// Envía el mensaje de error o exito de la llamada al servicio
+        /// Describe el resultado de la llamada al servicio
         /// </summary>
         [DataMember]
         public string ServiceMessage { get; set; }
 
         /// <summary>
-        /// Utiliza el garbage collector para destruir las instancias propias
+        /// Instancia de la clase de tipo de resultado requerida en la llamada al servicio
+        /// </summary>
+        [DataMember]
+        public T Object { get; set; }
+
+        /// <summary>
+        /// Utiliza el Garbage Collector para destruir las instancias propias
         /// </summary>
         public void Dispose()
         {
@@ -51,7 +43,7 @@ namespace Chatties.DTO.General
         /// <summary>
         /// Destruye las instancias creadas asincronamente
         /// </summary>
-        ~Result()
+        ~ResultGeneric()
         {
             Dispose(false);
         }
@@ -60,7 +52,7 @@ namespace Chatties.DTO.General
         /// Destruye las instancias internas condicionalmente
         /// </summary>
         /// <param name="disposing"></param>
-        public virtual void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (!_disposed)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 
 namespace Chatties.Services.Security
 {
@@ -7,8 +8,24 @@ namespace Chatties.Services.Security
     [ServiceContract]
     public interface ISecurity
     {
-        // Método que autentica un usuario en la base de datos
+        /// <summary>
+        /// Método que autentica un usuario vs la base de datos
+        /// </summary>
+        /// <param name="user">Usuario</param>
+        /// <param name="password">Password</param>
+        /// <returns></returns>
         [OperationContract]
-        Chatties.DTO.General.Result<Chatties.DTO.Security.LoggedUser> Authenticate(Chatties.DTO.General.User user, string password);
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+        Chatties.DTO.General.Result Authenticate(Chatties.DTO.General.User user, string password);
+
+        /// <summary>
+        /// Método que cambia el password de un usuario
+        /// </summary>
+        /// <param name="user">Usuario</param>
+        /// <param name="password">Password</param>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+        Chatties.DTO.General.Result ChangePassword(DTO.General.User user, string password);
     }
 }

@@ -23,12 +23,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-3 col-md-2 control-label">Usuario</label>
-                    <div class="col-xs-9 col-sm-7 col-md-5">
-                        <p class="form-control-static" id="csUsuario" runat="server"></p>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-xs-3 col-md-2 control-label">Perfil</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
                         <p class="form-control-static" id="csPerfil" runat="server"></p>

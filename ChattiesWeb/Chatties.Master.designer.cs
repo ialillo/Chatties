@@ -31,6 +31,15 @@ namespace Chatties.Web {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// ValidateSession control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Chatties.Web.UserControls.ValidateSession ValidateSession;
+        
+        /// <summary>
         /// ChattiesBodyPH control.
         /// </summary>
         /// <remarks>
@@ -38,14 +47,5 @@ namespace Chatties.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder ChattiesBodyPH;
-        
-        /// <summary>
-        /// hdnFieldUserName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnFieldUserName;
     }
 }

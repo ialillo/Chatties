@@ -27,9 +27,10 @@
 
     //Le agregamos el evento click al boton de cambiar contraseña del modal del login
     $("#btnCambiaContrasena").bind("click", function (event) {
-        var objLogin = new Object;
-        objLogin.Login = $("#txtUsuario").val();
-        objLogin.Password = $("#txtPwdNuevo").val();
+        var objLogin = {
+            user: { Usuario: $("#txtUsuario").val() },
+            password: $("#txtPwdNuevo").val()
+        }
 
         // Si las contraseñas escritas son distintas entre ellas
         if ($("#txtPwdNuevo").val() !== $("#txtPwdNuevoConfirm").val()) {
@@ -38,7 +39,7 @@
         }
         else {
             // Si pasa el filtro de validaciones se hace la llamda asincrona al servidor para cambiar la contraseña
-            doJsonObjectAjaxCallback("Login.aspx/CambiaPassword", "login", JSON.stringify(objLogin), cambioDeContrasenaCorrecto);
+            doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.Seguridad.subURL, chattiesObjects.Services.URLs.Seguridad.changePassword, objLogin, cambioDeContrasenaCorrecto);
         }
     });
 
@@ -76,39 +77,37 @@
         $("#txtPwdNuevoConfirm").parent().removeClass("has-error");
 
         //Creamos un objeto para pasarlo como parametro en el callback de ajax
-        var objLogin = new Object();
-        objLogin.user = $("#txtUsuario").val();
-        objLogin.password = $("#txtPassword").val();
+        var objUsuario = {
+            user: { Usuario: $("#txtUsuario").val() },
+            password: $("#txtPassword").val()
+        };
 
         //Llamamos a la funcion generica para hacer un callback
-        doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.Seguridad.subURL, chattiesObjects.Services.URLs.Seguridad.autentica, objLogin, LoginCorrecto);
+        doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.Seguridad.subURL, chattiesObjects.Services.URLs.Seguridad.authenticate, objUsuario, LoginCorrecto);
     });
 });
 
 //Es la funcion que se ejecuta cuando se hizo el callback correctamente.
-var LoginCorrecto = function (dObj) {
-    var objeto = JSON.parse(getMain(dObj));
-
+var LoginCorrecto = function (result) {
     //Entra aqui si el password es incorrecto o el usuario no existe
-    if (objeto.nombreCompleto.indexOf("Error") > -1) {
-        chattiesObjects.GlobalMessage.Show(objeto.nombreCompleto, true);
+    if (!result.Success) {
+        chattiesObjects.GlobalMessage.Show(result.ServiceMessage, true);
     }
         //Entra aqui si el password del usuario todavia no esta encriptado
-    else if (objeto.nombreCompleto.indexOf("Viejo") > -1) {
+    else if (result.Success && result.ServiceMessage.indexOf("Viejo") > -1) {
         chattiesObjects.Modal.Show();
     }
         //Entra aqui cuando la operacion se realizo con exito
     else {
-        window.location.href = "../../Home.aspx";
+        chattiesObjects.Tools.Redirectors.RedirectToHome();
     }
 };
 
 // Funcion que se desencadena una ves que se ejecutó el método de cambio de contraseña en el servidor
-function cambioDeContrasenaCorrecto(dObj) {
-    var objeto = getMain(dObj);
+function cambioDeContrasenaCorrecto(result) {
 
-    if (objeto.indexOf("Error") > -1) {
-        chattiesObjects.PopUp.Show("#btnCambiaContrasena", "Error:", "top", objeto, true, 8);
+    if (!result.Success) {
+        chattiesObjects.PopUp.Show("#btnCambiaContrasena", "Error:", "top", result.ServiceMessage, true, 8);
     } else {
         chattiesObjects.Modal.Hide();
         chattiesObjects.GlobalMessage.Show("Cambio de contraseña exitoso, por favor accesa con tus nuevas credenciales.", false);

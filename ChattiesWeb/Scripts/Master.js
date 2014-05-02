@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
-    //Obtenemos el nombre del usuario Loggeado
-    var loggedUserName = $("[id~='hdnFieldUserName']").val();
+    var loggedUserName = chattiesObjects.CurrentLoggedUserInfo.nombre + ' ' + chattiesObjects.CurrentLoggedUserInfo.apellidoPaterno + ' ' + chattiesObjects.CurrentLoggedUserInfo.apellidoMaterno;
     var mailToCesar = "mailto:admin@bagcity.mx?subject=" + loggedUserName + "(Ayuda Chatties)";
     var mailToIsai = "mailto:isai.alillo@outlook.com?subject=" + loggedUserName + "(Ayuda Chatties)";
 
@@ -31,7 +30,7 @@
     });
 
     //Insertamos el menu
-    doJsonObjectAjaxCallback("Home.aspx/ObtenMenu", "1", insertaMenu);
+    //doJsonObjectAjaxCallback("Home.aspx/ObtenMenu", "1", insertaMenu);
 
     //Ponemos la clase de activo al elemnto que representa la pagina actual en el menu del sitio
     estableceItemMenuActivo();

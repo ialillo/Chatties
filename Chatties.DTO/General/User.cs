@@ -35,9 +35,9 @@ namespace Chatties.DTO.General
         /// <returns>Verdadero o falso</returns>
         public bool UserExists()
         {
-            using (DAL.DBAccess<Security.LoggedUser> loginAttempt = new DAL.DBAccess<Security.LoggedUser>())
+            using (DAL.DBAccess<bool> loginAttempt = new DAL.DBAccess<bool>())
             {
-                return loginAttempt.GetBoolean(string.Format("Seguridad.ExisteUsuario {0}", this.Usuario));
+                return loginAttempt.GetBoolean("Seguridad.ExisteUsuario", this.Usuario);
             }
         }
 
@@ -47,9 +47,9 @@ namespace Chatties.DTO.General
         /// <returns>Verdadero o falso</returns>
         public bool ActiveUser()
         {
-            using (DAL.DBAccess<Security.LoggedUser> loginAttempt = new DAL.DBAccess<Security.LoggedUser>())
+            using (DAL.DBAccess<bool> loginAttempt = new DAL.DBAccess<bool>())
             {
-                return loginAttempt.GetBoolean(string.Format("Seguridad.VerificaUsuarioActivo {0}", this.Usuario));
+                return loginAttempt.GetBoolean("Seguridad.VerificaUsuarioActivo", this.Usuario);
             }
         }
 
@@ -60,9 +60,9 @@ namespace Chatties.DTO.General
         /// <returns>Verdadero o falso</returns>
         public bool OldUser(string password)
         {
-            using (DAL.DBAccess<Security.LoggedUser> loginAttempt = new DAL.DBAccess<Security.LoggedUser>())
+            using (DAL.DBAccess<bool> loginAttempt = new DAL.DBAccess<bool>())
             {
-                return loginAttempt.GetBoolean(string.Format("Seguridad.VerificaUsuarioViejo {0}, {1}", this.Usuario, password));
+                return loginAttempt.GetBoolean("Seguridad.VerificaUsuarioViejo", this.Usuario, password);
             }
         }
 
@@ -79,7 +79,24 @@ namespace Chatties.DTO.General
 
                 using (DAL.DBAccess<Security.LoggedUser> loginAttempt = new DAL.DBAccess<Security.LoggedUser>())
                 {
-                    return loginAttempt.GetObject(string.Format("Seguridad.Autenticar {0}, {1}", this.Usuario, encriptedPassword));
+                    return loginAttempt.GetObject("Seguridad.Autenticar", this.Usuario, encriptedPassword);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Método que cambia la contraseña de un usuario
+        /// </summary>
+        /// <param name="password"></param>
+        public void ChangePassword(string password)
+        {
+            using (Chatties.Security.Encription.Encrypter enc = new Chatties.Security.Encription.Encrypter())
+            {
+                string encriptedPassword = enc.Encrypt(password);
+
+                using (DAL.DBAccess<bool> cp = new DAL.DBAccess<bool>())
+                {
+                    cp.ExecuteNonQuery("Usuarios.CambiaPassword", this.Usuario, encriptedPassword);
                 }
             }
         }

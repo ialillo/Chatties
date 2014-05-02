@@ -18,9 +18,9 @@ namespace Chatties.Services.Security
         /// <param name="user">Contiene el usuario a autenticar</param>
         /// <param name="password">Password a autenticar</param>
         /// <returns></returns>
-        public DTO.General.Result<DTO.Security.LoggedUser> Authenticate(DTO.General.User user, string password)
+        public DTO.General.Result Authenticate(DTO.General.User user, string password)
         {
-            using (DTO.General.Result<DTO.Security.LoggedUser> result = new DTO.General.Result<DTO.Security.LoggedUser>())
+            using (DTO.General.ResultGeneric<DTO.Security.LoggedUser> result = new DTO.General.ResultGeneric<DTO.Security.LoggedUser>())
             {
                 try
                 {
@@ -39,7 +39,9 @@ namespace Chatties.Services.Security
                     ///Verifica si el usuario no tiene la nueva seguridad
                     if (user.OldUser(password))
                     {
-                        throw new Chatties.Exception.Login.LoginException("Viejo");
+                        result.Success = true;
+                        result.ServiceMessage = "Viejo";
+                        return new DTO.General.Result(result.Success, result.ServiceMessage);
                     }
 
                     result.Object = user.Authenticate(password);
@@ -51,6 +53,7 @@ namespace Chatties.Services.Security
 
                     result.Object.SessionID = HttpContext.Current.Session.SessionID;
                     HttpContext.Current.Session["User"] = result.Object;
+
                     result.Success = true;
                     result.ServiceMessage = "OK";
                 }
@@ -59,6 +62,35 @@ namespace Chatties.Services.Security
                     result.Success = false;
                     result.ServiceMessage = ex.Message;
                 }
+                return new DTO.General.Result(result.Success, result.ServiceMessage);
+            }
+        }
+
+        /// <summary>
+        /// Cambia la contraseña de un usuario
+        /// </summary>
+        /// <param name="user">Usuario</param>
+        /// <param name="password">Contraseña</param>
+        /// <returns></returns>
+        public DTO.General.Result ChangePassword(DTO.General.User user, string password)
+        {
+            using (DTO.General.Result result = new DTO.General.Result())
+            {
+                try
+                {
+                    user.ChangePassword(password);
+                }
+                catch (System.Exception ex)
+                {
+                    result.Success = false;
+                    result.ServiceMessage = ex.Message;
+
+                    return result;
+                }
+
+                result.Success = true;
+                result.ServiceMessage = "OK";
+
                 return result;
             }
         }

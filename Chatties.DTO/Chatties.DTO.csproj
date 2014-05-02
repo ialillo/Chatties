@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="General\Person.cs" />
     <Compile Include="General\Result.cs" />
+    <Compile Include="General\ResultGeneric.cs" />
     <Compile Include="General\User.cs" />
     <Compile Include="Navegation\Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -13,7 +13,8 @@
         URLs: {
             Seguridad: {
                 subURL: "Services/Security",
-                autentica: "/Authenticate"
+                authenticate: "/Authenticate",
+                changePassword: "/ChangePassword"
             }
         }
     },
@@ -105,6 +106,7 @@
             $(this.selectors.modalFooter).html(footer);
         },
         Show: function () {
+            $(this.selectors.myModal).modal({backdrop: 'static', keyboard: false});
             $(this.selectors.myModal).modal("show");
 
             if (this.autoHide) {
@@ -115,6 +117,16 @@
         },
         Hide: function () {
             $(this.selectors.myModal).modal("hide");
+        }
+    },
+    Tools: {
+        Redirectors: {
+            RedirectToLogin: function () {
+                window.location.href = chattiesObjects.BaseURL + "Login.aspx";
+            },
+            RedirectToHome: function () {
+                window.location.href = chattiesObjects.BaseURL + "Home.aspx";
+            }
         }
     }
 };
