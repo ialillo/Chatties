@@ -26,7 +26,7 @@ namespace Chatties.Services.Security
         /// <returns></returns>
         [OperationContract]
         [WebInvoke(BodyStyle = WebMessageBodyStyle.WrappedRequest)]
-        Chatties.DTO.General.Result ChangePassword(DTO.General.User user, string oldPassword, string newPassword);
+        Chatties.DTO.General.Result ChangePassword(string oldPassword, string newPassword);
 
         /// <summary>
         /// Método que obtiene información del usuario en la sesión actual

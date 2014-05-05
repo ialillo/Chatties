@@ -48,31 +48,31 @@
                     <ul class="nav nav-list">
                       <li>
                         <ul class="nav nav-sidebar">
-                            <li><a href="~/Home.aspx" runat="server">Home</a></li>
+                            <li data-link="Home.aspx" class="submodulo" onclick="chattiesObjects.Menu.GoTo(this);"><a href="#">Home</a></li>
                         </ul>
                       </li>
                       <li>
                         <ul class="nav nav-sidebar">
                             <li class="menu-title"><a>Panel de Control</a></li>
-                          <li><a href="#">Usuarios</a></li>
-                          <li><a href="#">Permisos</a></li>
-                          <li><a href="#">Modulos</a></li>
+                          <li data-link="#" class="submodulo"><a href="#">Usuarios</a></li>
+                          <li data-link="#" class="submodulo"><a href="#">Permisos</a></li>
+                          <li data-link="#" class="submodulo"><a href="#">Modulos</a></li>
                         </ul>
                       </li>
                       <li>
                         <ul class="nav nav-sidebar">
                           <li class="menu-title"><a>Diseño</a></li>
-                          <li><a href="#">Alt de Producto</a></li>
-                          <li><a href="#">Confirmación de PO</a></li>
-                          <li><a href="#">Seguimiento PO</a></li>
+                          <li data-link="#" class="submodulo"><a href="#">Alt de Producto</a></li>
+                          <li data-link="#" class="submodulo"><a href="#">Confirmación de PO</a></li>
+                          <li data-link="#" class="submodulo"><a href="#">Seguimiento PO</a></li>
                        </ul>
                       </li>
                       <li>
                         <ul class="nav nav-sidebar">
                           <li class="menu-title"><a>Logistica</a></li>
-                          <li><a href="#">Inf por Contenedor</a></li>
-                          <li><a href="#">Inf por PO</a></li>
-                          <li><a href="#">Reporte PO Costos</a></li>
+                          <li data-link="#" class="submodulo"><a href="#">Inf por Contenedor</a></li>
+                          <li data-link="#" class="submodulo"><a href="#">Inf por PO</a></li>
+                          <li data-link="#" class="submodulo"><a href="#">Reporte PO Costos</a></li>
                        </ul>
                       </li>
                     </ul>

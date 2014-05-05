@@ -27,8 +27,7 @@
 
     //Le agregamos el evento click al boton de cambiar contraseña del modal del login
     $("#btnCambiaContrasena").bind("click", function (event) {
-        var objLogin = {
-            user: { Usuario: $("#txtUsuario").val() },
+        var objCP = {
             oldPassword: $("#txtPassword").val(),
             newPassword: $("#txtPwdNuevo").val()
         }
@@ -40,7 +39,7 @@
         }
         else {
             // Si pasa el filtro de validaciones se hace la llamda asincrona al servidor para cambiar la contraseña
-            doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.Seguridad.subURL, chattiesObjects.Services.URLs.Seguridad.changePassword, objLogin, cambioDeContrasenaCorrecto);
+            doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.Seguridad.subURL, chattiesObjects.Services.URLs.Seguridad.changePassword, objCP, cambioDeContrasenaCorrecto);
         }
     });
 

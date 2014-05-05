@@ -13,26 +13,26 @@
                 <div class="form-group">
                     <label for="txtNombre" class="col-xs-3 col-md-2 control-label">Nombre</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
-                        <p class="form-control-static" id="csNombre" runat="server" placeholder="Nombre"></p>
+                        <p class="form-control-static" id="csNombre"></p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="txtEmail" class="col-xs-3 col-md-2 control-label">Email</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
-                        <p class="form-control-static" id="csEmail" runat="server"></p>
+                        <p class="form-control-static" id="csEmail"></p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-3 col-md-2 control-label">Perfil</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
-                        <p class="form-control-static" id="csPerfil" runat="server"></p>
+                        <p class="form-control-static" id="csPerfil"></p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-3 col-md-2 control-label">Cambiar Contraseña</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
                         <div class="input-group">
-                            <input type="password" id="txtPassword" class="form-control" placeholder="Contraseña Actual" />
+                            <input type="password" id="txtPassword" class="form-control" placeholder="Escriba su contraseña actual" />
                             <span class="input-group-btn">
                                 <button id="btnCambiaContraseña" class="btn btn-default" onclick="CambiaPassword();" type="button">Cambiar</button>
                             </span>
