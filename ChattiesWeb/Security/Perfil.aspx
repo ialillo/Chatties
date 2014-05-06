@@ -29,19 +29,18 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-3 col-md-2 control-label">Contraseña Actual</label>
+                    <label class="col-xs-3 col-md-2 control-label">Cambiar Contraseña</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
                         <div class="input-group">
                             <input type="password" id="txtPassword" class="form-control" placeholder="Escriba su contraseña actual" />
                             <span class="input-group-btn">
-                                <button id="btnCambiaContraseña" class="btn btn-default" onclick="CambiaPassword();" type="button">Cambiar</button>
+                                <button id="btnCambiaContraseña" class="btn btn-default" onclick="perfilObjects.CambiaPassword();" type="button">Cambiar</button>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-xs-9 col-xs-offset-3 col-sm-7 col-sm-offset-3 col-md-5 col-md-offset-2">
-                        <button id="btnCambiar" class="btn btn-primary">Cambiar</button>&nbsp;
                         <button id="btnCancelar" class="btn btn-default">Cancelar</button>
                     </div>
                 </div>

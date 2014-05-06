@@ -137,10 +137,6 @@
       <Project>{ac6c22ea-9048-4a45-8d0c-1797f8324568}</Project>
       <Name>Chatties.Security</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Chatties\Chatties.Models.csproj">
-      <Project>{0c33accf-b196-4d1d-9d45-c6ce8791d46f}</Project>
-      <Name>Chatties.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Styles\JQuery\" />
