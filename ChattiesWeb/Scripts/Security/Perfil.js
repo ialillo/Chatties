@@ -62,7 +62,7 @@ function validaContrasena() {
         var mensajePopOver;
         mensajePopOver = "<ul>";
         mensajePopOver += "<li>Debe contener al menos 6 caracteres.</li>";
-        mensajePopOver += "<li> Al menos un numero.</li>";
+        mensajePopOver += "<li>Al menos un numero.</li>";
         mensajePopOver += "<li>Al menos una letra mayuscula.</li>";
         mensajePopOver += "<li>Al menos una letra minuscula.</li>";
         mensajePopOver += "</ul>";

@@ -29,19 +29,21 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-3 col-md-2 control-label">Cambiar Contraseña</label>
+                    <label class="col-xs-3 col-md-2 control-label">Contraseña Actual</label>
                     <div class="col-xs-9 col-sm-7 col-md-5">
-                        <div class="input-group">
-                            <input type="password" id="txtPassword" class="form-control" placeholder="Contraseña Actual" />
-                            <span class="input-group-btn">
-                                <button id="btnCambiaContraseña" class="btn btn-default" onclick="CambiaPassword();" type="button">Cambiar</button>
-                            </span>
-                        </div>
+                        <input type="password" id="txtPassword" class="form-control" placeholder="Contraseña Actual" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-3 col-md-2 control-label">Contraseña Nueva</label>
+                    <div class="col-xs-9 col-sm-7 col-md-5">
+                        <input type="password" id="txtPasswordNuevo" class="form-control" placeholder="Contraseña Nueva" />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-xs-9 col-xs-offset-3 col-sm-7 col-sm-offset-3 col-md-5 col-md-offset-2">
-                        <a href="../Home.aspx" id="btnCancelar" class="btn btn-default">Cancelar</a>
+                        <button id="btnCambiar" class="btn btn-primary">Cambiar</button>&nbsp;
+                        <button id="btnCancelar" class="btn btn-default">Cancelar</button>
                     </div>
                 </div>
             </div>
