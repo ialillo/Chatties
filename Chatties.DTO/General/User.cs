@@ -58,11 +58,11 @@ namespace Chatties.DTO.General
         /// </summary>
         /// <param name="password">contraseña</param>
         /// <returns>Verdadero o falso</returns>
-        public bool VerifyOldUser(string password)
+        public Security.LoggedUser VerifyOldUser(string password)
         {
-            using (DAL.DBAccess<bool> loginAttempt = new DAL.DBAccess<bool>())
+            using (DAL.DBAccess<Security.LoggedUser> loginAttempt = new DAL.DBAccess<Security.LoggedUser>())
             {
-                return loginAttempt.GetBoolean("Seguridad.VerificaUsuarioViejo", this.Usuario, password);
+                return loginAttempt.GetObject("Seguridad.VerificaUsuarioViejo", this.Usuario, password);
             }
         }
 
@@ -93,9 +93,9 @@ namespace Chatties.DTO.General
             using (Chatties.Security.Encription.Encrypter enc = new Chatties.Security.Encription.Encrypter())
             {
                 string encriptedPassword = enc.Encrypt(newPassword);
-                string encriptedOldPassword = VerifyOldUser(oldPassword) ? oldPassword : enc.Encrypt(oldPassword);
+                string encriptedOldPassword = VerifyOldUser(oldPassword) != null ? oldPassword : enc.Encrypt(oldPassword);
 
-                using (DAL.DBAccess<bool> cp = new DAL.DBAccess<bool>())
+                using (DAL.DBAccess<string> cp = new DAL.DBAccess<string>())
                 {
                     return (string)cp.ExecuteScalar("Usuarios.CambiaPassword", this.Usuario, encriptedOldPassword, encriptedPassword);
                 }

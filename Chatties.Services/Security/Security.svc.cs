@@ -37,10 +37,16 @@ namespace Chatties.Services.Security
                     }
 
                     ///Verifica si el usuario no tiene la nueva seguridad
-                    if (user.VerifyOldUser(password))
+                    result.Object = user.VerifyOldUser(password);
+
+                    /// Si el usuario tiene la vieja seguridad, se guarda el usuario en sesión y se regresa la notificación al cliente
+                    if (result.Object != null)
                     {
                         result.Success = true;
                         result.ServiceMessage = "Viejo";
+
+                        HttpContext.Current.Session["User"] = result.Object;
+
                         return new DTO.General.Result(result.Success, result.ServiceMessage);
                     }
 
@@ -72,8 +78,10 @@ namespace Chatties.Services.Security
         /// <param name="user">Usuario</param>
         /// <param name="password">Contraseña</param>
         /// <returns></returns>
-        public DTO.General.Result ChangePassword(DTO.General.User user, string oldPassword, string newPassword)
+        public DTO.General.Result ChangePassword(string oldPassword, string newPassword)
         {
+            DTO.General.User user = new DTO.General.User(((DTO.Security.LoggedUser)HttpContext.Current.Session["User"]).Usuario);
+
             using (DTO.General.Result result = new DTO.General.Result())
             {
                 string mensajeSP = string.Empty;
@@ -117,7 +125,7 @@ namespace Chatties.Services.Security
 
                     luMin.Nombre = lu.Nombre;
                     luMin.ApellidoPaterno = lu.ApellidoPaterno;
-                    luMin.ApellidoMaterno = lu.ApellidoPaterno;
+                    luMin.ApellidoMaterno = lu.ApellidoMaterno;
                     luMin.Perfil = lu.Perfil;
                     luMin.Email = lu.Email;
 

@@ -1,55 +1,51 @@
 ﻿var contCambioPass = 1;
+var objCP = {};
+
+$(document).ready(function (){
+    doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.Seguridad.subURL, chattiesObjects.Services.URLs.Seguridad.currentUser, {}, muestraInfoUsuario);
+});
+
+muestraInfoUsuario = function (result) {
+    if (result.Success) {
+        $("#csNombre").html(result.Object.Nombre + ' ' + result.Object.ApellidoPaterno + ' ' + result.Object.ApellidoMaterno);
+        $("#csEmail").html(result.Object.Email);
+        $("#csPerfil").html(result.Object.Perfil);
+    } else{
+        chattiesObjects.Tools.Redirectors.RedirectToLogin();
+    }
+}
 
 function CambiaPassword() {
-    var objLogin = new Object;
-    objLogin.Login = $("p[id$=csUsuario]").text();
-    objLogin.Password = $("#txtPassword").val();
+    if (validaContrasena()) {
+        if (contCambioPass === 1) {
+            objCP.oldPassword = $("#txtPassword").val();
 
-    var strongPassword = validaContrasena();
-
-    if (strongPassword) {
-        if (contCambioPass == 1) {
-            doJsonObjectAjaxCallback("Perfil.aspx/VerificaCredenciales", "login", JSON.stringify(objLogin), CredencialesCorrectas);
+            $("#txtPassword").val("");
+            $("#txtPassword").attr("placeholder", "Escriba su contraseña nueva");
+            contCambioPass += 1;
         }
         else {
-            doJsonObjectAjaxCallback("Perfil.aspx/CambiaPassword", "login", JSON.stringify(objLogin), CredencialesCorrectas);
+            objCP.newPassword = $("#txtPassword").val();
+            doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.Seguridad.subURL, chattiesObjects.Services.URLs.Seguridad.changePassword, objCP, CredencialesCorrectas);
         }
     }
 }
 
-var CredencialesCorrectas = function (dObj) {
-    var objeto = getMain(dObj);
-
-    $("#txtPassword").parent().removeClass("has-success");
-    $("#txtPassword").parent().removeClass("has-error");
-
-    if (objeto.indexOf("Error") > -1) {
-        $("#txtPassword").parent().addClass("has-error");
-        chattiesObjects.GlobalMessage.Show(objeto, true);
+var CredencialesCorrectas = function (result) {
+    if (!result.Success) {
+        chattiesObjects.GlobalMessage.Show(result.ServiceMessage, true);
+        resetAllControls();
     }
     else {
-        if (contCambioPass == 1) {
-            $("#txtPassword").val("");
-            $("#btnCambiaContraseña").removeClass("btn-default");
-            $("#btnCambiaContraseña").addClass("btn-success");
-            $("#txtPassword").parent().addClass("has-success");
-            $("#txtPassword").attr("placeholder", "Contraseña nueva");
-            contCambioPass += 1;
-        }
-        else {
-            chattiesObjects.GlobalMessage.Show("La contraseña se cambio exitosamente", false);
-            resetAllControls();
-        }
+        chattiesObjects.GlobalMessage.Show("La contraseña se cambio exitosamente", false);
+        resetAllControls();
     }
 }
 
 function resetAllControls() {
     contCambioPass = 1;
-    $("#btnCambiaContraseña").removeClass("btn-success");
-    $("#btnCambiaContraseña").addClass("btn-default");
     $("#txtPassword").val("");
-    $("#txtPassword").parent().removeClass("has-success");
-    $("#txtPassword").parent().removeClass("has-error");
+    $("#txtPassword").attr("placeholder", "Escriba su contraseña actual");
 }
 
 function validaContrasena() {
