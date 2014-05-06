@@ -8,36 +8,34 @@ namespace Chatties.DTO.Navegation
     /// Representa el menú asignado al usuario que se presenta del lado izquierdo de la pantalla del sitio.
     /// </summary>
     [DataContract]
-    public class Menu
+    public class Menu : List<Modulo>, IDisposable
     {
-        /// <summary>
-        /// Identificador del módulo ligado a la base de datos
-        /// </summary>
-        [DataMember]
-        public int IdModulo { get; set; }
+        bool _disposed;
 
         /// <summary>
-        /// Representa el nombre del módulo, propiedad ligada a la base de datos
+        /// Constructor necesario para la serialización.
         /// </summary>
-        [DataMember]
-        public string DescModulo { get; set; }
+        public Menu() { }
 
         /// <summary>
-        /// Identificador del submódulo del menu, propiedad ligada a la base de datos
+        /// Destruya las instancias creadas asincronamente
         /// </summary>
-        [DataMember]
-        public int IdSubmodulo { get; set; }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         /// <summary>
-        /// Representa el nombre del submódulo, propiedad ligada a la base de datos
+        /// Destruye las instancias internas condicionalmente
         /// </summary>
-        [DataMember]
-        public string DescSubmodulo { get; set; }
-
-        /// <summary>
-        /// Representa la url del submódulo del menú, propiedad ligada a la base de datos
-        /// </summary>
-        [DataMember]
-        public string Url { get; set; }
+        /// <param name="disposing"></param>
+        public virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                _disposed = true;
+            }
+        }
     }
 }
