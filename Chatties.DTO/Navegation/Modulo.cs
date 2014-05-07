@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Chatties.DTO.Navegation
 {
-    public class Modulo : List<SubModulo>
+    public class Modulo
     {
         /// <summary>
         /// Constructor necesario para la serialización.
@@ -22,5 +22,8 @@ namespace Chatties.DTO.Navegation
         /// </summary>
         [DataMember]
         public string DescModulo { get; set; }
+
+        [DataMember]
+        public List<SubModulo> Submodulo { get; set; }
     }
 }

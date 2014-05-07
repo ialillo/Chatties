@@ -17,6 +17,10 @@
                 authenticate: "/Authenticate",
                 changePassword: "/ChangePassword",
                 currentUser: "/CurrentSessionUser"
+            },
+            Navegacion: {
+                subURL: "Services/Navegation",
+                getMenu: "/GetMenu"
             }
         }
     },

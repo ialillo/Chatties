@@ -15,6 +15,9 @@
             }
         });
     },
+    PintaMenu: function(serviceResult){
+        debugger;
+    },
     PreparaModal: function (serviceResult) {
         if (serviceResult.Success) {
             // Traemos el usuario que está en sesión.
@@ -63,8 +66,11 @@ $(document).ready(function () {
     //Creamos el objeto de mensajes globales del sitio
     chattiesObjects.GlobalMessage.Create();
 
-    //Insertamos el menu
+    //Traemos al usuario en sesión para crear el modal
     doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.Seguridad.subURL, chattiesObjects.Services.URLs.Seguridad.currentUser, {}, masterPageObject.PreparaModal);
+
+    //Creamos el menu y lo pintamos
+    doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.Navegacion.subURL, chattiesObjects.Services.URLs.Navegacion.getMenu, {}, masterPageObject.PintaMenu);
 
     //Ponemos la clase de activo al elemnto que representa la pagina actual en el menu del sitio
     masterPageObject.EstableceItemMenuActivo();
