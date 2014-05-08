@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 
@@ -14,6 +15,6 @@ namespace Chatties.Services.Navegation
         /// <returns>El menu del usuario</returns>
         [OperationContract]
         [WebInvoke(BodyStyle = WebMessageBodyStyle.Wrapped)]
-        Chatties.DTO.General.ResultGeneric<Chatties.DTO.Navegation.Menu> GetMenu();
+        Chatties.DTO.General.ResultGeneric<DTO.Navegation.Menu> GetMenu();
     }
 }

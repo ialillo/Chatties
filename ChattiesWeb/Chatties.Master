@@ -48,10 +48,10 @@
                     <ul class="nav nav-list">
                       <li>
                         <ul class="nav nav-sidebar">
-                            <li data-link="Home.aspx" class="submodulo" onclick="chattiesObjects.Menu.GoTo(this);"><a href="#">Home</a></li>
+                            <li data-link="Home.aspx" class="submodulo" onclick="masterPageObject.Menu.GoTo(this);"><a href="#">Home</a></li>
                         </ul>
                       </li>
-                      <li>
+                      <%--<li>
                         <ul class="nav nav-sidebar">
                             <li class="menu-title"><a>Panel de Control</a></li>
                           <li data-link="#" class="submodulo"><a href="#">Usuarios</a></li>
@@ -74,7 +74,7 @@
                           <li data-link="#" class="submodulo"><a href="#">Inf por PO</a></li>
                           <li data-link="#" class="submodulo"><a href="#">Reporte PO Costos</a></li>
                        </ul>
-                      </li>
+                      </li>--%>
                     </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2 main">

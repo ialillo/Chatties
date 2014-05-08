@@ -15,6 +15,7 @@ namespace Chatties.Services
         protected void Application_Start(object sender, EventArgs e)
         {
             RouteTable.Routes.Add(new ServiceRoute("Security", new WebServiceHostFactory(), typeof(Security.Security)));
+            RouteTable.Routes.Add(new ServiceRoute("Navegation", new WebServiceHostFactory(), typeof(Navegation.Navegation)));
         }
 
         protected void Session_Start(object sender, EventArgs e)

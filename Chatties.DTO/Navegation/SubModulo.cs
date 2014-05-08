@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Chatties.DTO.Navegation
 {
@@ -13,19 +13,19 @@ namespace Chatties.DTO.Navegation
         /// <summary>
         /// Identificador del submódulo del menu, propiedad ligada a la base de datos
         /// </summary>
-        [DataMember]
+        [XmlElement(ElementName = "IdSubmodulo")]
         public int IdSubmodulo { get; set; }
 
         /// <summary>
         /// Representa el nombre del submódulo, propiedad ligada a la base de datos
         /// </summary>
-        [DataMember]
+        [XmlElement(ElementName = "DescSubmodulo")]
         public string DescSubmodulo { get; set; }
 
         /// <summary>
         /// Representa la url del submódulo del menú, propiedad ligada a la base de datos
         /// </summary>
-        [DataMember]
+        [XmlElement(ElementName = "Url")]
         public string Url { get; set; }
     }
 }

@@ -1,4 +1,9 @@
 ﻿var masterPageObject = {
+    Menu: {
+        GoTo: function (menuURL) {
+            window.location.href = chattiesObjects.BaseURL + $(menuURL).data("link");
+        }
+    },
     EstableceItemMenuActivo: function () {
         //Quitamos la clase de activo al elemento que la tenga
         $("li[class='active']").removeClass("active");
@@ -8,15 +13,40 @@
 
         // Buscamos al elemento del menú que tiene el link y le ponemos la clase de activo
         $("#menu li .submodulo").each(function (inc, obj) {
-            var aLinkPage = $(obj).data("link").split("/")[$(obj).data("link").split("/").length - 1];
+            //var aLinkPage = $(obj).data("link").split("/")[$(obj).data("link").split("/").length - 1];
 
-            if (aLinkPage === curPage) {
+            if ($(obj).data("link").indexOf(curPage) >= 0) {
                 $(obj).addClass("active");
             }
         });
     },
-    PintaMenu: function(serviceResult){
-        debugger;
+    PintaMenu: function (serviceResult) {
+        if (serviceResult.GetMenuResult.Success) {
+
+            var menu = serviceResult.GetMenuResult.Object;
+            var menuToAppend = "";
+
+            //Iteramos en los modulos para ir armando el HTML
+            $(menu.Modulos).each(function (i, obj) {
+                menuToAppend += '<li>';
+                menuToAppend += '<ul class="nav nav-sidebar">';
+                menuToAppend += '<li class="menu-title"><a>' + obj.DescModulo + '</a></li>';
+                //Iteramos en los submodulos para complementar el HTML
+                $(obj.SubModulos).each(function (j, sModulo) {
+                    menuToAppend += '<li data-link="' + sModulo.Url + '" class="submodulo" onclick="masterPageObject.Menu.GoTo(this);"><a href="#">' + sModulo.DescSubmodulo + '</a></li>';
+                });
+                menuToAppend += '</ul>';
+                menuToAppend += '</li> ';
+            });
+
+            //Insertamos el html del menu
+            $("#menu:first-child").children().first().append(menuToAppend);
+
+            //Ponemos la clase de activo al elemnto que representa la pagina actual en el menu del sitio
+            masterPageObject.EstableceItemMenuActivo();
+        } else {
+            chattiesObjects.GlobalMessage.Show(serviceResult.GetMenuResult.ServiceMessage, true);
+        }
     },
     PreparaModal: function (serviceResult) {
         if (serviceResult.Success) {
@@ -71,7 +101,4 @@ $(document).ready(function () {
 
     //Creamos el menu y lo pintamos
     doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.Navegacion.subURL, chattiesObjects.Services.URLs.Navegacion.getMenu, {}, masterPageObject.PintaMenu);
-
-    //Ponemos la clase de activo al elemnto que representa la pagina actual en el menu del sitio
-    masterPageObject.EstableceItemMenuActivo();
 });

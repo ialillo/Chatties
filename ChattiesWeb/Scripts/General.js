@@ -134,11 +134,6 @@
                 window.location.href = chattiesObjects.BaseURL + "Home.aspx";
             }
         }
-    },
-    Menu: {
-        GoTo: function (menuURL) {
-            window.location.href = chattiesObjects.BaseURL + $(menuURL).data("link");
-        }
     }
 };
 

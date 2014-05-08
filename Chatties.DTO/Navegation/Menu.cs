@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Chatties.DTO.Navegation
 {
     /// <summary>
     /// Representa el menú asignado al usuario que se presenta del lado izquierdo de la pantalla del sitio.
     /// </summary>
-    public class Menu :IDisposable
+    public class Menu : IDisposable
     {
         bool _disposed;
 
@@ -16,8 +17,8 @@ namespace Chatties.DTO.Navegation
         /// </summary>
         public Menu() { }
 
-        [DataMember]
-        public List<Modulo> Modulo { get; set; }
+        [XmlElement(ElementName = "Modulo")]
+        public Modulo[] Modulos { get; set; }
 
         /// <summary>
         /// Regresa el menú de un usuario
