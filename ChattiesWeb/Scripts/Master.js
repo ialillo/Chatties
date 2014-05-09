@@ -27,20 +27,21 @@
             var menuToAppend = "";
 
             //Iteramos en los modulos para ir armando el HTML
-            $(menu.Modulos).each(function (i, obj) {
+            $(menu.Modulos).each(function (i, modulo) {
                 menuToAppend += '<li>';
                 menuToAppend += '<ul class="nav nav-sidebar">';
-                menuToAppend += '<li class="menu-title"><a>' + obj.DescModulo + '</a></li>';
+                menuToAppend += '<li class="menu-title"><a>' + modulo.DescModulo + '</a></li>';
                 //Iteramos en los submodulos para complementar el HTML
-                $(obj.SubModulos).each(function (j, sModulo) {
-                    menuToAppend += '<li data-link="' + sModulo.Url + '" class="submodulo" onclick="masterPageObject.Menu.GoTo(this);"><a href="#">' + sModulo.DescSubmodulo + '</a></li>';
+                $(modulo.SubModulos).each(function (j, sModulo) {
+                    menuToAppend += '<li data-link="' + sModulo.Url + '" class="submodulo" onclick="masterPageObject.Menu.GoTo(this);"><a href="#">' +
+                        sModulo.DescSubmodulo + '</a></li>';
                 });
                 menuToAppend += '</ul>';
                 menuToAppend += '</li> ';
             });
 
             //Insertamos el html del menu
-            $("#menu:first-child").children().first().append(menuToAppend);
+            $("#menu ul:first").html(menuToAppend);
 
             //Ponemos la clase de activo al elemnto que representa la pagina actual en el menu del sitio
             masterPageObject.EstableceItemMenuActivo();
@@ -66,7 +67,7 @@
 
             dialogTitle += "Ayuda";
 
-            dialogBody += "<p>Si tienes alg&uacute;n problema con el sistema, puedes enviar un correo al &aacute;rea de sistemas con las siguientes personas:</p>";
+            dialogBody += "<p>Si tienes alg&uacute;n problema, puedes enviar un correo al &aacute;rea de sistemas con las siguientes personas:</p>";
             dialogBody += "<p><a href = '" + mailToCesar + "'><span class = 'glyphicon glyphicon-envelope'></span> Cesar Torres</a><p>";
             dialogBody += "<p><a href = '" + mailToIsai + "'><span class = 'glyphicon glyphicon-envelope'></span> Isaí Alillo</a><p>";
 

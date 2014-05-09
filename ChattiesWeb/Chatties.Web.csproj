@@ -74,6 +74,7 @@
     <Content Include="Scripts\Master.js" />
     <Content Include="Scripts\Security\Perfil.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Security\AdministracionUsuarios.aspx" />
     <Content Include="Security\Perfil.aspx" />
     <Content Include="Styles\Bootstrap\bootstrap-theme.css" />
     <Content Include="Styles\Bootstrap\bootstrap-theme.min.css" />
@@ -108,6 +109,13 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AdministracionUsuarios.aspx.cs">
+      <DependentUpon>AdministracionUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Security\AdministracionUsuarios.aspx.designer.cs">
+      <DependentUpon>AdministracionUsuarios.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Security\Perfil.aspx.cs">
       <DependentUpon>Perfil.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

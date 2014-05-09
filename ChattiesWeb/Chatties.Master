@@ -32,7 +32,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Bag City</a>
+              <a data-link="Home.aspx" class="navbar-brand" onclick="masterPageObject.Menu.GoTo(this);" href="#">Bag City</a>
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
@@ -45,37 +45,7 @@
         <div class="container-fluid mainBody">
             <div class="row">
                 <div id="menu" class="col-sm-3 col-md-2 col-lg-2 sidebar">
-                    <ul class="nav nav-list">
-                      <li>
-                        <ul class="nav nav-sidebar">
-                            <li data-link="Home.aspx" class="submodulo" onclick="masterPageObject.Menu.GoTo(this);"><a href="#">Home</a></li>
-                        </ul>
-                      </li>
-                      <%--<li>
-                        <ul class="nav nav-sidebar">
-                            <li class="menu-title"><a>Panel de Control</a></li>
-                          <li data-link="#" class="submodulo"><a href="#">Usuarios</a></li>
-                          <li data-link="#" class="submodulo"><a href="#">Permisos</a></li>
-                          <li data-link="#" class="submodulo"><a href="#">Modulos</a></li>
-                        </ul>
-                      </li>
-                      <li>
-                        <ul class="nav nav-sidebar">
-                          <li class="menu-title"><a>Diseño</a></li>
-                          <li data-link="#" class="submodulo"><a href="#">Alt de Producto</a></li>
-                          <li data-link="#" class="submodulo"><a href="#">Confirmación de PO</a></li>
-                          <li data-link="#" class="submodulo"><a href="#">Seguimiento PO</a></li>
-                       </ul>
-                      </li>
-                      <li>
-                        <ul class="nav nav-sidebar">
-                          <li class="menu-title"><a>Logistica</a></li>
-                          <li data-link="#" class="submodulo"><a href="#">Inf por Contenedor</a></li>
-                          <li data-link="#" class="submodulo"><a href="#">Inf por PO</a></li>
-                          <li data-link="#" class="submodulo"><a href="#">Reporte PO Costos</a></li>
-                       </ul>
-                      </li>--%>
-                    </ul>
+                    <ul class="nav nav-list"></ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2 main">
                     <asp:ContentPlaceHolder ID="ChattiesBodyPH" runat="server"></asp:ContentPlaceHolder>
