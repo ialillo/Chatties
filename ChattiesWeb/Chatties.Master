@@ -4,11 +4,10 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Bag City</title>
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans&subset=latin,cyrillic-ext,cyrillic,latin-ext' rel='stylesheet' type='text/css'/>
-    <%--<link href="<%= ResolveUrl("~/Styles/Bootstrap/bootstrap.min.css") %>" rel="stylesheet" />
+    <title>Chatties</title>
     <link href="<%= ResolveUrl("~/Styles/Master.css") %>" rel="stylesheet" />--%>
 
+    <link href='http://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css'>
     <link href="/Styles/Bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="/Styles/Master.css" rel="stylesheet" />
 
@@ -32,7 +31,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a data-link="Home.aspx" class="navbar-brand" onclick="masterPageObject.Menu.GoTo(this);" href="#">Bag City</a>
+              <a data-link="Home.aspx" class="navbar-brand pageLogo" onclick="masterPageObject.Menu.GoTo(this);" href="#">Chatties</a>
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">

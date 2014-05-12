@@ -5,7 +5,7 @@
             var usuarios = serviceResult.Object.LoggedUsers;
             var htmlTable = "";
 
-            htmlTable += "<table id='tblUsuariosChatties' class='display' cellspacing='0' width='90%'>";
+            htmlTable += "<table id='tblUsuariosChatties' class='display' cellspacing='0' width='100%'>";
 
             htmlTable += "<thead>";
             htmlTable += "<tr><th>Nombre</th><th>Perfil</th><th>Editar</th><th>Eliminar</th></tr>";
@@ -24,7 +24,7 @@
             htmlTable += "</tbody>"
             htmlTable += "</table>"
 
-            $("#contentBody").html(htmlTable);
+            $("#contentBody:first").append(htmlTable);
             $("#tblUsuariosChatties").dataTable({ ordering: false, bSort: false, bLengthChange: false, iDisplayLength: 10, sPaginationType: "full_numbers"});
         }
         else {
@@ -32,7 +32,14 @@
             chattiesObjects.GlobalMessage.Show(serviceResult.ServiceMessage, true);
         }
     },
+    altaUsuario: function(){
+
+    },
     editaUsuario: function (btnUsuario) {
+
+    },
+    desactivaUsuario: function (btnUsuario) {
+
 
     }
 }

@@ -10,5 +10,11 @@
         </Scripts>
     </asp:ScriptManager>
     <div class="page-header">Administraci&oacute;n de Usuarios</div>
-    <div id="contentBody"></div>
+    <div id="contentBody">
+        <div>
+            <button type="button" class="btn btn-success btn-sm right" onclick="admonUsuariosObjects.altaUsuario()">
+                <span class="glyphicon glyphicon-user"></span> Alta Usuario
+            </button>
+        </div>
+    </div>
 </asp:Content>

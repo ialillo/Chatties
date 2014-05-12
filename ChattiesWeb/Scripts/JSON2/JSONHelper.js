@@ -1,14 +1,4 @@
-﻿//Dependiendo del framework regresa el objeto correcto
-function getMain(obj) {
-    if (obj.hasOwnProperty('d')) {
-        return obj.d;
-    }
-    else {
-        return obj;
-    }
-}
-
-// Funcion generica para hacer los callbacks al servidor
+﻿// Funcion generica para hacer los callbacks al servidor
 function doJsonObjectAjaxCallback(serviceUrl, method, jsonObject, successFunction) {
     $.ajax(
         {

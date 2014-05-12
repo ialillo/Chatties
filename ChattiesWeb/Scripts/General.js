@@ -110,6 +110,7 @@
             modalFooter: "div[class='modal-footer']"
         },
         Create: function (parentSelector, title, body, footer) {
+            $(this.selectors.myModal).remove();
             $(parentSelector).append(this.modalBaseHTML);
             $(this.selectors.modalTitle).html("<strong>" + title + "</strong>");
             $(this.selectors.modalBody).html(body);
