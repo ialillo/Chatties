@@ -18,6 +18,10 @@
                 changePassword: "/ChangePassword",
                 currentUser: "/CurrentSessionUser"
             },
+            UserManagement: {
+                subUrl: "Services/Security.UserManagement",
+                getUsers: "/GetUsersFromDB"
+            },
             Navegacion: {
                 subURL: "Services/Navegation",
                 getMenu: "/GetMenu"
@@ -137,7 +141,7 @@
     }
 };
 
-// Funciones y acciones iniciales
+// Funciones y acciones iniciales6
 $(document).ready(function () {
     chattiesObjects.BaseURL = document.location.protocol + "//" + document.location.host + "/";
 });

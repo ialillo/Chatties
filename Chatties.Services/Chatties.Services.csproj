@@ -85,6 +85,7 @@
     <Content Include="Global.asax" />
     <Content Include="Navegation\Navegation.svc" />
     <Content Include="Security\Security.svc" />
+    <Content Include="Security\UserManagement\UserManagement.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -101,6 +102,10 @@
     <Compile Include="Security\ISecurity.cs" />
     <Compile Include="Security\Security.svc.cs">
       <DependentUpon>Security.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Security\UserManagement\IUserManagement.cs" />
+    <Compile Include="Security\UserManagement\UserManagement.svc.cs">
+      <DependentUpon>UserManagement.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -123,9 +128,7 @@
       <Name>Chatties.Exception</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Security\UserManagement\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
