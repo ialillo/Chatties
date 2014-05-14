@@ -11,28 +11,63 @@ namespace Chatties.Services.Security.UserManagement
     // NOTE: In order to launch WCF Test Client for testing this service, please select UserManagement.svc or UserManagement.svc.cs at the Solution Explorer and start debugging.
     public class UserManagement : IUserManagement
     {
+        /// <summary>
+        /// Trae los usuarios que existen en la base de datos
+        /// </summary>
+        /// <returns></returns>
         public DTO.General.ResultGeneric<DTO.Security.UserManagement> GetUsersFromDB()
         {
             using (DTO.General.ResultGeneric<DTO.Security.UserManagement> result = new DTO.General.ResultGeneric<DTO.Security.UserManagement>())
             {
                 try
                 {
-                    DTO.Security.UserManagement um = new DTO.Security.UserManagement();
+                    using (DTO.Security.UserManagement um = new DTO.Security.UserManagement())
+                    {
+                        result.Object = um.GetUsersFromDB();
+                        result.Success = true;
+                        result.ServiceMessage = "OK";
 
-                    result.Object = um.GetUsersFromDB();
-                    result.Success = true;
-                    result.ServiceMessage = "OK";
-
-                    return result;
+                        return result;
+                    }
                 }
                 catch (System.Exception ex)
                 {
                     result.Success = false;
                     result.Object = null;
                     result.ServiceMessage = ex.Message;
-                }
 
-                return result;
+                    return result;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Obtiene los perfiles de la base de datos
+        /// </summary>
+        /// <returns></returns>
+        public DTO.General.ResultGeneric<DTO.Security.UserManagement> GetProfiles()
+        {
+            using (DTO.General.ResultGeneric<DTO.Security.UserManagement> result = new DTO.General.ResultGeneric<DTO.Security.UserManagement>())
+            {
+                try
+                {
+                    using (DTO.Security.UserManagement um = new DTO.Security.UserManagement())
+                    {
+                        result.Object = um.GetProfiles();
+                        result.Success = true;
+                        result.ServiceMessage = "OK";
+
+                        return result;
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    result.Success = false;
+                    result.Object = null;
+                    result.ServiceMessage = ex.Message;
+
+                    return result;
+                }
             }
         }
     }

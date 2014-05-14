@@ -50,6 +50,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="General\Controls\Select.cs" />
     <Compile Include="General\Person.cs" />
     <Compile Include="General\Result.cs" />
     <Compile Include="General\ResultGeneric.cs" />

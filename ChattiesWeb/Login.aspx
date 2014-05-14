@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Bag City</title>
-    <link href='http://fonts.googleapis.com/css?family=PT+Sans&subset=latin,cyrillic-ext,cyrillic,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
     <link href="<%= ResolveUrl("~/Styles/Bootstrap/bootstrap.min.css") %>" rel="stylesheet" />
     <link href="<%= ResolveUrl("~/Styles/Login.css") %>" rel="stylesheet" />
 

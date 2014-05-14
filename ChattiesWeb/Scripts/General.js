@@ -8,6 +8,18 @@
             var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 
             return re.test(str);
+        },
+        emptyString: function (str) {
+            //Que no esté vacia la cadena.
+            var re = /^$/;
+
+            return re.test(str);
+        },
+        validEmail: function (str) {
+            //Que tenga un formato de email valido.
+            var re = /^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/;
+
+            return re.test(str);
         }
     },
     Services: {
@@ -20,7 +32,8 @@
             },
             UserManagement: {
                 subUrl: "Services/Security.UserManagement",
-                getUsers: "/GetUsersFromDB"
+                getUsers: "/GetUsersFromDB",
+                getProfiles: "/GetProfiles"
             },
             Navegacion: {
                 subURL: "Services/Navegation",

@@ -12,5 +12,9 @@ namespace Chatties.Services.Security.UserManagement
         [OperationContract]
         [WebInvoke(BodyStyle = WebMessageBodyStyle.WrappedRequest)]
         DTO.General.ResultGeneric<DTO.Security.UserManagement> GetUsersFromDB();
+
+        [OperationContract]
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+        DTO.General.ResultGeneric<DTO.Security.UserManagement> GetProfiles();
     }
 }
