@@ -9,6 +9,7 @@ function doJsonObjectAjaxCallback(serviceUrl, method, jsonObject, successFunctio
             dataType: "json",
             success: successFunction,
             error: function (xhr, status, error) {
+                debugger;
                 chattiesObjects.GlobalMessage.Show(xhr.responseText, true);
             }
         });

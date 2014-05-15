@@ -12,7 +12,7 @@
     <div class="page-header">Administraci&oacute;n de Usuarios</div>
     <div id="contentBody">
         <div>
-            <button type="button" class="btn btn-success btn-sm right" onclick="admonUsuariosObjects.Modal.altaUsuario()">
+            <button type="button" class="btn btn-success btn-sm right" onclick="admonUsuarios.Modal.altaUsuario()">
                 <span class="glyphicon glyphicon-user"></span> Alta Usuario
             </button>
         </div>

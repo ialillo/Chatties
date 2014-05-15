@@ -70,5 +70,36 @@ namespace Chatties.Services.Security.UserManagement
                 }
             }
         }
+
+        /// <summary>
+        /// Traé un usuario de la base de datos mediante su Id
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        public DTO.General.ResultGeneric<DTO.Security.LoggedUser> GetUserById(int idUsuario)
+        {
+            using (DTO.General.ResultGeneric<DTO.Security.LoggedUser> result = new DTO.General.ResultGeneric<DTO.Security.LoggedUser>())
+            {
+                try
+                {
+                    using (DTO.Security.UserManagement um = new DTO.Security.UserManagement())
+                    {
+                        result.Object = um.GetUserById(idUsuario);
+                        result.Success = true;
+                        result.ServiceMessage = "OK";
+
+                        return result;
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    result.Success = false;
+                    result.Object = null;
+                    result.ServiceMessage = ex.Message;
+
+                    return result;
+                }
+            }
+        }
     }
 }

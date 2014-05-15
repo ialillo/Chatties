@@ -2,6 +2,7 @@
     UsuarioEnSesion: {},
     BaseURL: null,
     regExValidators: {
+        // Regresa verdadero si es un password válido.
         validPassword: function (str) {
             // Por lo menos un numero, por lo menos una letra minuscula y una mayuscula
             // Por lo menos 6 caracteres
@@ -9,14 +10,20 @@
 
             return re.test(str);
         },
+        // Regresa verdadero si la cadena está vacía.
         emptyString: function (str) {
-            //Que no esté vacia la cadena.
             var re = /^$/;
 
             return re.test(str);
         },
+        // Regresa verdadero si la cadena no contiene espacios en blanco.
+        noWhiteSpaces: function(str){
+            var re = /^[\S]*$/;
+
+            return re.test(str);
+        },
+        // Regresa verdadero si el formato del email es válido.
         validEmail: function (str) {
-            //Que tenga un formato de email valido.
             var re = /^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/;
 
             return re.test(str);
@@ -33,7 +40,8 @@
             UserManagement: {
                 subUrl: "Services/Security.UserManagement",
                 getUsers: "/GetUsersFromDB",
-                getProfiles: "/GetProfiles"
+                getProfiles: "/GetProfiles",
+                getUser: "/GetUserById"
             },
             Navegacion: {
                 subURL: "Services/Navegation",
@@ -150,6 +158,46 @@
             },
             RedirectToHome: function () {
                 window.location.href = chattiesObjects.BaseURL + "Home.aspx";
+            }
+        },
+        HTMLControls: {
+            FormGroups: {
+                codeSnippets:{
+                    openFormContainer: "<div class='form' role='form'>",
+                    closeFormContainer: "</div>",
+                    openFormGroup: "<div class='form-group'>",
+                    closeFormGroup: "</div>",
+                    openInputGroupContainer: "<div class='input-group col-xs-12 col-sm-12 col-md-12 col-lg-12'>",
+                    closeInputGroupContainer: "</div>"
+                },
+                labelWithTextBox: function(labelText, txtBoxId, txtBoxPlaceHolder, txtBoxMaxLength){
+                    var htmlToReturn = "";
+
+                    htmlToReturn += this.codeSnippets.openFormGroup;
+                    htmlToReturn += "<label for='" + txtBoxId + "'>" + labelText + "</label>";
+                    htmlToReturn += this.codeSnippets.openInputGroupContainer;
+                    htmlToReturn += "<input type='text' id='" + txtBoxId + "' class='form-control' placeholder='" + txtBoxPlaceHolder + "' maxlength='" + txtBoxMaxLength + "'></input>";
+                    htmlToReturn += this.codeSnippets.closeInputGroupContainer;
+                    htmlToReturn += this.codeSnippets.closeFormGroup;
+
+                    return htmlToReturn;
+                },
+                labelWithSelect: function (labelText, selectId, selectArray) {
+                    var htmlToReturn = "";
+
+                    htmlToReturn += this.codeSnippets.openFormGroup;
+                    htmlToReturn += "<label for='" + selectId + "'>" + labelText + "</label>";
+                    htmlToReturn += "<select id='" + selectId + "' class='form-control'>";
+
+                    $(selectArray).each(function (cont, element) {
+                        htmlToReturn += "<option value='" + element.Value + "'>" + element.Description + "</option>";
+                    });
+
+                    htmlToReturn += "</select>";
+                    htmlToReturn += this.codeSnippets.closeFormGroup;
+
+                    return htmlToReturn;
+                }
             }
         }
     }

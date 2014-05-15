@@ -6,6 +6,7 @@
 body 
 {
     font-family: 'Raleway', sans-serif;
+    font-size: 12px;
     /*font-family: Segoe UI, Helvetica, Arial, sans-serif;*/
     padding-top: 50px;
 }
@@ -118,4 +119,9 @@ body
     font-family: 'Great Vibes', cursive;
     color: #27354e;
     font-size: 40px;
+}
+
+.modal-body
+{
+    font-size: 12px;
 }

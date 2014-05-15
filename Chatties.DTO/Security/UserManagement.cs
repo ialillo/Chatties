@@ -13,13 +13,13 @@ namespace Chatties.DTO.Security
         public UserManagement() { }
 
         /// <summary>
-        /// 
+        /// Representa un arreglo de usuarios loggeados
         /// </summary>
         [XmlElement(ElementName = "LoggedUser")]
         public LoggedUser[] LoggedUsers { get; set; }
 
         /// <summary>
-        /// 
+        /// Representa un arreglo de perfiles de usuario del sistema
         /// </summary>
         [XmlElement(ElementName = "Perfiles")]
         public DTO.General.Controls.Select[] Selects { get; set; }
@@ -45,6 +45,19 @@ namespace Chatties.DTO.Security
             using (DAL.DBAccess<UserManagement> profilesSelect = new DAL.DBAccess<UserManagement>())
             {
                 return profilesSelect.GetObject("Usuarios.ObtenPerfiles");
+            }
+        }
+
+        /// <summary>
+        /// Obtiene un usuario de la base de datos recibiendo el id del usuario.
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        public LoggedUser GetUserById(int idUsuario)
+        {
+            using (DAL.DBAccess<LoggedUser> user = new DAL.DBAccess<LoggedUser>())
+            {
+                return user.GetObject("Usuarios.ObtenUsuario", idUsuario);
             }
         }
 
