@@ -121,11 +121,12 @@
 
             //Establecemos el footer en donde están los botones del modal.
             var btnGuardarModifier = esAlta ? "A" : "E";
-            modalFooter += "<button id='btnGuardar' data-modifier='" + btnGuardarModifier + "' type='button' class='btn btn-primary'>Guardar</button>";
-            modalFooter += "<button id='btnCancelar' type='button' class='btn btn-default' onclick='chattiesObjects.Modal.Hide();'>Cancelar</button>";
+            modalFooter += "<button id='btnGuardar' data-modifier='" + btnGuardarModifier + "' type='button' class='btn btn-sm btn-primary'>Guardar</button>";
+            modalFooter += "<button id='btnCancelar' type='button' class='btn btn-sm btn-default' onclick='chattiesObjects.Modal.Hide();'>Cancelar</button>";
 
             //Insertamos el html del modal en el DOM
             chattiesObjects.Modal.Create("body", modalTitle, modalBody, modalFooter);
+            $(chattiesObjects.Modal.selectors.modalBody + " div .form ").removeClass("form").addClass("form-horizontal");
         }
     }
 }

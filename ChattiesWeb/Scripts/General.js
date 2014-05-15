@@ -122,7 +122,7 @@
         autoHide: false,
         timeToHideInSeconds: 3,
         modalBaseHTML: "<div class='modal fade' id='modalGeneral' tabindex='-1' role='dialog' aria-labelledby='dialogTitle' aria-hidden='true'><div class='modal-dialog'>" +
-            "<div class='modal-content'><div class='modal-header'><h4 class='modal-title' id='modalTitle'></h4></div><div class='modal-body'></div>" +
+            "<div class='modal-content'><div class='modal-header'><h5 class='modal-title' id='modalTitle'></h5></div><div class='modal-body'></div>" +
             "<div class='modal-footer'></div></div></div></div>",
         selectors: {
             myModal: "#modalGeneral",
@@ -162,7 +162,9 @@
         },
         HTMLControls: {
             FormGroups: {
-                codeSnippets:{
+                codeSnippets: {
+                    openFormHorizontalContainer: "<div class='form-horizontal' role='form'>",
+                    closeFormHorizontalContainer: "</div>",
                     openFormContainer: "<div class='form' role='form'>",
                     closeFormContainer: "</div>",
                     openFormGroup: "<div class='form-group'>",
