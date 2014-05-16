@@ -36,7 +36,7 @@
             htmlTable += "<table id='tblUsuariosChatties' class='display' cellspacing='0' width='100%'>";
 
             htmlTable += "<thead>";
-            htmlTable += "<tr><th>Nombre</th><th>Perfil</th><th>Editar</th><th>Eliminar</th></tr>";
+            htmlTable += "<tr><th>Nombre</th><th>Perfil</th><th>Editar</th><th>Desactivar</th></tr>";
             htmlTable += "</thead>";
 
             htmlTable += "<tbody>";
@@ -45,7 +45,7 @@
                 htmlTable += "<td>" + LoggedUser.Nombre + " " + LoggedUser.ApellidoPaterno + " " + LoggedUser.ApellidoMaterno + "</td>";
                 htmlTable += "<td>" + LoggedUser.Perfil + "</td>";
                 htmlTable += "<td><button data-userid='" + LoggedUser.Id + "' type='button' class='btn btn-primary btn-xs' onclick='admonUsuarios.Modal.editaUsuario(this);'><span class='glyphicon glyphicon-pencil'></span> Editar</button></td>";
-                htmlTable += "<td><button data-userid='" + LoggedUser.Id + "' type='button' class='btn btn-danger btn-xs' onclick='admonUsuarios.Modal.desactivaUsuario(this);'><span class='glyphicon glyphicon-remove-sign'></span> Eliminar</button></td>";
+                htmlTable += "<td><button data-userid='" + LoggedUser.Id + "' type='button' class='btn btn-danger btn-xs' onclick='admonUsuarios.Modal.desactivaUsuario(this);'><span class='glyphicon glyphicon-remove-sign'></span> Desactivar</button></td>";
                 htmlTable += "</tr>";
             });
 
@@ -102,6 +102,15 @@
             chattiesObjects.Modal.Show();
         },
         desactivaUsuario: function (btnUsuario) {
+            var htmlModalBody = "";
+            htmlModalBody = "<p>Est&aacute; seguro que desea desactivar al empleado " + $(btnUsuario).parent().parent().find("td:first").html() + "?";
+
+            var htmlModalFooter = "";
+            htmlModalFooter += "<button id='btnAceptar' type='button' class='btn btn-sm btn-primary' onclick='desactivarUsuario(" + $(btnUsuario).data("userid") + ");'>Aceptar</button>";
+            htmlModalFooter += "<button id='btnCancelar' type='button' class='btn btn-sm btn-default' onclick='chattiesObjects.Modal.Hide();'>Cancelar</button>";
+
+            chattiesObjects.Modal.Create("body", "Desactiva Usuario", htmlModalBody, htmlModalFooter);
+            chattiesObjects.Modal.Show();
         },
         creaModalUsuario: function (esAlta) {
             //Establecemos el titulo del modal.
@@ -126,7 +135,6 @@
 
             //Insertamos el html del modal en el DOM
             chattiesObjects.Modal.Create("body", modalTitle, modalBody, modalFooter);
-            $(chattiesObjects.Modal.selectors.modalBody + " div .form ").removeClass("form").addClass("form-horizontal");
         }
     }
 }

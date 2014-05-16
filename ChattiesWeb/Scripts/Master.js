@@ -54,41 +54,44 @@
             // Traemos el usuario que está en sesión.
             chattiesObjects.UsuarioEnSesion = serviceResult.Object;
 
-            //Preparamos el modal de ayuda.
-            var loggedUserName = chattiesObjects.UsuarioEnSesion.Nombre + ' ' + chattiesObjects.UsuarioEnSesion.ApellidoPaterno + ' ' +
-                chattiesObjects.UsuarioEnSesion.ApellidoMaterno;
-            var mailToCesar = "mailto:admin@bagcity.mx?subject=" + loggedUserName + "(Ayuda Chatties)";
-            var mailToIsai = "mailto:isai.alillo@outlook.com?subject=" + loggedUserName + "(Ayuda Chatties)";
-
-            // Preparamos el contenido del modal de ayuda
-            var dialogTitle = "";
-            var dialogBody = "";
-            var dialogFooter = "";
-
-            dialogTitle += "Ayuda";
-
-            dialogBody += "<p>Si tienes alg&uacute;n problema, puedes enviar un correo al &aacute;rea de sistemas con las siguientes personas:</p>";
-            dialogBody += "<p><a href = '" + mailToCesar + "'><span class = 'glyphicon glyphicon-envelope'></span> Cesar Torres</a><p>";
-            dialogBody += "<p><a href = '" + mailToIsai + "'><span class = 'glyphicon glyphicon-envelope'></span> Isaí Alillo</a><p>";
-
-            dialogFooter += "<button id='btnAyudaOK' type='button' class='btn btn-default'>OK</button>";
-
-            // Insertamos el html del modal
-            chattiesObjects.Modal.Create("body", dialogTitle, dialogBody, dialogFooter);
-
-            // Boton que oculta el modal de ayuda
-            $("#btnAyudaOK").bind("click", function () {
-                chattiesObjects.Modal.Hide();
-            });
-
             // Le ponemos al link de ayuda la funcionalidad
             $("#linkAyuda").bind("click", function () {
-                chattiesObjects.Modal.Show();
+                masterPageObject.MuestraModal();
             });
         } else {
             // Re dirijimos al login ya que la sesión expiró.
             chattiesObjects.Tools.Redirectors.RedirectToLogin();
         }
+    },
+    MuestraModal: function () {
+        //Preparamos el modal de ayuda.
+        var loggedUserName = chattiesObjects.UsuarioEnSesion.Nombre + ' ' + chattiesObjects.UsuarioEnSesion.ApellidoPaterno + ' ' +
+            chattiesObjects.UsuarioEnSesion.ApellidoMaterno;
+        var mailToCesar = "mailto:admin@bagcity.mx?subject=" + loggedUserName + "(Ayuda Chatties)";
+        var mailToIsai = "mailto:isai.alillo@outlook.com?subject=" + loggedUserName + "(Ayuda Chatties)";
+
+        // Preparamos el contenido del modal de ayuda
+        var dialogTitle = "";
+        var dialogBody = "";
+        var dialogFooter = "";
+
+        dialogTitle += "Ayuda";
+
+        dialogBody += "<p>Si tienes alg&uacute;n problema, puedes enviar un correo al &aacute;rea de sistemas con las siguientes personas:</p>";
+        dialogBody += "<p><a href = '" + mailToCesar + "'><span class = 'glyphicon glyphicon-envelope'></span> Cesar Torres</a><p>";
+        dialogBody += "<p><a href = '" + mailToIsai + "'><span class = 'glyphicon glyphicon-envelope'></span> Isaí Alillo</a><p>";
+
+        dialogFooter += "<button id='btnAyudaOK' type='button' class='btn btn-default'>OK</button>";
+
+        // Insertamos el html del modal
+        chattiesObjects.Modal.Create("body", dialogTitle, dialogBody, dialogFooter);
+
+        // Boton que oculta el modal de ayuda
+        $("#btnAyudaOK").bind("click", function () {
+            chattiesObjects.Modal.Hide();
+        });
+
+        chattiesObjects.Modal.Show();
     }
 }
 

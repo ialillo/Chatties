@@ -61,6 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\LoggedUser.cs" />
     <Compile Include="Security\UserManagement.cs" />
+    <Compile Include="Tools\Mailing\Email.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chatties.DAL\Chatties.DAL.csproj">

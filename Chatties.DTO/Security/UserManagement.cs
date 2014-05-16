@@ -62,6 +62,19 @@ namespace Chatties.DTO.Security
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <param name="password"></param>
+        public void SaveNewUser(LoggedUser usuario, string password)
+        {
+            using (DAL.DBAccess<LoggedUser> user = new DAL.DBAccess<LoggedUser>())
+            {
+                user.ExecuteScalar("Usuarios.IsertaUsuario", usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.Usuario, password, usuario.Email, usuario.IdPerfil);
+            }
+        }
+
+        /// <summary>
         /// Utiliza el garbage collector para destruir las instancias propias
         /// </summary>
         public void Dispose()
