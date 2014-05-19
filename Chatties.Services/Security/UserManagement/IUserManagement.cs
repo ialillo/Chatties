@@ -33,5 +33,14 @@ namespace Chatties.Services.Security.UserManagement
         [OperationContract]
         [WebInvoke(BodyStyle = WebMessageBodyStyle.WrappedRequest)]
         DTO.General.ResultGeneric<DTO.Security.LoggedUser> GetUserById(int idUsuario);
+
+        /// <summary>
+        /// Guarda un nuevo usuario en la base de datos y envía correo con sus credenciales.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+        DTO.General.Result SaveNewUser(DTO.Security.LoggedUser user);
     }
 }

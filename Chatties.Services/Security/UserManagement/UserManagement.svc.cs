@@ -1,9 +1,7 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
 
 namespace Chatties.Services.Security.UserManagement
 {
@@ -95,6 +93,61 @@ namespace Chatties.Services.Security.UserManagement
                 {
                     result.Success = false;
                     result.Object = null;
+                    result.ServiceMessage = ex.Message;
+
+                    return result;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Guardamos un nuevo usuario en la base de datos y le envíamos un correo con sus credenciales para ingresar al sistema.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public DTO.General.Result SaveNewUser(DTO.Security.LoggedUser user)
+        {
+            using (DTO.General.Result result = new DTO.General.Result())
+            {
+                try
+                {
+                    using (DTO.Security.UserManagement um = new DTO.Security.UserManagement())
+                    {
+                        //Guardamos el usuario en la base de datos y obtenemos su contraseña generada dinámicamente.
+                        string randomPassword = um.SaveNewUser(user, int.Parse(System.Configuration.ConfigurationManager.AppSettings["RandomPasswordLength"]));
+                        using (DTO.Tools.Mailing.Email mail = new DTO.Tools.Mailing.Email())
+                        {
+                            //Obtenemos el layout del mail con el id 1 que pertenece a las Altas de Usuario.
+                            mail.GetMailLayout(1);
+
+                            //Configuramos los valores del servidor smtp para poder enviar el correo.
+                            mail.SmtpHost = System.Configuration.ConfigurationManager.AppSettings["MailingHost"];
+                            mail.SmtpPort = System.Configuration.ConfigurationManager.AppSettings["MailingPort"];
+                            mail.SmtpUser = System.Configuration.ConfigurationManager.AppSettings["MailingUser"];
+                            mail.SmptPassword = System.Configuration.ConfigurationManager.AppSettings["MailingPwd"];
+
+                            //Reemplazamos los campos dinámicos del correo.
+                            mail.Body.Replace("@nombreUsuario", user.Nombre);
+                            mail.Body.Replace("@usuario", user.Usuario);
+                            mail.Body.Replace("@contrsena", randomPassword);
+
+                            //Concatenamos al usuario recien creado para enviarle sus credenciales.
+                            mail.To += " " + user.Email;
+
+                            //Enviamos el correo.
+                            mail.SendMail();
+
+                            //Llenamos el objeto result.
+                            result.Success = true;
+                            result.ServiceMessage = "OK";
+
+                            return result;
+                        }
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    result.Success = false;
                     result.ServiceMessage = ex.Message;
 
                     return result;

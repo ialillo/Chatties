@@ -120,21 +120,70 @@
 
             //Establecemos el cuerpo del modal.
             modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.codeSnippets.openFormContainer;
-            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithTextBox("Nombre", "txtNombre", "Nombre", 20);
-            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithTextBox("A Paterno", "txtApPaterno", "Apellido Paterno", 20);
-            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithTextBox("A Materno", "txtApMaterno", "Apellido Materno", 20);
-            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithTextBox("Usuario", "txtUsuario", "Usuario", 10);
-            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithTextBox("Email", "txtEmail", "e-mail", 30);
+            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithTextBox("Nombre", "txtNombre", "Nombre", 2, 20, true);
+            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithTextBox("A Paterno", "txtApPaterno", "Apellido Paterno", 2, 20, true);
+            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithTextBox("A Materno", "txtApMaterno", "Apellido Materno", 2, 20, true);
+            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithTextBox("Usuario", "txtUsuario", "Usuario", 5, 10, true);
+            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithEmail("Email", "txtEmail", "e-mail", 30, true);
             modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithSelect("Perfiles", "selPerfiles", admonUsuarios.objects.perfiles);
             modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.codeSnippets.closeFormContainer;
 
             //Establecemos el footer en donde están los botones del modal.
             var btnGuardarModifier = esAlta ? "A" : "E";
-            modalFooter += "<button id='btnGuardar' data-modifier='" + btnGuardarModifier + "' type='button' class='btn btn-sm btn-primary'>Guardar</button>";
+            modalFooter += "<button id='btnGuardar' data-modifier='" + btnGuardarModifier + "' type='submit' class='btn btn-sm btn-primary'>Guardar</button>";
             modalFooter += "<button id='btnCancelar' type='button' class='btn btn-sm btn-default' onclick='chattiesObjects.Modal.Hide();'>Cancelar</button>";
 
             //Insertamos el html del modal en el DOM
             chattiesObjects.Modal.Create("body", modalTitle, modalBody, modalFooter);
+
+            $("#chattiesForm").bootstrapValidator({
+                fields: {
+                    txtNombre: {
+                        validators: {
+                            notEmpty: {
+                                message: "El Nombre es requerido."
+                            }
+                        }
+                    },
+                    txtApPaterno: {
+                        validators: {
+                            notEmpty: {
+                                message: "El Apellido Paterno es requerido."
+                            }
+                        }
+                    },
+                    txtApMaterno: {
+                        validators: {
+                            notEmpty: {
+                                message: "El Apellido Materno es requerido."
+                            }
+                        }
+                    },
+                    txtUsuario: {
+                        validators: {
+                            notEmpty: {
+                                message: "El Usuario es requerido."
+                            }
+                        }
+                    },
+                    txtEmail: {
+                        validators: {
+                            notEmpty: {
+                                message: "El Email es requerido."
+                            },
+                            emailAddress: {
+                                message: "El Email proporcionado no es válido."
+                            }
+                        }
+                    }
+                },
+                submitHandler: function (validator, form, submitButton) {
+                    alert("ok");
+                }
+            });
+        },
+        guardarUsuario: function (btn) {
+
         }
     }
 }

@@ -82,6 +82,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Scripts\Bootstrap\bootstrap.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\Bootstrap\bootstrapValidator.min.js" />
     <Content Include="Scripts\JQuery\jquery-2.1.0.min.js" />
     <Content Include="Scripts\JSON2\json2.min.js" />
     <Content Include="Scripts\JSON2\JSONHelper.js" />
@@ -99,6 +100,7 @@
     <Content Include="Styles\Bootstrap\bootstrap-theme.min.css" />
     <Content Include="Styles\Bootstrap\bootstrap.css" />
     <Content Include="Styles\Bootstrap\bootstrap.min.css" />
+    <Content Include="Styles\Bootstrap\bootstrapValidator.min.css" />
     <Content Include="Styles\Login.css" />
     <Content Include="Styles\Master.css" />
     <Content Include="Web.config">

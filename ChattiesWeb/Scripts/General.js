@@ -163,22 +163,36 @@
         HTMLControls: {
             FormGroups: {
                 codeSnippets: {
-                    openFormHorizontalContainer: "<div class='form-horizontal' role='form'>",
-                    closeFormHorizontalContainer: "</div>",
-                    openFormContainer: "<div class='form' role='form'>",
-                    closeFormContainer: "</div>",
+                    openFormHorizontalContainer: "<form id='chattiesForm' class='form-horizontal' role='form'>",
+                    closeFormHorizontalContainer: "</form>",
+                    openFormContainer: "<form id='chattiesForm' class='form' role='form'>",
+                    closeFormContainer: "</form>",
                     openFormGroup: "<div class='form-group'>",
                     closeFormGroup: "</div>",
                     openInputGroupContainer: "<div class='input-group col-xs-12 col-sm-12 col-md-12 col-lg-12'>",
                     closeInputGroupContainer: "</div>"
                 },
-                labelWithTextBox: function(labelText, txtBoxId, txtBoxPlaceHolder, txtBoxMaxLength){
+                labelWithTextBox: function(labelText, txtBoxId, txtBoxPlaceHolder, txtBoxMinLength, txtBoxMaxLength){
                     var htmlToReturn = "";
 
                     htmlToReturn += this.codeSnippets.openFormGroup;
-                    htmlToReturn += "<label for='" + txtBoxId + "'>" + labelText + "</label>";
+                    htmlToReturn += "<label for='" + txtBoxId + "' class='control-label'>" + labelText + "</label>";
                     htmlToReturn += this.codeSnippets.openInputGroupContainer;
-                    htmlToReturn += "<input type='text' id='" + txtBoxId + "' class='form-control' placeholder='" + txtBoxPlaceHolder + "' maxlength='" + txtBoxMaxLength + "'></input>";
+                    htmlToReturn += "<input type='text' id='" + txtBoxId + "' name='" + txtBoxId + "' class='form-control' placeholder='" + txtBoxPlaceHolder + "' " +
+                        "maxlength='" + txtBoxMaxLength + "' data-minlength='" + txtBoxMinLength + "'></input>";
+                    htmlToReturn += this.codeSnippets.closeInputGroupContainer;
+                    htmlToReturn += this.codeSnippets.closeFormGroup;
+
+                    return htmlToReturn;
+                },
+                labelWithEmail: function (labelText, txtBoxId, txtBoxPlaceHolder, txtBoxMaxLength) {
+                    var htmlToReturn = "";
+
+                    htmlToReturn += this.codeSnippets.openFormGroup;
+                    htmlToReturn += "<label for='" + txtBoxId + "' class='control-label'>" + labelText + "</label>";
+                    htmlToReturn += this.codeSnippets.openInputGroupContainer;
+                    htmlToReturn += "<input type='email' id='" + txtBoxId + "' name='" + txtBoxId + "' class='form-control' placeholder='" + txtBoxPlaceHolder + "'" +
+                        "maxlength='" + txtBoxMaxLength + "' data-error='Email no valido'></input>";
                     htmlToReturn += this.codeSnippets.closeInputGroupContainer;
                     htmlToReturn += this.codeSnippets.closeFormGroup;
 

@@ -1,11 +1,19 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Security.Cryptography;
 
 namespace Chatties.Security.General
 {
-    class RandomPasswordGenerator
+    public class RandomPasswordGenerator : IDisposable
     {
-        public static string GetRandomPassword(int maxLength)
+        private bool _disposed;
+
+        /// <summary>
+        /// Obtiene una contraseña aleatoria
+        /// </summary>
+        /// <param name="maxLength">Tamaño máximo de la contraseña aleatoria</param>
+        /// <returns></returns>
+        public string GetRandomPassword(int maxLength)
         {
             char[] chars = new char[62];
             byte[] data = new byte[1];
@@ -26,6 +34,35 @@ namespace Chatties.Security.General
             }
 
             return result.ToString();
+        }
+
+        /// <summary>
+        /// Destruye las instancias creadas asincronamente
+        /// </summary>
+        ~RandomPasswordGenerator()
+        {
+            Dispose(false);
+        }
+
+        /// <summary>
+        /// Destruye las instancias de manera condicional
+        /// </summary>
+        /// <param name="disposing"></param>
+        public virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                _disposed = true;
+            }
+        }
+
+        /// <summary>
+        /// Usa el garbage collector para destruir las instancias.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

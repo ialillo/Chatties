@@ -7,12 +7,12 @@ using System.Runtime.Serialization;
 namespace Chatties.DTO.Tools.Mailing
 {
     [DataContract]
-    class Email : IDisposable
+    public class Email : IDisposable
     {
         private bool _disposed;
 
         /// <summary>
-        /// 
+        /// Metodo necesario para la serialización
         /// </summary>
         public Email() { }
 
@@ -95,10 +95,8 @@ namespace Chatties.DTO.Tools.Mailing
         public string SmptPassword { get; set; }
 
         /// <summary>
-        /// 
+        /// Método que envía un correo
         /// </summary>
-        /// <param name="mail"></param>
-        /// <param name="fileAttachUrl"></param>
         public void SendMail()
         {
             NetworkCredential credentialsInfo = new NetworkCredential(this.SmtpUser, this.SmptPassword);
@@ -127,7 +125,20 @@ namespace Chatties.DTO.Tools.Mailing
         }
 
         /// <summary>
-        /// 
+        /// Obtiene una instancia de la clase Email
+        /// </summary>
+        /// <param name="idMail">El id del layout de mail a obtener</param>
+        /// <returns>Regresa una instancia de la clase Email</returns>
+        public Email GetMailLayout(int idMail)
+        {
+            using (DAL.DBAccess<Email> mailDbAccess = new DAL.DBAccess<Email>())
+            {
+                return mailDbAccess.GetObject("Services.ObtenMailLayout", idMail);
+            }
+        }
+
+        /// <summary>
+        /// Destruye las instancias creadas asincronamente
         /// </summary>
         ~Email()
         {
@@ -135,7 +146,7 @@ namespace Chatties.DTO.Tools.Mailing
         }
 
         /// <summary>
-        /// 
+        /// Destruye las instancias internas condicionalmente
         /// </summary>
         /// <param name="disposing"></param>
         public virtual void Dispose(bool disposing)
@@ -147,7 +158,7 @@ namespace Chatties.DTO.Tools.Mailing
         }
 
         /// <summary>
-        /// 
+        /// Utiliza el garbage collector para destruir las instancias propias
         /// </summary>
         public void Dispose()
         {

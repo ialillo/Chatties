@@ -64,13 +64,26 @@ namespace Chatties.DTO.Security
         /// <summary>
         /// Inserta un nuevo usuario en la base de datos
         /// </summary>
-        /// <param name="usuario">Usuario</param>
-        /// <param name="password">Contraseña</param>
-        public void SaveNewUser(LoggedUser usuario, string password)
+        /// <param name="usuario">Instancia de la clase LoggedUser</param>
+        /// <returns>La contraseña generada aleatoriamente</returns>
+        public string SaveNewUser(LoggedUser usuario, int randomPwdLength)
         {
-            using (DAL.DBAccess<LoggedUser> user = new DAL.DBAccess<LoggedUser>())
+            string randomPassword;
+
+            using (Chatties.Security.General.RandomPasswordGenerator rpg = new Chatties.Security.General.RandomPasswordGenerator())
             {
-                user.ExecuteScalar("Usuarios.IsertaUsuario", usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.Usuario, password, usuario.Email, usuario.IdPerfil);
+                randomPassword = rpg.GetRandomPassword(randomPwdLength);
+                using (Chatties.Security.Encription.Encrypter enc = new Chatties.Security.Encription.Encrypter())
+                {
+                    string encriptedPassword = enc.Encrypt(randomPassword);
+
+                    using (DAL.DBAccess<LoggedUser> user = new DAL.DBAccess<LoggedUser>())
+                    {
+                        user.ExecuteScalar("Usuarios.IsertaUsuario", usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno,
+                            usuario.Usuario, encriptedPassword, usuario.Email, usuario.IdPerfil);
+                    }
+                }
+                return randomPassword;
             }
         }
 
