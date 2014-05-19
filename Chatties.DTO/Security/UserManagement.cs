@@ -39,7 +39,7 @@ namespace Chatties.DTO.Security
         /// <summary>
         /// Trae los perfiles activos
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Una instancia de UserManagement que puede traer un arreglo</returns>
         public UserManagement GetProfiles()
         {
             using (DAL.DBAccess<UserManagement> profilesSelect = new DAL.DBAccess<UserManagement>())
@@ -51,8 +51,8 @@ namespace Chatties.DTO.Security
         /// <summary>
         /// Obtiene un usuario de la base de datos recibiendo el id del usuario.
         /// </summary>
-        /// <param name="idUsuario"></param>
-        /// <returns></returns>
+        /// <param name="idUsuario">El id del usuario a obtener</param>
+        /// <returns>Regresa una instancia de un usuario loggeado</returns>
         public LoggedUser GetUserById(int idUsuario)
         {
             using (DAL.DBAccess<LoggedUser> user = new DAL.DBAccess<LoggedUser>())
@@ -62,10 +62,10 @@ namespace Chatties.DTO.Security
         }
 
         /// <summary>
-        /// 
+        /// Inserta un nuevo usuario en la base de datos
         /// </summary>
-        /// <param name="usuario"></param>
-        /// <param name="password"></param>
+        /// <param name="usuario">Usuario</param>
+        /// <param name="password">Contraseña</param>
         public void SaveNewUser(LoggedUser usuario, string password)
         {
             using (DAL.DBAccess<LoggedUser> user = new DAL.DBAccess<LoggedUser>())
