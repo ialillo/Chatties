@@ -126,12 +126,14 @@
             modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithTextBox("Usuario", "txtUsuario", "Usuario", 5, 10, true);
             modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithEmail("Email", "txtEmail", "e-mail", 30, true);
             modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithSelect("Perfiles", "selPerfiles", admonUsuarios.objects.perfiles);
-            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.codeSnippets.closeFormContainer;
-
             //Establecemos el footer en donde están los botones del modal.
             var btnGuardarModifier = esAlta ? "A" : "E";
-            modalFooter += "<button id='btnGuardar' data-modifier='" + btnGuardarModifier + "' type='submit' class='btn btn-sm btn-primary'>Guardar</button>";
-            modalFooter += "<button id='btnCancelar' type='button' class='btn btn-sm btn-default' onclick='chattiesObjects.Modal.Hide();'>Cancelar</button>";
+            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.codeSnippets.openFormGroup;
+            modalBody += "<button id='btnGuardar' data-modifier='" + btnGuardarModifier + "' type='submit' class='btn btn-sm btn-primary'>Guardar</button>";
+            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.codeSnippets.blankSpace;
+            modalBody += "<button id='btnCancelar' type='button' class='btn btn-sm btn-default' onclick='chattiesObjects.Modal.Hide();'>Cancelar</button>";
+            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.codeSnippets.closeFormGroup;
+            modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.codeSnippets.closeFormContainer;
 
             //Insertamos el html del modal en el DOM
             chattiesObjects.Modal.Create("body", modalTitle, modalBody, modalFooter);
@@ -175,15 +177,46 @@
                                 message: "El Email proporcionado no es válido."
                             }
                         }
+                    },
+                    selPerfiles: {
+                        validators: {
+                            notEmpty: {
+                                message: "Debe seleccionar un perfil."
+                            }
+                        }
                     }
                 },
                 submitHandler: function (validator, form, submitButton) {
-                    alert("ok");
+                    var user = {
+                        ApellidoMaterno: $("#txtApMaterno").val(),
+                        ApellidoPaterno: $("#txtApPaterno").val(),
+                        Nombre: $("#txtNombre").val(),
+                        Usuario: $("#txtUsuario").val(),
+                        Email: $("#txtEmail").val(),
+                        IdPerfil: $("#selPerfiles").val()
+                    }
+
+                    var tipoGuardado = $("#btnGuardar").data("modifier");
+
+                    switch (tipoGuardado) {
+                        case "A":
+                            doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.UserManagement.subUrl, chattiesObjects.Services.URLs.UserManagement.newUser, user, admonUsuarios.Modal.guardarUsuario)
+                            break;
+                        case "E":
+                            break;
+                    }
                 }
             });
         },
-        guardarUsuario: function (btn) {
+        guardarUsuario: function (serviceMessage) {
+            if (!serviceMessage.Success) {
+                chattiesObjects.PopUp.Show("#btnGuardar", "Error", "top", serviceMessage.ServiceMessage, true, 8);
+                return;
+            }
 
+            chattiesObjects.Modal.Hide();
+            chattiesObjects.GlobalMessage.Show("Se cre&oacute; el usuario con &eacute;xito.", false);
+            admonUsuarios.traerUsuarios();
         }
     }
 }

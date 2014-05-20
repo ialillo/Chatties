@@ -23,6 +23,14 @@ namespace Chatties.DTO.General
             this.Usuario = usuario;
         }
 
+        public User(string apellidoPaterno, string apellidoMaterno, string nombre, string usuario)
+        {
+            this.ApellidoPaterno = apellidoPaterno;
+            this.ApellidoMaterno = apellidoMaterno;
+            this.Nombre = nombre;
+            this.Usuario = usuario;
+        }
+
         /// <summary>
         /// Propiedad que representa el login de un usuario en la base de datos
         /// </summary>

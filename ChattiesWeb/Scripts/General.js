@@ -41,7 +41,8 @@
                 subUrl: "Services/Security.UserManagement",
                 getUsers: "/GetUsersFromDB",
                 getProfiles: "/GetProfiles",
-                getUser: "/GetUserById"
+                getUser: "/GetUserById",
+                newUser: "/SaveNewUser"
             },
             Navegacion: {
                 subURL: "Services/Navegation",
@@ -135,7 +136,11 @@
             $(parentSelector).append(this.modalBaseHTML);
             $(this.selectors.modalTitle).html("<strong>" + title + "</strong>");
             $(this.selectors.modalBody).html(body);
-            $(this.selectors.modalFooter).html(footer);
+            if (footer) {
+                $(this.selectors.modalFooter).html(footer);
+            } else {
+                $(this.selectors.modalFooter).remove();
+            }
         },
         Show: function () {
             $(this.selectors.myModal).modal({backdrop: 'static', keyboard: false});
@@ -170,7 +175,8 @@
                     openFormGroup: "<div class='form-group'>",
                     closeFormGroup: "</div>",
                     openInputGroupContainer: "<div class='input-group col-xs-12 col-sm-12 col-md-12 col-lg-12'>",
-                    closeInputGroupContainer: "</div>"
+                    closeInputGroupContainer: "</div>",
+                    blankSpace: "&nbsp;"
                 },
                 labelWithTextBox: function(labelText, txtBoxId, txtBoxPlaceHolder, txtBoxMinLength, txtBoxMaxLength){
                     var htmlToReturn = "";
@@ -203,13 +209,16 @@
 
                     htmlToReturn += this.codeSnippets.openFormGroup;
                     htmlToReturn += "<label for='" + selectId + "'>" + labelText + "</label>";
-                    htmlToReturn += "<select id='" + selectId + "' class='form-control'>";
+                    htmlToReturn += this.codeSnippets.openInputGroupContainer;
+                    htmlToReturn += "<select id='" + selectId + "' name='" + selectId + "' class='form-control'>";
 
                     $(selectArray).each(function (cont, element) {
-                        htmlToReturn += "<option value='" + element.Value + "'>" + element.Description + "</option>";
+                        var valor = String(element.Value) === "0" ? "" : String(element.Value);
+                        htmlToReturn += "<option value='" + valor + "'>" + element.Description + "</option>";
                     });
 
                     htmlToReturn += "</select>";
+                    htmlToReturn += this.codeSnippets.closeInputGroupContainer;
                     htmlToReturn += this.codeSnippets.closeFormGroup;
 
                     return htmlToReturn;
