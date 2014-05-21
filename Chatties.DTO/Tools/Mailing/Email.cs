@@ -92,24 +92,39 @@ namespace Chatties.DTO.Tools.Mailing
         /// La contraseña de las credenciales para logearse en el servidor Smtp
         /// </summary>
         [IgnoreDataMember]
-        public string SmptPassword { get; set; }
+        public string SmtpPassword { get; set; }
 
         /// <summary>
         /// Método que envía un correo
         /// </summary>
         public void SendMail()
         {
-            NetworkCredential credentialsInfo = new NetworkCredential(this.SmtpUser, this.SmptPassword);
-
-            SmtpClient client = new SmtpClient(this.SmtpHost);
+            //Declaramos el cliente de correo a usar
+            SmtpClient client = new SmtpClient(this.SmtpHost, int.Parse(this.SmtpPort));
+            client.EnableSsl = true;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
+
+            //Establecemos las credenciales para logearse al servidor de correo.
+            NetworkCredential credentialsInfo = new NetworkCredential(this.SmtpUser, this.SmtpPassword);
             client.Credentials = credentialsInfo;
 
-            MailMessage message = new MailMessage(this.From, this.To, this.Subject, this.Body);
-            message.SubjectEncoding = System.Text.Encoding.UTF8;
-            message.BodyEncoding = System.Text.Encoding.UTF8;
+            //Creamos el correo
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(this.From);
+
+            //Agregamos las direcciones remitentes del correo.
+            foreach (string address in this.To.Split(','))
+            {
+                message.To.Add(new MailAddress(address));
+            }
+
+            //Establecemos el Titulo y cuerpo del correo.
+            message.Subject = this.Subject;
+            message.Body = this.Body;
             message.IsBodyHtml = this.IsBodyHtml;
 
+            //Adjuntamos los documentos si es que tiene.
             if (this.HasAttachment)
             {
                 Attachment data = new Attachment(this.FileAttachmentPath, MediaTypeNames.Application.Octet);
@@ -121,6 +136,7 @@ namespace Chatties.DTO.Tools.Mailing
                 data.Dispose();
             }
 
+            //Enviamos el correo.
             client.Send(message);
         }
 

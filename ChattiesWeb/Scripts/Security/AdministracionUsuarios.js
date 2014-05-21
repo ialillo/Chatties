@@ -26,7 +26,7 @@
         if (serviceResult.Success) {
 
             //Eliminamos la tabla del dom si es que existe
-            $("#tblUsuariosChatties").remove();
+            $("#tblUsuariosChatties").parent().remove();
             
             //Guardamos el arreglo de usuarios en una variable-
             var usuarios = serviceResult.Object.LoggedUsers;
@@ -117,6 +117,7 @@
             var modalTitle = esAlta ? "Alta de Usuario" : "Edici&oacute;n de Usuario";
             var modalBody = "";
             var modalFooter = "";
+            var btnGuardarModifier = esAlta ? "A" : "E";
 
             //Establecemos el cuerpo del modal.
             modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.codeSnippets.openFormContainer;
@@ -126,8 +127,7 @@
             modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithTextBox("Usuario", "txtUsuario", "Usuario", 5, 10, true);
             modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithEmail("Email", "txtEmail", "e-mail", 30, true);
             modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.labelWithSelect("Perfiles", "selPerfiles", admonUsuarios.objects.perfiles);
-            //Establecemos el footer en donde están los botones del modal.
-            var btnGuardarModifier = esAlta ? "A" : "E";
+            //Establecemos los botones del modal, tienen que estar en el body para que se pueda hacer la validación de manera correcta.
             modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.codeSnippets.openFormGroup;
             modalBody += "<button id='btnGuardar' data-modifier='" + btnGuardarModifier + "' type='submit' class='btn btn-sm btn-primary'>Guardar</button>";
             modalBody += chattiesObjects.Tools.HTMLControls.FormGroups.codeSnippets.blankSpace;
@@ -138,6 +138,12 @@
             //Insertamos el html del modal en el DOM
             chattiesObjects.Modal.Create("body", modalTitle, modalBody, modalFooter);
 
+            // Si es edición no dejamos que modifiquen el usuario.
+            if (!esAlta) {
+                $("#txtUsuario").attr("disabled", "disabled");
+            }
+
+            // Establecemos las validaciones del modal.
             $("#chattiesForm").bootstrapValidator({
                 fields: {
                     txtNombre: {
@@ -186,19 +192,21 @@
                         }
                     }
                 },
+                //Se desencadena cuando pasa todas las validaciones.
                 submitHandler: function (validator, form, submitButton) {
                     var user = {
-                        ApellidoMaterno: $("#txtApMaterno").val(),
-                        ApellidoPaterno: $("#txtApPaterno").val(),
-                        Nombre: $("#txtNombre").val(),
-                        Usuario: $("#txtUsuario").val(),
-                        Email: $("#txtEmail").val(),
-                        IdPerfil: $("#selPerfiles").val()
+                        user: {
+                            ApellidoMaterno: $("#txtApMaterno").val(),
+                            ApellidoPaterno: $("#txtApPaterno").val(),
+                            Nombre: $("#txtNombre").val(),
+                            Usuario: $("#txtUsuario").val(),
+                            Email: $("#txtEmail").val(),
+                            IdPerfil: $("#selPerfiles").val()
+                        }
                     }
 
-                    var tipoGuardado = $("#btnGuardar").data("modifier");
-
-                    switch (tipoGuardado) {
+                    //Dependiendo del tipo de Edición hacemos la respectiva llamada.
+                    switch ($("#btnGuardar").data("modifier")) {
                         case "A":
                             doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.UserManagement.subUrl, chattiesObjects.Services.URLs.UserManagement.newUser, user, admonUsuarios.Modal.guardarUsuario)
                             break;
@@ -209,13 +217,17 @@
             });
         },
         guardarUsuario: function (serviceMessage) {
+            //Si hubo algun error se manda el mensaje correspondiente.
             if (!serviceMessage.Success) {
                 chattiesObjects.PopUp.Show("#btnGuardar", "Error", "top", serviceMessage.ServiceMessage, true, 8);
                 return;
             }
 
+            // Establecemos la parte variable del mensaje de la función dependiendo si se trata de una alta o de una edición.
+            var innerMessage = $("#btnGuardar").data("modifier") === "A" ? "cre&oacute;" : "actualiz&oacute;"
+
             chattiesObjects.Modal.Hide();
-            chattiesObjects.GlobalMessage.Show("Se cre&oacute; el usuario con &eacute;xito.", false);
+            chattiesObjects.GlobalMessage.Show("Se " + innerMessage + " el usuario con &eacute;xito.", false);
             admonUsuarios.traerUsuarios();
         }
     }

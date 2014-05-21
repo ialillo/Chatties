@@ -79,7 +79,7 @@ namespace Chatties.DTO.Security
 
                     using (DAL.DBAccess<LoggedUser> user = new DAL.DBAccess<LoggedUser>())
                     {
-                        user.ExecuteScalar("Usuarios.IsertaUsuario", usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno,
+                        user.ExecuteScalar("Usuarios.InsertaUsuario", usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno,
                             usuario.Usuario, encriptedPassword, usuario.Email, usuario.IdPerfil);
                     }
                 }

@@ -118,33 +118,35 @@ namespace Chatties.Services.Security.UserManagement
                         using (DTO.Tools.Mailing.Email mail = new DTO.Tools.Mailing.Email())
                         {
                             //Obtenemos el layout del mail con el id 1 que pertenece a las Altas de Usuario.
-                            mail.GetMailLayout(1);
+                            DTO.Tools.Mailing.Email nMail = mail.GetMailLayout(1);
 
                             //Configuramos los valores del servidor smtp para poder enviar el correo.
-                            mail.SmtpHost = System.Configuration.ConfigurationManager.AppSettings["MailingHost"];
-                            mail.SmtpPort = System.Configuration.ConfigurationManager.AppSettings["MailingPort"];
-                            mail.SmtpUser = System.Configuration.ConfigurationManager.AppSettings["MailingUser"];
-                            mail.SmptPassword = System.Configuration.ConfigurationManager.AppSettings["MailingPwd"];
+                            nMail.SmtpHost = System.Configuration.ConfigurationManager.AppSettings["MailingHost"];
+                            nMail.SmtpPort = System.Configuration.ConfigurationManager.AppSettings["MailingPort"];
+                            nMail.SmtpUser = System.Configuration.ConfigurationManager.AppSettings["MailingUser"];
+                            nMail.SmtpPassword = System.Configuration.ConfigurationManager.AppSettings["MailingPwd"];
 
                             //Reemplazamos los campos dinámicos del correo.
-                            mail.Body.Replace("@nombreUsuario", user.Nombre);
-                            mail.Body.Replace("@usuario", user.Usuario);
-                            mail.Body.Replace("@contrsena", randomPassword);
+                            nMail.Body = nMail.Body.Replace("@nombreUsuario", user.Nombre);
+                            nMail.Body = nMail.Body.Replace("@usuario", user.Usuario);
+                            nMail.Body = nMail.Body.Replace("@contrasena", randomPassword);
 
                             //Concatenamos al usuario recien creado para enviarle sus credenciales.
-                            mail.To += " " + user.Email;
+                            nMail.To += "," + user.Email;
 
                             //Enviamos el correo.
-                            mail.SendMail();
+                            nMail.SendMail();
 
                             //Llenamos el objeto result.
                             result.Success = true;
                             result.ServiceMessage = "OK";
 
+                            //Regresamos la instancia de resultado
                             return result;
                         }
                     }
                 }
+                    //Si existe un error al enviar el correo regresamos el detalle.
                 catch (System.Exception ex)
                 {
                     result.Success = false;
