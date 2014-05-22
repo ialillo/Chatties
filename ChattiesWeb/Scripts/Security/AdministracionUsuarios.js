@@ -45,7 +45,7 @@
                 htmlTable += "<td>" + LoggedUser.Nombre + " " + LoggedUser.ApellidoPaterno + " " + LoggedUser.ApellidoMaterno + "</td>";
                 htmlTable += "<td>" + LoggedUser.Perfil + "</td>";
                 htmlTable += "<td><button data-userid='" + LoggedUser.Id + "' type='button' class='btn btn-primary btn-xs' onclick='admonUsuarios.Modal.editaUsuario(this);'><span class='glyphicon glyphicon-pencil'></span> Editar</button></td>";
-                htmlTable += "<td><button data-userid='" + LoggedUser.Id + "' type='button' class='btn btn-danger btn-xs' onclick='admonUsuarios.Modal.desactivaUsuario(this);'><span class='glyphicon glyphicon-remove-sign'></span> Desactivar</button></td>";
+                htmlTable += "<td><button data-userid='" + LoggedUser.Id + "' type='button' class='btn btn-danger btn-xs' onclick='admonUsuarios.Modal.bajaUsuario(this);'><span class='glyphicon glyphicon-remove-sign'></span> Desactivar</button></td>";
                 htmlTable += "</tr>";
             });
 
@@ -101,12 +101,15 @@
             //Mostramos el modal con la información del usuario.
             chattiesObjects.Modal.Show();
         },
-        desactivaUsuario: function (btnUsuario) {
+        bajaUsuario: function (btnUsuario) {
             var htmlModalBody = "";
+            var htmlModalFooter = "";
+            var fnDesactivaUsuario = "doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.UserManagement.subUrl, chattiesObjects.Services.URLs.UserManagement.deleteUser,";
+            fnDesactivaUsuario += "{ idUsuario: " + $(btnUsuario).data("userid") + " }, admonUsuarios.Modal.guardarUsuario);";
+
             htmlModalBody = "<p>Est&aacute; seguro que desea desactivar al empleado " + $(btnUsuario).parent().parent().find("td:first").html() + "?";
 
-            var htmlModalFooter = "";
-            htmlModalFooter += "<button id='btnAceptar' type='button' class='btn btn-sm btn-primary' onclick='desactivarUsuario(" + $(btnUsuario).data("userid") + ");'>Aceptar</button>";
+            htmlModalFooter += "<button id='btnGuardar' type='button' class='btn btn-sm btn-primary' onclick='" + fnDesactivaUsuario + "'>Aceptar</button>";
             htmlModalFooter += "<button id='btnCancelar' type='button' class='btn btn-sm btn-default' onclick='chattiesObjects.Modal.Hide();'>Cancelar</button>";
 
             chattiesObjects.Modal.Create("body", "Desactiva Usuario", htmlModalBody, htmlModalFooter);
@@ -196,6 +199,7 @@
                 submitHandler: function (validator, form, submitButton) {
                     var user = {
                         user: {
+                            Id: $("#btnGuardar").data("modifier") === "E" ? parseInt(admonUsuarios.objects.currentUserId) : 0,
                             ApellidoMaterno: $("#txtApMaterno").val(),
                             ApellidoPaterno: $("#txtApPaterno").val(),
                             Nombre: $("#txtNombre").val(),
@@ -208,26 +212,24 @@
                     //Dependiendo del tipo de Edición hacemos la respectiva llamada.
                     switch ($("#btnGuardar").data("modifier")) {
                         case "A":
-                            doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.UserManagement.subUrl, chattiesObjects.Services.URLs.UserManagement.newUser, user, admonUsuarios.Modal.guardarUsuario)
+                            doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.UserManagement.subUrl, chattiesObjects.Services.URLs.UserManagement.newUser, user, admonUsuarios.Modal.guardarUsuario);
                             break;
                         case "E":
+                            doJsonObjectAjaxCallback(chattiesObjects.Services.URLs.UserManagement.subUrl, chattiesObjects.Services.URLs.UserManagement.editUser, user, admonUsuarios.Modal.guardarUsuario);
                             break;
                     }
                 }
             });
         },
-        guardarUsuario: function (serviceMessage) {
+        guardarUsuario: function (serviceResult) {
             //Si hubo algun error se manda el mensaje correspondiente.
-            if (!serviceMessage.Success) {
-                chattiesObjects.PopUp.Show("#btnGuardar", "Error", "top", serviceMessage.ServiceMessage, true, 8);
+            if (!serviceResult.Success) {
+                chattiesObjects.PopUp.Show("#btnGuardar", "Error", "top", serviceResult.ServiceMessage, true, 8);
                 return;
             }
 
-            // Establecemos la parte variable del mensaje de la función dependiendo si se trata de una alta o de una edición.
-            var innerMessage = $("#btnGuardar").data("modifier") === "A" ? "cre&oacute;" : "actualiz&oacute;"
-
             chattiesObjects.Modal.Hide();
-            chattiesObjects.GlobalMessage.Show("Se " + innerMessage + " el usuario con &eacute;xito.", false);
+            chattiesObjects.GlobalMessage.Show(serviceResult.ServiceMessage, false);
             admonUsuarios.traerUsuarios();
         }
     }

@@ -42,5 +42,23 @@ namespace Chatties.Services.Security.UserManagement
         [OperationContract]
         [WebInvoke(BodyStyle = WebMessageBodyStyle.WrappedRequest)]
         DTO.General.Result SaveNewUser(DTO.Security.LoggedUser user);
+
+        /// <summary>
+        /// Edita un usuario existente en la base de datos.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+        DTO.General.Result SaveUser(DTO.Security.LoggedUser user);
+
+        /// <summary>
+        /// Desactiva un usuario existente en la base de datos.
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+        DTO.General.Result DeactivateUser(int idUsuario);
     }
 }

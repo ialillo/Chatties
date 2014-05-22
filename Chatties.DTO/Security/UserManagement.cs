@@ -76,14 +76,43 @@ namespace Chatties.DTO.Security
                 using (Chatties.Security.Encription.Encrypter enc = new Chatties.Security.Encription.Encrypter())
                 {
                     string encriptedPassword = enc.Encrypt(randomPassword);
-
                     using (DAL.DBAccess<LoggedUser> user = new DAL.DBAccess<LoggedUser>())
                     {
-                        user.ExecuteScalar("Usuarios.InsertaUsuario", usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno,
+                        string insertResult = (string)user.ExecuteScalar("Usuarios.InsertaUsuario", usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno,
                             usuario.Usuario, encriptedPassword, usuario.Email, usuario.IdPerfil);
+
+                        if (insertResult == "ERROR")
+                        {
+                            throw new System.Exception("El usuario o persona que desea registrar ya existe y se encuentra activo en el sistema.");
+                        }
                     }
                 }
                 return randomPassword;
+            }
+        }
+
+        /// <summary>
+        /// Edita un usuario existente en la base de datos.
+        /// </summary>
+        /// <param name="usuario">Instancia de logged user</param>
+        public void SaveUser(LoggedUser usuario)
+        {
+            using (DAL.DBAccess<LoggedUser> user = new DAL.DBAccess<LoggedUser>())
+            {
+                user.ExecuteNonQuery("Usuarios.ActualizaUsuario", usuario.Id, usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno,
+                    usuario.Email, usuario.IdPerfil);
+            }
+        }
+
+        /// <summary>
+        /// Desactiva un usuario existente en la base de datos.
+        /// </summary>
+        /// <param name="idUsuario">id del usuario a desactivar.</param>
+        public void DeactivateUser(int idUsuario)
+        {
+            using (DAL.DBAccess<LoggedUser> lu = new DAL.DBAccess<LoggedUser>())
+            {
+                lu.ExecuteNonQuery("Usuarios.DesactivaUsuario", idUsuario);
             }
         }
 

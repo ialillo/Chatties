@@ -42,7 +42,9 @@
                 getUsers: "/GetUsersFromDB",
                 getProfiles: "/GetProfiles",
                 getUser: "/GetUserById",
-                newUser: "/SaveNewUser"
+                newUser: "/SaveNewUser",
+                editUser: "/SaveUser",
+                deleteUser: "/DeactivateUser"
             },
             Navegacion: {
                 subURL: "Services/Navegation",
