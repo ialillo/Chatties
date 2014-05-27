@@ -19,12 +19,6 @@ namespace Chatties.DTO.Security
         public LoggedUser[] LoggedUsers { get; set; }
 
         /// <summary>
-        /// Representa un arreglo de perfiles de usuario del sistema
-        /// </summary>
-        [XmlElement(ElementName = "Perfiles")]
-        public DTO.General.Controls.Select[] Selects { get; set; }
-
-        /// <summary>
         /// Trae una lista de todos los usuarios en la base de datos
         /// </summary>
         /// <returns></returns>
@@ -39,10 +33,10 @@ namespace Chatties.DTO.Security
         /// <summary>
         /// Trae los perfiles activos
         /// </summary>
-        /// <returns>Una instancia de UserManagement que puede traer un arreglo</returns>
-        public UserManagement GetProfiles()
+        /// <returns>Una instancia de SelectCatalogs que puede traer un arreglo</returns>
+        public DTO.General.Catalogs.SelectCatalogs GetProfiles()
         {
-            using (DAL.DBAccess<UserManagement> profilesSelect = new DAL.DBAccess<UserManagement>())
+            using (DAL.DBAccess<DTO.General.Catalogs.SelectCatalogs> profilesSelect = new DAL.DBAccess<DTO.General.Catalogs.SelectCatalogs>())
             {
                 return profilesSelect.GetObject("Usuarios.ObtenPerfiles");
             }

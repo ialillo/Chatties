@@ -23,7 +23,7 @@ namespace Chatties.Services.Security.UserManagement
         /// <returns></returns>
         [OperationContract]
         [WebInvoke(BodyStyle = WebMessageBodyStyle.WrappedRequest)]
-        DTO.General.ResultGeneric<DTO.Security.UserManagement> GetProfiles();
+        DTO.General.ResultGeneric<DTO.General.Catalogs.SelectCatalogs> GetProfiles();
 
         /// <summary>
         /// Traé un usuario de la base de datos mediante su id

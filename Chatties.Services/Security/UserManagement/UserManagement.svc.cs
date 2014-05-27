@@ -43,9 +43,9 @@ namespace Chatties.Services.Security.UserManagement
         /// Obtiene los perfiles de la base de datos
         /// </summary>
         /// <returns></returns>
-        public DTO.General.ResultGeneric<DTO.Security.UserManagement> GetProfiles()
+        public DTO.General.ResultGeneric<DTO.General.Catalogs.SelectCatalogs> GetProfiles()
         {
-            using (DTO.General.ResultGeneric<DTO.Security.UserManagement> result = new DTO.General.ResultGeneric<DTO.Security.UserManagement>())
+            using (DTO.General.ResultGeneric<DTO.General.Catalogs.SelectCatalogs> result = new DTO.General.ResultGeneric<DTO.General.Catalogs.SelectCatalogs>())
             {
                 try
                 {

@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="General\Controls\Select.cs" />
+    <Compile Include="General\Catalogs\SelectCatalogs.cs" />
     <Compile Include="General\Person.cs" />
     <Compile Include="General\Result.cs" />
     <Compile Include="General\ResultGeneric.cs" />

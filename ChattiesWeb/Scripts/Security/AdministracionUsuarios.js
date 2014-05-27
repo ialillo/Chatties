@@ -13,7 +13,7 @@
         }
 
         // Guardamos los perfiles en una arreglo global
-        admonUsuarios.objects.perfiles = serviceResult.Object.Selects;
+        admonUsuarios.objects.perfiles = serviceResult.Object.Perfiles;
         
         //Traemos la lista de usuarios activos de la base de datos
         admonUsuarios.traerUsuarios();
