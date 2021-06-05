@@ -39,3 +39,9 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.loginTitle {
+    font-family: 'Great Vibes', cursive;
+    color: #27354e;
+    font-size: 40px;
+}

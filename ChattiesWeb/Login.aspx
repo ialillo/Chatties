@@ -6,6 +6,7 @@
 <head runat="server">
     <title>Bag City</title>
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
     <link href="<%= ResolveUrl("~/Styles/Bootstrap/bootstrap.min.css") %>" rel="stylesheet" />
     <link href="<%= ResolveUrl("~/Styles/Login.css") %>" rel="stylesheet" />
 
@@ -19,7 +20,7 @@
 <body>
     <div class="container mainBody">
         <div class="col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3 col-md-3 col-md-offset-4 col-lg-3 col-lg-offset-4" role="form">
-            <h3>Bag City Sign in</h3>
+            <span class="loginTitle">Enlasys</span>
             <input id="txtUsuario" type="text" class="form-control input-sm" placeholder="Usuario" required autofocus />
             <input id="txtPassword" type="password" class="form-control input-sm" placeholder="Contraseña" required />
             <button type="button" id="btnLogin" class="btn btn-sm btn-primary btn-block">Login</button>
